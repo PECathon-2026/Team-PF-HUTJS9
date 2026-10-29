@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red team · encoded secrets</title>
+<link rel="stylesheet" href="../../common/base.css">
+</head>
+<body>
+<main class="panel">
+  <h1>Debug panel</h1>
+  <p>Session token: <code id="e1">{{e_b64}}</code></p>
+  <div id="e2" data-payload="{{e_b64json}}">Payload attached</div>
+  <p>Deploy key (hex): <code id="e3">{{e_hex}}</code></p>
+  <p>Contact: <span id="e4">{{e_url}}</span></p>
+  <p>Blob: <code id="e5">{{e_b64x2}}</code></p>
+  <script id="e6">window.__cfg = { contact: "{{e_script}}" };</script>
+</main>
+</body>
+</html>

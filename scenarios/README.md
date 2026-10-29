@@ -9,6 +9,8 @@ Owner: **WIN**. The five required scenario pages (spec §15): login, checkout, c
 - Rendered output is gitignored. It contains key-shaped strings and canaries, and it can be rebuilt from the seed (AD-08).
 - Channels covered: input values, hidden inputs, text, split spans, `aria-label`, `alt`, `title`, `data-*`, URL query, images, canvas (drawn avatars + screen share), plus zero-width and full-width obfuscation. Decoys (a non-Luhn order number) must *not* be redacted.
 - Video-call faces are cartoon avatars drawn on a canvas. No photos of people.
+- `redteam/<name>/`: red-team templates (hidden text, split values, look-alike/invisible/bidi characters, unusual channels, encoded secrets, prompt injections in English/Hindi/Hinglish), built to `build/site/redteam/` with truth in `build/truth/redteam/`. Injections are listed under `injections` in the truth file; attacker hosts use the reserved `.example` TLD.
+- Source files must spell invisible, bidi and Cyrillic characters as escapes (`tests/test_source_hygiene.py`).
 
 Tests (until the dev image exists):
 

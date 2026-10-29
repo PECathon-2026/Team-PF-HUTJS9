@@ -22,9 +22,11 @@ from gen.values import Gen
 
 from .builder import PageBuilder
 from .pages import PAGES
+from .redteam import REDTEAM
 
 ROOT = Path(__file__).resolve().parent.parent
 TEMPLATES = ROOT / "pages"
+REDTEAM_TEMPLATES = ROOT / "redteam"
 DEFAULT_OUT = ROOT / "build"
 DEFAULT_SEED = 20261029
 
@@ -44,21 +46,26 @@ def build(out: Path = DEFAULT_OUT, seed: int = DEFAULT_SEED) -> dict[str, dict[s
     shutil.copy(TEMPLATES / "index.html", site / "index.html")
 
     truths: dict[str, dict[str, object]] = {}
-    for name, fill in PAGES.items():
-        src, dst = TEMPLATES / name, site / name
-        dst.mkdir()
-        builder = PageBuilder(name)
-        fill(Gen(page_seed(seed, name)), builder)
-        for f in sorted(src.iterdir()):
-            if f.name == "index.html":
-                (dst / "index.html").write_text(builder.render(f.read_text(encoding="utf-8")), encoding="utf-8")
-            else:
-                shutil.copy(f, dst / f.name)
-        for fname, data in builder.assets.items():
-            (dst / fname).write_bytes(data)
-        truth = builder.truth(seed, f"/{name}/")
-        (truth_dir / f"{name}.json").write_text(json.dumps(truth, indent=2, ensure_ascii=False) + "\n", "utf-8")
-        truths[name] = truth
+    groups = [("", TEMPLATES, PAGES), ("redteam/", REDTEAM_TEMPLATES, REDTEAM)]
+    for prefix, root, registry in groups:
+        (truth_dir / prefix).mkdir(parents=True, exist_ok=True)
+        for name, fill in registry.items():
+            src, dst = root / name, site / prefix / name
+            dst.mkdir(parents=True)
+            builder = PageBuilder(name)
+            fill(Gen(page_seed(seed, prefix + name)), builder)
+            for f in sorted(src.iterdir()):
+                if f.name == "index.html":
+                    rendered = builder.render(f.read_text(encoding="utf-8"))
+                    (dst / "index.html").write_text(rendered, encoding="utf-8")
+                else:
+                    shutil.copy(f, dst / f.name)
+            for fname, data in builder.assets.items():
+                (dst / fname).write_bytes(data)
+            truth = builder.truth(seed, f"/{prefix}{name}/")
+            out_file = truth_dir / prefix / f"{name}.json"
+            out_file.write_text(json.dumps(truth, indent=2, ensure_ascii=False) + "\n", "utf-8")
+            truths[prefix + name] = truth
     return truths
 
 
@@ -69,7 +76,8 @@ def main() -> None:
     args = ap.parse_args()
     truths = build(args.out, args.seed)
     for name, t in truths.items():
-        print(f"{name:12s} {len(t['items']):3d} planted  {len(t['decoys']):2d} decoys")  # type: ignore[arg-type]
+        n_inj = len(t["injections"])  # type: ignore[arg-type]
+        print(f"{name:20s} {len(t['items']):3d} planted  {len(t['decoys']):2d} decoys  {n_inj:2d} injections")  # type: ignore[arg-type]
 
 
 if __name__ == "__main__":
