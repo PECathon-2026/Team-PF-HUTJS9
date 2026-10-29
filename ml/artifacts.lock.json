@@ -1,0 +1,261 @@
+{
+  "schema": "pl.artifacts_lock.draft",
+  "owner": "WIN",
+  "comment": "Draft (early P2). Third-party models are fetched from their original source and never re-published (AD-08). Our own trained artifacts will be added as kind=own with GitHub Release URLs.",
+  "artifacts": [
+    {
+      "name": "gliner_multi_pii",
+      "kind": "third_party",
+      "purpose": "Contextual PII spans (names, addresses, medical terms) in core/detect, spec §4 GLiNER [Advanced]. Multilingual mDeBERTa backbone (Hindi script support).",
+      "source": {
+        "type": "huggingface",
+        "repo": "onnx-community/gliner_multi_pii-v1",
+        "revision": "2e0397a7e8a250d76c37122232b3cbde42c8d629",
+        "url": "https://huggingface.co/onnx-community/gliner_multi_pii-v1/tree/2e0397a7e8a250d76c37122232b3cbde42c8d629"
+      },
+      "upstream": {
+        "repo": "urchade/gliner_multi_pii-v1",
+        "revision": "1fcf13e85f4eef5394e1fcd406cf2ca9ea82351d",
+        "license": "apache-2.0"
+      },
+      "license": "Apache-2.0 (inherited from upstream urchade/gliner_multi_pii-v1; the ONNX conversion repo states no license of its own)",
+      "redistribution": "Allowed by Apache-2.0. Not re-published here (AD-08); fetched from source.",
+      "gated": false,
+      "total_size_bytes": 369760807,
+      "notes": "int8 dynamic-quantised ONNX (349 MB). Phase 2 measures per-type recall vs the fp32 export; fallback candidate knowledgator/gliner-pii-base-v1.0 (Apache-2.0, English-only, official ONNX).",
+      "files": [
+        {
+          "path": "onnx/model_int8.onnx",
+          "size": 349120924,
+          "sha256": "3efb3b91aef91ae11cd781126133063a33a2ffd7787ec73057bbd57a9781a7ab",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "tokenizer.json",
+          "size": 16331948,
+          "sha256": "914bd3c8fb7b525af9e23b60d0ec7b1248ddb2b99014efd9c02ebeb022f8cab7",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "size": 1806,
+          "sha256": "78f866883daf7ee2bc400200a155cdbe9116ed0a6ed597ff573ea2c9862a89a6",
+          "sha256_source": "pinned-on-download"
+        },
+        {
+          "path": "special_tokens_map.json",
+          "size": 286,
+          "sha256": "9463f61e1b109a8eb4688b829260d7c6b1e6dff04c98ff7269bb89e2b92369b9",
+          "sha256_source": "pinned-on-download"
+        },
+        {
+          "path": "added_tokens.json",
+          "size": 86,
+          "sha256": "030e747c4ca7992a3ac794c6fda9919352c88ae722e85178217cd083b450078d",
+          "sha256_source": "pinned-on-download"
+        },
+        {
+          "path": "gliner_config.json",
+          "size": 732,
+          "sha256": "69e141f7fe1864e0d81ab0e542c68387d588db62393bcd93b471d54dcf0f5c16",
+          "sha256_source": "pinned-on-download"
+        },
+        {
+          "path": "spm.model",
+          "size": 4305025,
+          "sha256": "13c8d666d62a7bc4ac8f040aab68e942c861f93303156cc28f5c7e885d86d6e3",
+          "sha256_source": "huggingface-lfs"
+        }
+      ],
+      "status": "fetched"
+    },
+    {
+      "name": "rapidocr_ppocr",
+      "kind": "third_party",
+      "purpose": "OCR on images/canvas/video regions in core/detect, spec §4 OCR [Advanced]. Text detection (PP-OCRv4 det), recognition (PP-OCRv4 general + PP-OCRv3 English), angle classifier.",
+      "source": {
+        "type": "huggingface",
+        "repo": "SWHL/RapidOCR",
+        "revision": "1cfba2e90fc938db55889873735088de210cc173",
+        "url": "https://huggingface.co/SWHL/RapidOCR/tree/1cfba2e90fc938db55889873735088de210cc173"
+      },
+      "upstream": {
+        "repo": "PaddlePaddle/PaddleOCR (GitHub)",
+        "revision": "release/2.7 models",
+        "license": "apache-2.0"
+      },
+      "license": "Apache-2.0 (PaddleOCR models, ONNX conversions by RapidAI)",
+      "redistribution": "Allowed by Apache-2.0. Not re-published here (AD-08).",
+      "gated": false,
+      "total_size_bytes": 25156025,
+      "notes": "No Devanagari recogniser in this hub; v1 OCR targets Latin script and digits (all planted image values are Latin). Gate OCR uses Tesseract instead (AD-11).",
+      "files": [
+        {
+          "path": "PP-OCRv4/ch_PP-OCRv4_det_infer.onnx",
+          "size": 4745517,
+          "sha256": "d2a7720d45a54257208b1e13e36a8479894cb74155a5efe29462512d42f49da9",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "PP-OCRv4/ch_PP-OCRv4_rec_infer.onnx",
+          "size": 10857958,
+          "sha256": "48fc40f24f6d2a207a2b1091d3437eb3cc3eb6b676dc3ef9c37384005483683b",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "PP-OCRv3/en_PP-OCRv3_rec_infer.onnx",
+          "size": 8967018,
+          "sha256": "ef7abd8bd3629ae57ea2c28b425c1bd258a871b93fd2fe7c433946ade9b5d9ea",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "PP-OCRv1/ch_ppocr_mobile_v2.0_cls_infer.onnx",
+          "size": 585532,
+          "sha256": "e47acedf663230f8863ff1ab0e64dd2d82b838fceb5957146dab185a89d6215c",
+          "sha256_source": "huggingface-lfs"
+        }
+      ],
+      "status": "fetched"
+    },
+    {
+      "name": "yunet_face",
+      "kind": "third_party",
+      "purpose": "Face detection for video-call tiles in core/detect, spec §4 faces [Core for video calls].",
+      "source": {
+        "type": "huggingface",
+        "repo": "opencv/face_detection_yunet",
+        "revision": "3cc26e7f1014a5ee5d74a42acee58bafc9d0a310",
+        "url": "https://huggingface.co/opencv/face_detection_yunet/tree/3cc26e7f1014a5ee5d74a42acee58bafc9d0a310"
+      },
+      "upstream": {
+        "repo": "opencv/opencv_zoo (GitHub) models/face_detection_yunet",
+        "revision": "2023mar",
+        "license": "mit"
+      },
+      "license": "MIT (Shiqi Yu; LICENSE file in repo)",
+      "redistribution": "Allowed by MIT. Not re-published here (AD-08).",
+      "gated": false,
+      "total_size_bytes": 233674,
+      "notes": "Chosen over SCRFD: InsightFace's SCRFD weights are non-commercial only. fp32, 232 KB.",
+      "files": [
+        {
+          "path": "face_detection_yunet_2023mar.onnx",
+          "size": 232589,
+          "sha256": "8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "LICENSE",
+          "size": 1085,
+          "sha256": "c83b8120c50ccbd4c4f96edf53141bdd566ebb8f8e9227e415326aa1b1aba958",
+          "sha256_source": "pinned-on-download"
+        }
+      ],
+      "status": "fetched"
+    },
+    {
+      "name": "prompt_guard_2_86m",
+      "kind": "third_party",
+      "purpose": "Prompt-injection classifier score in agent, spec §7 injection firewall [Core].",
+      "source": {
+        "type": "huggingface",
+        "repo": "meta-llama/Llama-Prompt-Guard-2-86M",
+        "revision": "a8ded8e697ce7c355e395a0df51f94adb4a2fd27",
+        "url": "https://huggingface.co/meta-llama/Llama-Prompt-Guard-2-86M/tree/a8ded8e697ce7c355e395a0df51f94adb4a2fd27"
+      },
+      "upstream": null,
+      "license": "Llama 4 Community License (gated; accept on Hugging Face)",
+      "redistribution": "Allowed only under the Llama 4 Community License conditions (attribution, acceptable-use policy). Not re-published here (AD-08).",
+      "gated": true,
+      "total_size_bytes": 1131647938,
+      "notes": "No official ONNX. Phase 4 exports to ONNX with a pinned optimum version and adds the exported file as our own artifact (derived, still under the Llama license).",
+      "files": [
+        {
+          "path": "model.safetensors",
+          "size": 1115268200,
+          "sha256": "e72017dbbe89c1232dcbc4a74ce0c389db5b468c42afd05850347b2a8c5f6b09",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "config.json",
+          "size": 871
+        },
+        {
+          "path": "tokenizer.json",
+          "size": 16351353,
+          "sha256": "3e7e96867c2acdd575f0862c74822e05d1d15b93d9d9a4a2144b1ce83ae3339f",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "tokenizer_config.json",
+          "size": 19674
+        },
+        {
+          "path": "special_tokens_map.json",
+          "size": 286
+        },
+        {
+          "path": "LICENSE",
+          "size": 7554
+        }
+      ],
+      "status": "pending-license"
+    },
+    {
+      "name": "multilingual_e5_small",
+      "kind": "third_party",
+      "purpose": "Sentence embeddings for the injection classifier and the RAG attack index in agent, spec §7 (English, Hindi, Hinglish).",
+      "source": {
+        "type": "huggingface",
+        "repo": "intfloat/multilingual-e5-small",
+        "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+        "url": "https://huggingface.co/intfloat/multilingual-e5-small/tree/614241f622f53c4eeff9890bdc4f31cfecc418b3"
+      },
+      "upstream": null,
+      "license": "MIT",
+      "redistribution": "Allowed by MIT. Not re-published here (AD-08).",
+      "gated": false,
+      "total_size_bytes": 492421554,
+      "notes": "fp32 ONNX (470 MB). The repo's qint8 file targets AVX-512 VNNI, which this laptop's CPU lacks; Phase 4 quantises with a pinned toolchain if speed needs it.",
+      "files": [
+        {
+          "path": "onnx/model.onnx",
+          "size": 470268510,
+          "sha256": "ca456c06b3a9505ddfd9131408916dd79290368331e7d76bb621f1cba6bc8665",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "onnx/tokenizer.json",
+          "size": 17082730,
+          "sha256": "0b44a9d7b51c3c62626640cda0e2c2f70fdacdc25bbbd68038369d14ebdf4c39",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "onnx/tokenizer_config.json",
+          "size": 443,
+          "sha256": "a1d6bc8734a6f635dc158508bef000f8e2e5a759c7d92f984b2c86e5ff53425b",
+          "sha256_source": "pinned-on-download"
+        },
+        {
+          "path": "onnx/special_tokens_map.json",
+          "size": 167,
+          "sha256": "d05497f1da52c5e09554c0cd874037a083e1dc1b9cfd48034d1c717f1afc07a7",
+          "sha256_source": "pinned-on-download"
+        },
+        {
+          "path": "onnx/sentencepiece.bpe.model",
+          "size": 5069051,
+          "sha256": "cfc8146abe2a0488e9e2a0c56de7952f7c11ab059eca145a0a727afce0db2865",
+          "sha256_source": "huggingface-lfs"
+        },
+        {
+          "path": "onnx/config.json",
+          "size": 653,
+          "sha256": "bbb7c1333fc4b3e27fbc9cd5d2070aabcc1d4dfb99917c3633e772f97545a6b6",
+          "sha256_source": "pinned-on-download"
+        }
+      ],
+      "status": "fetched"
+    }
+  ]
+}

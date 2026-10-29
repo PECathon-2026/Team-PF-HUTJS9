@@ -98,3 +98,39 @@ Things the measurements changed (each was a failure in my implementation, not a 
 - DCT: a fixed threshold (24) made the error *worse* (−440 %). The threshold is now 2σ̂, where σ̂ comes only from low-energy, noise-flat 8×8 blocks (cutoff 0.2, below e^-(γ+ln2) ≈ 0.28 for real DCT coefficients). A clean page gives σ̂ = 0 and is left untouched.
 - NIST: string encoding switched from UTF-8 to a 6-bit alphabet index (see table).
 - **Open discrepancy (NIST SP 800-22 rev1a):** the document's worked examples give N1 = 4 (§2.6.4, n = 10) and N1 = 46 (§2.6.8, n = 100), but its own steps 1–6 give 5 and 48 for those inputs. I checked against the PDF text and tried both T formulas and every index range. The d/P formulas match both documented (n, N1) pairs exactly, and the tests check that. The C++ port should be cross-checked against this file. If an official errata or the reference C code explains the gap, update the test.
+
+### 2. Synthetic page generator v1 (`ml/gen/pages.py`, `ml/gen/render.py`)
+
+- 7 layout families pinned to splits: train = form_stack, form_grid, data_table, profile_card; calibration = chat_thread; test = receipt, kyc_upload. A test fails if the mapping changes, and no family can be in two splits.
+- Labels and filler from templates in English, Hindi (Devanagari) and Hinglish. Values from `gen.values` in inputs, text, table cells and PNG images (with in-image boxes). Every page has hard negatives: non-Luhn order IDs, Verhoeff-failing 12-digit refs, PAN look-alikes with an invalid holder letter, IFSC look-alikes.
+- `python -m gen.pages --n N --out build/synth` writes pages, truth (outside the served folder) and `manifest.json` with splits. `python -m gen.render build/synth` renders in headless Chromium (Playwright 1.52, local server on 127.0.0.1 only), saves screenshots and adds a page-coordinate box to every item and decoy.
+- Tests: 21 generator tests (labels valid and complete, decoys invalid, Devanagari on Hindi pages, determinism byte-for-byte, page i independent of N, 8 extra seeds) + a browser test (21 pages rendered, every item boxed, no errors).
+
+### 3. Red-team pages v1 (`scenarios/redteam/`, built by `plscen`)
+
+- Six pages: `hidden` (display:none, visibility, opacity, font-size 0, off-screen, same colour, clip, collapsed details), `split` (spans, CSS-order-shuffled spans, `::after` content, dot separators, line breaks), `lookalike` (full-width and Devanagari digits, Cyrillic homoglyphs, ZWSP, soft hyphen, word joiner, bidi override, mixes), `channels` (title, meta, URL query/fragment/path, aria-label/description, title, placeholder, data-*, form action, select option, SVG text, image + alt, canvas + script), `encoded` (base64, base64 JSON, hex, URL, double base64, script string), `injection` (10 injections: visible, CSS-hidden, aria, alt, Hindi, Hinglish tiny font, base64 data attribute, image, zero-width, HTML comment; goals: exfiltrate, navigate, skip approval, destructive click; attacker hosts on `.example`).
+- Tests: every value recovers to a valid value through the documented decode/normalise steps, and the raw form defeats a naive scan. Each value sits in its channel; injections sit in theirs; there are 10 extra seeds. Browser: hidden items are not visible (`checkVisibility`), shuffled spans read correctly left-to-right, the canvas draws, and there are no errors or off-host requests.
+- Found and fixed: my file-writing tool decoded `\u200b`-style escapes into the real invisible/bidi/Cyrillic characters, including one already committed on `win/p0-early` (`scenarios/plscen/pages.py`). They're now ASCII escapes, and `scenarios/tests/test_source_hygiene.py` fails on any such character in `ml/`, `scenarios/` or `tools/win/` (verified it catches a planted ZWSP).
+
+Totals: `ml` 131 passed (+1 browser), coverage 98 %; `scenarios` 87 passed (+13 browser), coverage 97 %; ruff and mypy --strict clean in both.
+
+### 4. Pretrained models (`ml/artifacts.lock.json`, `ml/tools/fetch_artifacts.py`)
+
+| Artifact | Source (revision pinned in the lock) | License / redistribution | Size | Status |
+|---|---|---|---|---|
+| GLiNER PII | `onnx-community/gliner_multi_pii-v1` int8 ONNX, upstream `urchade/gliner_multi_pii-v1` | Apache-2.0 (inherited); allowed, not re-published | 370 MB | fetched, 7/7 hashed |
+| RapidOCR | `SWHL/RapidOCR`: PP-OCRv4 det + rec, PP-OCRv3 en rec, v2 cls | Apache-2.0; allowed, not re-published | 25 MB | fetched, 4/4 |
+| YuNet | `opencv/face_detection_yunet` 2023mar | MIT; allowed, not re-published | 0.2 MB | fetched, 2/2 |
+| Prompt Guard 2 86M | `meta-llama/Llama-Prompt-Guard-2-86M` | Llama 4 Community License (gated); redistribution only under its conditions, not re-published | 1.1 GB | **pending license**: HF returns 401 for this token. 2/6 files hashed from HF LFS metadata; the rest get pinned on first download |
+| multilingual-e5-small | `intfloat/multilingual-e5-small` ONNX | MIT; allowed, not re-published | 490 MB | fetched, 6/6 |
+
+- Large files use the SHA-256 Hugging Face publishes for the LFS object. Small JSON files were pinned on download (`sha256_source: pinned-on-download`). A second run re-verifies every file and downloads nothing.
+- The token is read from `~/.privacylens/secrets/hf_token` inside the container (mounted read-only), sent only to huggingface.co, never printed. Files are in the gitignored `artifacts/`.
+- Rejected: SCRFD (InsightFace weights are non-commercial), the e5 qint8 file (needs AVX-512 VNNI), nvidia/gliner-PII (custom license, no ONNX).
+
+**Needs the user:** accept the Llama 4 Community License for `meta-llama/Llama-Prompt-Guard-2-86M` on Hugging Face with the account whose token is in `hf_token`, then run `python ml/tools/fetch_artifacts.py --only prompt_guard_2_86m --pin` (or ask me to).
+
+### Left for later
+- Merge: rebase onto `main` after `p0-lnx-done`, then this branch builds on `win/p0-early`'s Phase 0 work. Fold `tools/win/pyrun.sh` and the Playwright container into `mk/win.mk` targets in the dev image (needs Playwright/Chromium, numpy, pillow in the dev image: request to LNX).
+- Wire `fetch_artifacts.py` into `make fetch-artifacts-win` and tell LNX the `artifacts/` mount path (WIN P2 step 2).
+- Resolve the NIST example discrepancy if NIST errata or reference code explain it.
