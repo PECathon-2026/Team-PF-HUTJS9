@@ -75,3 +75,26 @@ Notes:
 - No Anthropic key: optional; local-only (Ollama) is the default.
 - `uv` and `node` are not on the host. That's fine (AD-03: Python runs in the dev image; Node is only needed on LNX).
 - Nothing needs the user yet, so there's no `to-user-win.md`.
+
+## Early P2 work (branch `win/early-p2`, builds on `win/p0-early`, not merged)
+
+### 1. Fourier reference `ml/reference/pl_fourier.py` (written from spec §10)
+
+No `pl_fourier.py` existed, so it's written from the spec. 49 Fourier tests, 106 in `ml/` in total; `pl_fourier.py` coverage 99 %. Measured with `python -m reference.bench_fourier` (raw JSON: `ml/reference/bench_results.json`; NumPy 2.2.5, one core of the Core Ultra 9 inside a python:3.12 container):
+
+| Claim in spec §10 | Measured | Verdict |
+|---|---|---|
+| Scroll tracking accurate to < 1 px | crop-based scroll −50…+50 px: max error 0.005 px; random sub-pixel shifts: mean 0.094 px, max 0.12 px | holds |
+| ~5 ms on 480×270 | p50 3.0 ms, p99 3.8 ms | holds |
+| Redaction checker: solid passes; blur, pixelation, text fail | solid passes; blur (r 2–8) → `blur`; pixelation (4–10 px) → `pixelation`; text, incl. ink 3/255 on black → `visible_detail` | holds |
+| Fuzzy search: 200 000 chars < 1 s | 16-char secret: p50 101 ms | holds |
+| Flatness: clean 0.02 vs 0.31–0.47 at 2–6/255 | score (share of non-empty 16 px tiles that are noise-flat), 20 pages: clean 0.008 (max 0.028), 0.4/255 0.008, 1/255 0.358, 2/255 0.369, 4/255 0.380, 6/255 0.384. Flagged at 0.05: clean 0/20, 1–6/255 20/20 each | same pattern; amplitude ≥ 1/255 detected, < 0.5/255 rounds away in 8 bits and is undetectable |
+| DCT denoiser: error cut > 40 %, text preserved | MSE reduction, 10 pages each: white background 17–21 % (min 11 %), mid-gray background 32–34 % (min 15 %); text ink IoU 0.987–0.996; clean pages pass through unchanged | **does not reach 40 % on these pages**; text preserved |
+| NIST spectral test: helps on 100+ chars | 6-bit alphabet encoding: random base62 keys pass 98–100 %, random-word English passes 94–98 % (40/100/400 chars). UTF-8 encoding is worse: at 400 chars keys *and* English both fail 100 % (ASCII's top bit is a period-8 signal) | a very weak signal on strings; fine as one classifier feature, useless alone (as the spec says) |
+
+Things the measurements changed (each was a failure in my implementation, not a test tuned to pass):
+- Redaction checker: the first pixelation heuristic missed 8 px blocks. It now measures the share of edge energy on the best regular grid (period 3–32) on both axes.
+- Flatness: noise hidden under text barely changes a text tile, so the score counts background tiles that should be exactly flat but aren't (16 px tiles, full AC band; cutoff 0.45, below white noise's theoretical e^-γ ≈ 0.56). The pass/fail test is now a decision at the documented operating point `PERTURBED_SCORE = 0.05`, checked for false positives on 20 clean pages and for detection on 30 perturbed ones. The earlier "+0.2 margin" assertion was an arbitrary guess made before any measurement.
+- DCT: a fixed threshold (24) made the error *worse* (−440 %). The threshold is now 2σ̂, where σ̂ comes only from low-energy, noise-flat 8×8 blocks (cutoff 0.2, below e^-(γ+ln2) ≈ 0.28 for real DCT coefficients). A clean page gives σ̂ = 0 and is left untouched.
+- NIST: string encoding switched from UTF-8 to a 6-bit alphabet index (see table).
+- **Open discrepancy (NIST SP 800-22 rev1a):** the document's worked examples give N1 = 4 (§2.6.4, n = 10) and N1 = 46 (§2.6.8, n = 100), but its own steps 1–6 give 5 and 48 for those inputs. I checked against the PDF text and tried both T formulas and every index range. The d/P formulas match both documented (n, N1) pairs exactly, and the tests check that. The C++ port should be cross-checked against this file. If an official errata or the reference C code explains the gap, update the test.
