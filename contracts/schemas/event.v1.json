@@ -1,0 +1,159 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/event.v1.json",
+  "title": "Bus event",
+  "description": "Metadata-only event on the ledger's bus (spec \u00a711): types, placeholders, element IDs and scores; never values and never hashes of individual values. Every string is pattern- or enum-constrained.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "event.v1"
+    },
+    "event_id": {
+      "$ref": "#/$defs/id"
+    },
+    "ts_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "component": {
+      "$ref": "#/$defs/component"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "type": {
+      "$ref": "#/$defs/event_type"
+    },
+    "field_type": {
+      "$ref": "#/$defs/category"
+    },
+    "placeholder": {
+      "$ref": "#/$defs/placeholder"
+    },
+    "element_id": {
+      "$ref": "#/$defs/element_id"
+    },
+    "rule_id": {
+      "$ref": "#/$defs/rule_id"
+    },
+    "decision_id": {
+      "$ref": "#/$defs/id"
+    },
+    "score": {
+      "$ref": "#/$defs/score"
+    },
+    "count": {
+      "$ref": "#/$defs/count"
+    },
+    "taint": {
+      "$ref": "#/$defs/level"
+    },
+    "duration_ns": {
+      "$ref": "#/$defs/dur_ns"
+    },
+    "site": {
+      "$ref": "#/$defs/host"
+    }
+  },
+  "required": [
+    "schema",
+    "event_id",
+    "ts_ns",
+    "component",
+    "type"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "category": {
+      "enum": [
+        "CARD",
+        "AADHAAR",
+        "PAN",
+        "API_KEY",
+        "OTP",
+        "PASSWORD",
+        "EMAIL",
+        "PHONE",
+        "IP_ADDRESS",
+        "PIN_CODE",
+        "BANK_ACCOUNT",
+        "IFSC",
+        "UPI_ID",
+        "PASSPORT",
+        "DOB",
+        "NAME",
+        "ADDRESS",
+        "FACE",
+        "SECRET",
+        "QUASI_ID"
+      ]
+    },
+    "component": {
+      "enum": [
+        "core",
+        "vault",
+        "agent",
+        "gate",
+        "ledger",
+        "dashboard",
+        "monitor"
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "dur_ns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "element_id": {
+      "type": "string",
+      "pattern": "^n[0-9]{1,9}$",
+      "description": "Capture-model node id, never page text."
+    },
+    "event_type": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z_]*(\\.[a-z][a-z_]*){1,3}$",
+      "description": "Dotted event type, e.g. detection.found, egress.blocked, approval.timeout."
+    },
+    "host": {
+      "type": "string",
+      "maxLength": 253,
+      "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "level": {
+      "enum": [
+        "public",
+        "internal",
+        "personal",
+        "sensitive",
+        "secret"
+      ]
+    },
+    "placeholder": {
+      "type": "string",
+      "pattern": "^\\[REDACTED:[A-Z][A-Z0-9_]{1,23}#[0-9]{1,6}\\]$"
+    },
+    "rule_id": {
+      "type": "string",
+      "pattern": "^[A-Z]{1,4}-[0-9]{3,5}$"
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

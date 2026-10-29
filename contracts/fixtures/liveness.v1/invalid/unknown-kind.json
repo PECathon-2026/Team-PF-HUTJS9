@@ -1,0 +1,9 @@
+{
+  "schema": "liveness.v1",
+  "component": "vault",
+  "kind": "hello",
+  "nonce": "0123456789abcdef0123456789abcdef",
+  "seq": 42,
+  "sent_ns": 1793318400000000000,
+  "status": "ok"
+}

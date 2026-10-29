@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/gate_ai_response.v1.json",
+  "title": "AI response (gate -> agent)",
+  "description": "The gate's answer to a gate_ai_request: the model output, or a fail-closed block/error with its decision.",
+  "x-pl-zone": "sanitized",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "gate_ai_response.v1"
+    },
+    "request_id": {
+      "$ref": "#/$defs/id"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "blocked",
+        "error"
+      ]
+    },
+    "decision_id": {
+      "$ref": "#/$defs/id"
+    },
+    "rule_id": {
+      "$ref": "#/$defs/rule_id"
+    },
+    "content": {
+      "type": "string",
+      "maxLength": 200000
+    },
+    "usage": {
+      "type": "object",
+      "properties": {
+        "input_tokens": {
+          "$ref": "#/$defs/count"
+        },
+        "output_tokens": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "required": [
+        "input_tokens",
+        "output_tokens"
+      ],
+      "additionalProperties": false
+    },
+    "latency_ns": {
+      "$ref": "#/$defs/dur_ns"
+    }
+  },
+  "required": [
+    "schema",
+    "request_id",
+    "status",
+    "decision_id"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "dur_ns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "rule_id": {
+      "type": "string",
+      "pattern": "^[A-Z]{1,4}-[0-9]{3,5}$"
+    }
+  }
+}

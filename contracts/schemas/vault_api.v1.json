@@ -1,0 +1,351 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/vault_api.v1.json",
+  "title": "Vault API",
+  "description": "Messages on the core->vault and actuator->vault channels (spec \u00a76, AD-12). The only schema where sensitive field names (plaintext) are allowed. Exactly one variant must match.",
+  "x-pl-zone": "vault",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "vault_api.v1"
+    },
+    "op": {
+      "enum": [
+        "store",
+        "store.ok",
+        "decrypt",
+        "decrypt.ok",
+        "wipe",
+        "shred",
+        "ok",
+        "error"
+      ]
+    },
+    "request_id": {
+      "$ref": "#/$defs/id"
+    },
+    "binding": {
+      "$ref": "#/$defs/binding"
+    },
+    "plaintext": {
+      "$ref": "#/$defs/plaintext"
+    },
+    "handle": {
+      "$ref": "#/$defs/handle"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "error_code": {
+      "enum": [
+        "binding_mismatch",
+        "unknown_handle",
+        "shredded",
+        "too_large",
+        "internal"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "op",
+    "request_id"
+  ],
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "store"
+        },
+        "binding": {
+          "$ref": "#/$defs/binding"
+        },
+        "plaintext": {
+          "$ref": "#/$defs/plaintext"
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id",
+        "binding",
+        "plaintext"
+      ],
+      "additionalProperties": false,
+      "description": "core -> vault: hand over a detected value (AD-12). core wipes its copy after sending."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "store.ok"
+        },
+        "handle": {
+          "$ref": "#/$defs/handle"
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id",
+        "handle"
+      ],
+      "additionalProperties": false,
+      "description": "vault -> core: the opaque handle."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "decrypt"
+        },
+        "handle": {
+          "$ref": "#/$defs/handle"
+        },
+        "binding": {
+          "$ref": "#/$defs/binding"
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id",
+        "handle",
+        "binding"
+      ],
+      "additionalProperties": false,
+      "description": "actuator -> vault: decrypt for typing; binding must match exactly."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "decrypt.ok"
+        },
+        "plaintext": {
+          "$ref": "#/$defs/plaintext"
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id",
+        "plaintext"
+      ],
+      "additionalProperties": false,
+      "description": "vault -> actuator: plaintext for the instant of typing."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "wipe"
+        },
+        "handle": {
+          "$ref": "#/$defs/handle"
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id",
+        "handle"
+      ],
+      "additionalProperties": false,
+      "description": "Destroy one value."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "shred"
+        },
+        "session_id": {
+          "$ref": "#/$defs/id"
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id",
+        "session_id"
+      ],
+      "additionalProperties": false,
+      "description": "Crypto-shred a whole session (spec \u00a76)."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "ok"
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id"
+      ],
+      "additionalProperties": false,
+      "description": "Acknowledgement for wipe/shred."
+    },
+    {
+      "type": "object",
+      "properties": {
+        "schema": {
+          "const": "vault_api.v1"
+        },
+        "request_id": {
+          "$ref": "#/$defs/id"
+        },
+        "op": {
+          "const": "error"
+        },
+        "error_code": {
+          "enum": [
+            "binding_mismatch",
+            "unknown_handle",
+            "shredded",
+            "too_large",
+            "internal"
+          ]
+        }
+      },
+      "required": [
+        "schema",
+        "op",
+        "request_id",
+        "error_code"
+      ],
+      "additionalProperties": false,
+      "description": "Failure; never echoes inputs."
+    }
+  ],
+  "$defs": {
+    "binding": {
+      "type": "object",
+      "properties": {
+        "session_id": {
+          "$ref": "#/$defs/id"
+        },
+        "placeholder": {
+          "$ref": "#/$defs/placeholder"
+        },
+        "field_type": {
+          "$ref": "#/$defs/category"
+        },
+        "site": {
+          "$ref": "#/$defs/host"
+        },
+        "element_id": {
+          "$ref": "#/$defs/element_id"
+        }
+      },
+      "required": [
+        "session_id",
+        "placeholder",
+        "field_type",
+        "site",
+        "element_id"
+      ],
+      "additionalProperties": false,
+      "description": "Associated data for XChaCha20-Poly1305: decryption succeeds only on an exact match (spec \u00a76)."
+    },
+    "category": {
+      "enum": [
+        "CARD",
+        "AADHAAR",
+        "PAN",
+        "API_KEY",
+        "OTP",
+        "PASSWORD",
+        "EMAIL",
+        "PHONE",
+        "IP_ADDRESS",
+        "PIN_CODE",
+        "BANK_ACCOUNT",
+        "IFSC",
+        "UPI_ID",
+        "PASSPORT",
+        "DOB",
+        "NAME",
+        "ADDRESS",
+        "FACE",
+        "SECRET",
+        "QUASI_ID"
+      ]
+    },
+    "element_id": {
+      "type": "string",
+      "pattern": "^n[0-9]{1,9}$",
+      "description": "Capture-model node id, never page text."
+    },
+    "handle": {
+      "type": "string",
+      "pattern": "^vh-[0-9a-f]{32}$",
+      "description": "Opaque vault handle; reveals nothing about the value."
+    },
+    "host": {
+      "type": "string",
+      "maxLength": 253,
+      "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "placeholder": {
+      "type": "string",
+      "pattern": "^\\[REDACTED:[A-Z][A-Z0-9_]{1,23}#[0-9]{1,6}\\]$"
+    },
+    "plaintext": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    }
+  }
+}

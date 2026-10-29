@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/taint_label.v1.json",
+  "title": "Taint label",
+  "description": "A point in the taint lattice (spec \u00a76): level chain public < internal < personal < sensitive < secret times the set of data categories; join = (max, union). The level must be at least what the categories imply (checked in code: plcommon/plpy taint). Only public with no categories may leave through the gate.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "taint_label.v1"
+    },
+    "level": {
+      "$ref": "#/$defs/level"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/category"
+      },
+      "uniqueItems": true,
+      "maxItems": 20
+    }
+  },
+  "required": [
+    "schema",
+    "level",
+    "categories"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "category": {
+      "enum": [
+        "CARD",
+        "AADHAAR",
+        "PAN",
+        "API_KEY",
+        "OTP",
+        "PASSWORD",
+        "EMAIL",
+        "PHONE",
+        "IP_ADDRESS",
+        "PIN_CODE",
+        "BANK_ACCOUNT",
+        "IFSC",
+        "UPI_ID",
+        "PASSPORT",
+        "DOB",
+        "NAME",
+        "ADDRESS",
+        "FACE",
+        "SECRET",
+        "QUASI_ID"
+      ]
+    },
+    "level": {
+      "enum": [
+        "public",
+        "internal",
+        "personal",
+        "sensitive",
+        "secret"
+      ]
+    }
+  }
+}

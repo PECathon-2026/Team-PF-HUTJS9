@@ -1,0 +1,6 @@
+{
+  "schema": "vault_api.v1",
+  "op": "wipe",
+  "request_id": "vr-0000000000000001",
+  "handle": "4111111111111111"
+}

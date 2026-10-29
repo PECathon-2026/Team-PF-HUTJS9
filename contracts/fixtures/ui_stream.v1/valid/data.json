@@ -1,0 +1,9 @@
+{
+  "schema": "ui_stream.v1",
+  "stream_id": "uis-0000000000000001",
+  "seq": 3,
+  "direction": "to_dashboard",
+  "endpoint": "ledger",
+  "kind": "data",
+  "ciphertext_b64": "q83vASNFZ4mrze8BI0VniQ=="
+}

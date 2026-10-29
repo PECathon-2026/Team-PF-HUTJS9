@@ -1,0 +1,12 @@
+{
+  "schema": "capability_report.v1",
+  "report_id": "cap-0000000000000001",
+  "generated_ns": 1793318400000000000,
+  "host": {
+    "os": "linux",
+    "kernel": "7.0.0-42-generic",
+    "cpu_count": 16,
+    "mem_mb": 7400
+  },
+  "checks": []
+}

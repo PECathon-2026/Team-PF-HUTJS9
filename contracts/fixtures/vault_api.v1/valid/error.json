@@ -1,0 +1,6 @@
+{
+  "schema": "vault_api.v1",
+  "op": "error",
+  "request_id": "vr-0000000000000002",
+  "error_code": "binding_mismatch"
+}

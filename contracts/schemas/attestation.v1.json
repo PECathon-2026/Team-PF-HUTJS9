@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/attestation.v1.json",
+  "title": "Attestation chain",
+  "description": "SHA-256 attestation chain (spec \u00a72): M_0 = 32 zero bytes, M_i = SHA-256(M_{i-1} || SHA-256(component_i)) in the documented order; final = M_n, which is ledger entry #0.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "attestation.v1"
+    },
+    "attestation_id": {
+      "$ref": "#/$defs/id"
+    },
+    "algorithm": {
+      "const": "sha256-chain-v1"
+    },
+    "created_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/component_hash"
+      },
+      "minItems": 1,
+      "maxItems": 4096
+    },
+    "chain": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sha256"
+      },
+      "minItems": 1,
+      "maxItems": 4096
+    },
+    "final": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "required": [
+    "schema",
+    "attestation_id",
+    "algorithm",
+    "created_ns",
+    "components",
+    "chain",
+    "final"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "component_hash": {
+      "type": "object",
+      "properties": {
+        "index": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "kind": {
+          "enum": [
+            "image",
+            "binary",
+            "model",
+            "policy",
+            "thresholds",
+            "index",
+            "config"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "maxLength": 160,
+          "pattern": "^[A-Za-z0-9._/:@+-]{1,160}$"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "index",
+        "kind",
+        "name",
+        "sha256"
+      ],
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

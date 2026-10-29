@@ -1,0 +1,6 @@
+{
+  "schema": "vault_api.v1",
+  "op": "shred",
+  "request_id": "vr-0000000000000003",
+  "session_id": "ses-0000000000001a2b"
+}

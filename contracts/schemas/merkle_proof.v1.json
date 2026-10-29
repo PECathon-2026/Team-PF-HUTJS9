@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/merkle_proof.v1.json",
+  "title": "Merkle proof",
+  "description": "RFC 6962-style inclusion or consistency proof over decision records (spec \u00a711), with the signed tree head it is relative to. Verifiable client-side in the dashboard.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "merkle_proof.v1"
+    },
+    "proof_type": {
+      "enum": [
+        "inclusion",
+        "consistency"
+      ]
+    },
+    "tree_size": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "leaf_index": {
+      "$ref": "#/$defs/count"
+    },
+    "first_size": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "leaf_hash": {
+      "$ref": "#/$defs/sha256"
+    },
+    "hashes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/sha256"
+      },
+      "maxItems": 64
+    },
+    "sth": {
+      "$ref": "#/$defs/sth"
+    }
+  },
+  "required": [
+    "schema",
+    "proof_type",
+    "tree_size",
+    "hashes",
+    "sth"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ed25519_sig": {
+      "type": "string",
+      "maxLength": 88,
+      "pattern": "^[A-Za-z0-9+/]{86}==$",
+      "description": "Ed25519 signature, standard base64."
+    },
+    "key_id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,16}:[0-9a-f]{16}$",
+      "description": "<component>:<first 8 bytes of the public key, hex>."
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "sth": {
+      "type": "object",
+      "properties": {
+        "tree_size": {
+          "$ref": "#/$defs/count"
+        },
+        "root": {
+          "$ref": "#/$defs/sha256"
+        },
+        "ts_ns": {
+          "$ref": "#/$defs/ts_ns"
+        },
+        "key_id": {
+          "$ref": "#/$defs/key_id"
+        },
+        "signature": {
+          "$ref": "#/$defs/ed25519_sig"
+        }
+      },
+      "required": [
+        "tree_size",
+        "root",
+        "ts_ns",
+        "key_id",
+        "signature"
+      ],
+      "additionalProperties": false,
+      "description": "Signed tree head (Ed25519, ledger key)."
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

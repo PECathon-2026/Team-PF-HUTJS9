@@ -1,0 +1,13 @@
+{
+  "schema": "decision_record.v1",
+  "decision_id": "dec-0000000000000001",
+  "ts_ns": 1793318400000000000,
+  "component": "gate",
+  "session_id": "ses-0000000000001a2b",
+  "subject": "egress",
+  "subject_id": "req-0000000000000001",
+  "verdict": "allow",
+  "rule_id": "G-000",
+  "evidence": [],
+  "score": 1
+}

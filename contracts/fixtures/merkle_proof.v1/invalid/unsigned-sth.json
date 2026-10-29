@@ -1,0 +1,18 @@
+{
+  "schema": "merkle_proof.v1",
+  "proof_type": "inclusion",
+  "tree_size": 5,
+  "leaf_index": 2,
+  "leaf_hash": "abababababababababababababababababababababababababababababababab",
+  "hashes": [
+    "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "abababababababababababababababababababababababababababababababab",
+    "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+  ],
+  "sth": {
+    "tree_size": 5,
+    "root": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "ts_ns": 1793318400000000000,
+    "key_id": "ledger:8899aabbccddeeff"
+  }
+}

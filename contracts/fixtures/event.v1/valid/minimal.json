@@ -1,0 +1,7 @@
+{
+  "schema": "event.v1",
+  "event_id": "evt-0000000000000002",
+  "ts_ns": 1793318400000000000,
+  "component": "gate",
+  "type": "lane.closed"
+}

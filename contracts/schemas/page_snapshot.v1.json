@@ -1,0 +1,161 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/page_snapshot.v1.json",
+  "title": "Page snapshot (capture model)",
+  "description": "Core-internal serialised form of the capture model (spec \u00a73): flat node arrays over a string table, with the accessibility tree linked by node. It holds raw page content including typed values, so it never leaves core and is never logged; this schema exists for tests, fixtures and the detect/sanitize interface.",
+  "x-pl-zone": "raw",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "page_snapshot.v1"
+    },
+    "snapshot_id": {
+      "$ref": "#/$defs/id"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "captured_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "url_host": {
+      "$ref": "#/$defs/host"
+    },
+    "viewport": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "scale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": [
+        "width",
+        "height",
+        "scale"
+      ],
+      "additionalProperties": false
+    },
+    "strings": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 65536
+      },
+      "maxItems": 1000000
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node"
+      },
+      "maxItems": 1000000
+    }
+  },
+  "required": [
+    "schema",
+    "snapshot_id",
+    "session_id",
+    "captured_ns",
+    "viewport",
+    "strings",
+    "nodes"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "host": {
+      "type": "string",
+      "maxLength": 253,
+      "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "node": {
+      "type": "object",
+      "properties": {
+        "node_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "parent": {
+          "type": "integer",
+          "minimum": -1
+        },
+        "tag": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Index into strings."
+        },
+        "attrs": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "description": "[name index, attribute index] pairs."
+        },
+        "text": {
+          "type": "integer",
+          "minimum": -1,
+          "description": "Index into strings, -1 if none."
+        },
+        "input_text": {
+          "type": "integer",
+          "minimum": -1,
+          "description": "Index of the live input value (what the user typed), -1 if none."
+        },
+        "bounds": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          },
+          "minItems": 4,
+          "maxItems": 4,
+          "description": "x, y, width, height in CSS px."
+        },
+        "ax_role": {
+          "type": "integer",
+          "minimum": -1
+        },
+        "ax_name": {
+          "type": "integer",
+          "minimum": -1
+        },
+        "flags": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Bit set: 1 visible, 2 focusable, 4 password field, 8 in iframe."
+        }
+      },
+      "required": [
+        "node_id",
+        "parent",
+        "tag",
+        "text",
+        "bounds"
+      ],
+      "additionalProperties": false
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

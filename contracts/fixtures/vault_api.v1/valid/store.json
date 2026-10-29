@@ -1,0 +1,13 @@
+{
+  "schema": "vault_api.v1",
+  "op": "store",
+  "request_id": "vr-0000000000000001",
+  "binding": {
+    "session_id": "ses-0000000000001a2b",
+    "placeholder": "[REDACTED:PASSWORD#12]",
+    "field_type": "PASSWORD",
+    "site": "login.example",
+    "element_id": "n7"
+  },
+  "plaintext": "synthetic-Passw0rd!"
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "isolation_counters.v1",
+  "ts_ns": 1793318400000000000,
+  "window_ns": 1000000000,
+  "counters": [
+    {
+      "component": "core",
+      "source": "gvisor",
+      "attempts": 0,
+      "blocked": 0,
+      "runtime": "runsc"
+    },
+    {
+      "component": "gate",
+      "source": "ebpf",
+      "attempts": 42,
+      "blocked": 0,
+      "runtime": "runc"
+    }
+  ]
+}

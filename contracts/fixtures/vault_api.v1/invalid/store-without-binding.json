@@ -1,0 +1,6 @@
+{
+  "schema": "vault_api.v1",
+  "op": "store",
+  "request_id": "vr-0000000000000001",
+  "plaintext": "x"
+}

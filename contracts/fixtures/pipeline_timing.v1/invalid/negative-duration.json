@@ -1,0 +1,14 @@
+{
+  "schema": "pipeline_timing.v1",
+  "frame_id": "frm-0000000000000001",
+  "session_id": "ses-0000000000001a2b",
+  "ts_ns": 1793318400000000000,
+  "total_ns": 41000000,
+  "stages": [
+    {
+      "stage": "llm",
+      "start_ns": 1793318400000000000,
+      "duration_ns": -5
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "browsing_policy.v1",
+  "policy_id": "bpol-0000000000000001",
+  "session_id": "ses-0000000000001a2b",
+  "allowed_domains": [
+    "*"
+  ],
+  "allowed_ports": [
+    443
+  ],
+  "default": "deny",
+  "expires_ns": 1793322000000000000
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "attestation.v1",
+  "attestation_id": "att-0000000000000001",
+  "algorithm": "sha256-chain-v1",
+  "created_ns": 1793318400000000000,
+  "components": [],
+  "chain": [
+    "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "abababababababababababababababababababababababababababababababab"
+  ],
+  "final": "abababababababababababababababababababababababababababababababab"
+}

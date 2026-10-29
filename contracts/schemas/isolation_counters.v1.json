@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/isolation_counters.v1.json",
+  "title": "Isolation counters",
+  "description": "Live network-attempt counts per component (spec \u00a72 live isolation proof): non-loopback, non-Unix-socket attempts seen by eBPF (normal containers) and gVisor monitoring (core). Target: core 0, vault 0, agent 0, ledger 0.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "isolation_counters.v1"
+    },
+    "ts_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "window_ns": {
+      "$ref": "#/$defs/dur_ns"
+    },
+    "counters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/counter"
+      },
+      "maxItems": 32
+    }
+  },
+  "required": [
+    "schema",
+    "ts_ns",
+    "counters"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "component": {
+      "enum": [
+        "core",
+        "vault",
+        "agent",
+        "gate",
+        "ledger",
+        "dashboard",
+        "monitor"
+      ]
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "counter": {
+      "type": "object",
+      "properties": {
+        "component": {
+          "$ref": "#/$defs/component"
+        },
+        "source": {
+          "enum": [
+            "ebpf",
+            "gvisor"
+          ]
+        },
+        "attempts": {
+          "$ref": "#/$defs/count"
+        },
+        "blocked": {
+          "$ref": "#/$defs/count"
+        },
+        "runtime": {
+          "enum": [
+            "runsc",
+            "runc"
+          ]
+        }
+      },
+      "required": [
+        "component",
+        "source",
+        "attempts",
+        "blocked"
+      ],
+      "additionalProperties": false
+    },
+    "dur_ns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

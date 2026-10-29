@@ -1,0 +1,11 @@
+{
+  "schema": "frame.v1",
+  "channel": "core.vault",
+  "seq": 7,
+  "sent_ns": 1793318400000000000,
+  "payload_schema": "vault_api.v1",
+  "payload": {
+    "schema": "vault_api.v1"
+  },
+  "extra": 1
+}

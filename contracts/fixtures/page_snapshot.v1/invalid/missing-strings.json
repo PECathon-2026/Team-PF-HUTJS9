@@ -1,0 +1,48 @@
+{
+  "schema": "page_snapshot.v1",
+  "snapshot_id": "snap-0000000000000001",
+  "session_id": "ses-0000000000001a2b",
+  "captured_ns": 1793318400000000000,
+  "url_host": "shop.example",
+  "viewport": {
+    "width": 1280,
+    "height": 800,
+    "scale": 1
+  },
+  "nodes": [
+    {
+      "node_id": 0,
+      "parent": -1,
+      "tag": 0,
+      "text": -1,
+      "bounds": [
+        0,
+        0,
+        1280,
+        800
+      ]
+    },
+    {
+      "node_id": 1,
+      "parent": 0,
+      "tag": 1,
+      "attrs": [
+        [
+          2,
+          3
+        ]
+      ],
+      "text": -1,
+      "input_text": 5,
+      "bounds": [
+        10,
+        10,
+        300,
+        32
+      ],
+      "ax_role": 3,
+      "ax_name": 4,
+      "flags": 3
+    }
+  ]
+}

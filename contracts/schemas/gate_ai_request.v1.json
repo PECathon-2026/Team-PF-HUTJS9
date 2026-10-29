@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/gate_ai_request.v1.json",
+  "title": "AI request (agent -> gate)",
+  "description": "What the agent asks the gate's AI lane to send (spec \u00a78, AD-06). Content is sanitized (placeholders only); the gate re-checks everything and fails closed. The agent never holds API keys: provider and model are names only.",
+  "x-pl-zone": "sanitized",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "gate_ai_request.v1"
+    },
+    "request_id": {
+      "$ref": "#/$defs/id"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "provider": {
+      "$ref": "#/$defs/provider"
+    },
+    "model": {
+      "$ref": "#/$defs/model"
+    },
+    "taint": {
+      "$ref": "#/$defs/level"
+    },
+    "messages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/message"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    },
+    "images": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/image"
+      },
+      "maxItems": 8
+    },
+    "max_tokens": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 32768
+    },
+    "temperature": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2
+    }
+  },
+  "required": [
+    "schema",
+    "request_id",
+    "session_id",
+    "provider",
+    "model",
+    "taint",
+    "messages",
+    "max_tokens"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "image": {
+      "type": "object",
+      "properties": {
+        "media_type": {
+          "enum": [
+            "image/png",
+            "image/jpeg"
+          ]
+        },
+        "data_b64": {
+          "type": "string",
+          "minLength": 4,
+          "maxLength": 8000000,
+          "x-pl-opaque": "base64",
+          "description": "Standard base64; checked in code (no pattern: std::regex recursion on long strings)."
+        }
+      },
+      "required": [
+        "media_type",
+        "data_b64"
+      ],
+      "additionalProperties": false
+    },
+    "level": {
+      "enum": [
+        "public",
+        "internal",
+        "personal",
+        "sensitive",
+        "secret"
+      ]
+    },
+    "message": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "system",
+            "user",
+            "assistant"
+          ]
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 200000
+        }
+      },
+      "required": [
+        "role",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "model": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:/-]{0,79}$"
+    },
+    "provider": {
+      "enum": [
+        "replay",
+        "ollama",
+        "anthropic"
+      ]
+    }
+  }
+}

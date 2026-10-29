@@ -1,0 +1,63 @@
+# LNX CI (owner: LNX): dev image, `make ci-lnx` (lint, unit, ASan/UBSan,
+# contracts, coverage, compose policy) and the fuzz smoke run.
+name: lnx-ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: lnx-ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  dev-image:
+    uses: ./.github/workflows/lnx-dev-image.yml
+
+  ci:
+    needs: dev-image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pull dev image
+        run: docker pull -q "${{ needs.dev-image.outputs.image }}" && docker tag "${{ needs.dev-image.outputs.image }}" "pl-dev:${{ needs.dev-image.outputs.tag }}"
+      - name: make ci-lnx
+        run: make ci-lnx
+      - name: make test-tsan-lnx
+        run: |
+          sudo sysctl -w vm.mmap_rnd_bits=28   # TSan on 6.x+ kernels; see mk/lnx.mk
+          make test-tsan-lnx
+
+  fuzz-smoke:
+    needs: dev-image
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Pull dev image
+        run: docker pull -q "${{ needs.dev-image.outputs.image }}" && docker tag "${{ needs.dev-image.outputs.image }}" "pl-dev:${{ needs.dev-image.outputs.tag }}"
+      - name: make fuzz-smoke-lnx (60 s per target)
+        run: make fuzz-smoke-lnx FUZZ_SECONDS=60
+      - if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fuzz-artifacts
+          path: build/fuzz/artifacts/
+          if-no-files-found: ignore
