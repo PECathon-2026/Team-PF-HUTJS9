@@ -5,15 +5,41 @@
 Started before `p0-lnx-done` on the user's instruction. Only work that doesn't depend on LNX is done here.
 No PR / merge until `p0-lnx-done` exists.
 
-- [x] 1. Environment check (`tools/win/doctor.sh`; `make doctor` wiring waits for LNX's Makefile)
+- [x] 1. Environment check: `tools/win/doctor.sh`, all required checks pass (below). Left: wire into `make doctor` via `mk/win.mk`.
 - [ ] 2. `make hooks`, `make ci` on the skeleton (needs LNX Phase 0)
-- [ ] 3. Handle LNX requests (`L-001` detect/sanitize C++ API) (needs LNX Phase 0)
-- [ ] 4. Scenario pages v1 (early part in progress)
+- [ ] 3. Handle LNX requests, `L-001` detect/sanitize C++ API, headers + CMake targets (needs LNX Phase 0)
+- [~] 4. Scenario pages v1: **pages, builder, ground truth and tests done** (below). Left: `scenarios/compose.yml` `sites` fragment on LNX's internal `web` network; render-time bounding boxes in ground truth (comes with step 5); move the render test into the dev image.
 - [ ] 5. Snapshot recorder (needs LNX's `page_snapshot` schema)
-- [ ] 6. WIN schemas v1 (needs LNX's contract conventions)
-- [ ] 7. Fourier reference
-- [ ] 8. Skeletons for all WIN folders, `mk/win.mk`, `win-ci.yml`
-- [ ] 9. `docs/architecture/win.md`
+- [ ] 6. WIN schemas v1 + fixtures (needs LNX's contract conventions; field proposals are in `docs/architecture/win.md` §8)
+- [ ] 7. Fourier reference: `ml/reference/pl_fourier.py` doesn't exist yet (`origin/user/add-fourier` has no commits beyond the bootstrap). If it is still missing in Phase 0, ask the user in `to-user-win.md`
+- [ ] 8. Skeletons: done so far `ml/` (uv project + README), `scenarios/` (uv project + README), `tools/win/`. Left: `daemons/core/{detect,sanitize,fourier}/`, `daemons/agent/`, `eval/`, `tests/e2e/scenarios/`, `mk/win.mk`, `.github/workflows/win-ci.yml`
+- [~] 9. `docs/architecture/win.md`: **draft written**. Update after LNX's contracts, `page_snapshot` and `L-001` land.
+
+### Early-start work done (branch `win/p0-early`, not merged)
+
+| Item | Where | Result |
+|---|---|---|
+| Value generators + validators | `ml/gen/values.py` | 57 tests pass (Hypothesis properties), coverage 97 %, ruff + mypy --strict clean |
+| Scenario pages v1 (5 pages) | `scenarios/pages/`, `scenarios/plscen/` | 59 structural tests pass (incl. 25 extra seeds), coverage 97 %, ruff + mypy --strict clean |
+| Render test (headless Chromium) | `scenarios/tests/test_render.py` | 7 pass in `mcr.microsoft.com/playwright/python:v1.52.0-noble` |
+| Architecture draft | `docs/architecture/win.md` | draft |
+
+Commands used (python:3.12 throwaway containers, since there's no dev image yet):
+- `tools/win/pyrun.sh ml sh -c 'uv run ruff check . && uv run mypy gen tests && uv run pytest --cov=gen'`
+- `tools/win/pyrun.sh scenarios sh -c 'uv run ruff check . && uv run mypy plscen tests && uv run pytest --cov=plscen'`
+- render test: see `scenarios/README.md`
+
+Findings from the tests (fixed or recorded):
+- A test vector I wrote from memory (Verhoeff "12340 → 4") was wrong. I replaced it with an independent oracle that builds Verhoeff from the D5 group and permutation, not the lookup tables. The implementation agrees with it on random inputs and with the published 236 → 3.
+- About 1 in 10 `+91<mobile>` strings contain a 12-digit Aadhaar look-alike (Verhoeff-valid). The scenario pages redraw such phones so ground truth stays unambiguous. The detect overlap rule is recorded in the architecture doc §3.
+- Random passwords can contain UPI-shaped substrings. The completeness test counts a match inside an annotated value as covered.
+
+### When the user says "Run Phase 0"
+
+1. `git fetch origin --tags`; confirm `p0-lnx-done`; `git rebase origin/main` on this branch.
+2. Adapt: replace `tools/win/pyrun.sh` with `mk/win.mk` targets in the dev image; `make hooks`; check the new ownership hook accepts every file here; ask LNX for Playwright/Chromium + pillow + bs4 in the dev image if missing.
+3. Rework the ground-truth/channel names and the §8 schema proposals to LNX's contract conventions; agree the canary format with LNX (request).
+4. Then steps 2, 3, 5–8 above; review; merge; tag `p0-win-done`.
 
 ## Environment check (2026-10-29)
 
