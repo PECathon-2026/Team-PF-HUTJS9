@@ -98,7 +98,15 @@ loop:
 
 Overfitting guards (tested): no layout family in two splits; the five scenario pages are never in training; real public pages are used only as unlabeled feature sources.
 
-Third-party models (GLiNER, RapidOCR, YuNet/SCRFD, Prompt Guard) are pinned in `ml/artifacts.lock.json` by source URL, revision, SHA-256 and license, and never re-published. Our own trained artifacts are GitHub Release assets. Both are fetched by `make fetch-artifacts` and attested by LNX's chain.
+Third-party models are pinned in `ml/artifacts.lock.json` by source URL, revision, SHA-256 and license, and never re-published. Our own trained artifacts are GitHub Release assets. Both are fetched by `ml/tools/fetch_artifacts.py` (later `make fetch-artifacts`) and attested by LNX's chain. Chosen in the early-P2 work (draft lock):
+
+| Use | Model (pinned revision in the lock) | License | Size | Notes |
+|---|---|---|---|---|
+| GLiNER PII spans | `onnx-community/gliner_multi_pii-v1` int8 ONNX (upstream `urchade/gliner_multi_pii-v1`) | Apache-2.0 | 370 MB | multilingual backbone, so Hindi script works; fallback `knowledgator/gliner-pii-base-v1.0` (English, official ONNX) |
+| OCR | RapidOCR hub `SWHL/RapidOCR`: PP-OCRv4 det + rec, PP-OCRv3 English rec, v2 angle cls | Apache-2.0 | 25 MB | Latin + digits; no Devanagari recogniser there |
+| Faces | `opencv/face_detection_yunet` 2023mar | MIT | 0.2 MB | SCRFD rejected: non-commercial weights |
+| Prompt injection | `meta-llama/Llama-Prompt-Guard-2-86M` | Llama 4 Community License (gated) | 1.1 GB | no official ONNX; export in P4 |
+| Embeddings | `intfloat/multilingual-e5-small` ONNX | MIT | 490 MB | EN/HI/Hinglish; the repo's int8 file needs AVX-512 VNNI, which this CPU lacks |
 
 ## 7. Scenario pages and ground truth (built in the early start)
 
