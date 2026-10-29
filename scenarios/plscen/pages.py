@@ -13,7 +13,7 @@ from gen.values import Gen, is_aadhaar, is_card, luhn_check_digit
 
 from .builder import PageBuilder
 
-ZWSP = "​"
+ZWSP = "\u200b"
 
 
 def _fullwidth(s: str) -> str:

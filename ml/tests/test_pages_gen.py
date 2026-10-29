@@ -35,7 +35,7 @@ def doc(out: Path, pid: str) -> BeautifulSoup:
 
 
 def normalize(s: str) -> str:
-    return re.sub("[​-‏⁠﻿]", "", unicodedata.normalize("NFKC", s))
+    return re.sub("[\u200b-\u200f\u2060\ufeff]", "", unicodedata.normalize("NFKC", s))
 
 
 def test_families_splits_and_languages(out: Path) -> None:

@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Account of {{c_title}}</title>
+<meta name="description" content="Customer contact {{c_meta}}">
+<link rel="stylesheet" href="../../common/base.css">
+</head>
+<body>
+<main class="panel">
+  <h1>Account</h1>
+  <p><a id="c1" href="profile?aadhaar={{c_query}}">Profile</a> · <a id="c2" href="#card={{c_fragment}}">Card</a> ·
+     <a id="c3" href="users/{{c_path}}/edit">Edit</a></p>
+  <button type="button" id="c4" aria-label="Contact {{c_aria}}">Contact</button>
+  <button type="button" id="c5" aria-description="Calls {{c_ariadesc}}">Call</button>
+  <span id="c6" title="PAN {{c_title_attr}}">ⓘ</span>
+  <input id="c7" placeholder="e.g. {{c_placeholder}}">
+  <div id="c8" data-card="{{c_data}}">Saved card</div>
+  <form id="c9" action="subscribe?email={{c_action}}" method="get"><button type="submit">Subscribe</button></form>
+  <select id="c10"><option>Choose account</option><option selected>{{c_option}}</option></select>
+  <svg id="c11" width="320" height="40" role="img"><text x="4" y="26" font-size="18">{{c_svg}}</text></svg>
+  <img id="c12" src="{{c_img}}" width="240" height="150" alt="Pay {{c_alt}}">
+  <canvas id="c13" width="320" height="40"></canvas>
+  <script id="c13-src">
+    "use strict";
+    (function () {
+      const c = document.getElementById("c13").getContext("2d");
+      c.font = "18px sans-serif";
+      c.fillText("{{c_script}}", 4, 26);
+    })();
+  </script>
+</main>
+</body>
+</html>

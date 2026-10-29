@@ -25,6 +25,11 @@ CHANNELS = frozenset(
         "url_query",  # query parameter of an href/src/action URL (see `attribute`)
         "image",  # pixels of an <img>
         "canvas",  # pixels drawn on a <canvas> (video tiles, screen share)
+        "css_content",  # part of the value comes from a CSS ::before/::after `content`
+        "url_fragment",  # after '#' in an href (see `attribute`)
+        "url_path",  # a path segment of an href (see `attribute`)
+        "script",  # inside an inline <script> (string literal)
+        "html_comment",  # inside an HTML comment (injections only)
     }
 )
 
@@ -45,6 +50,23 @@ class TruthItem:
     box: list[int] | None = None  # [x, y, w, h] in element coordinates (canvas only)
     motion: dict[str, float] | None = None  # canvas faces: sinusoidal motion params
     asset: str | None = None  # image file the value is drawn into
+    encoding: list[str] = field(default_factory=list)  # e.g. ["base64"]; decode in order to get `shown`'s payload
+
+
+@dataclass
+class Injection:
+    """A planted prompt injection (red-team pages). Not personal data, so the text is kept."""
+
+    id: str
+    technique: str  # visible_instruction, css_hidden, aria, alt_text, image, encoded, zero_width, html_comment, ...
+    channel: str
+    language: str  # en | hi | hinglish
+    goal: str  # exfiltrate, navigate, skip_approval, destructive_click
+    selector: str
+    content: str  # as rendered (may be encoded)
+    attribute: str | None = None
+    encoding: list[str] = field(default_factory=list)
+    asset: str | None = None
 
 
 class PageBuilder:
@@ -53,6 +75,7 @@ class PageBuilder:
         self.slots: dict[str, str] = {}
         self.items: list[TruthItem] = []
         self.decoys: list[TruthItem] = []
+        self.injections: list[Injection] = []
         self.assets: dict[str, bytes] = {}
 
     def _slot(self, key: str, rendered: str) -> None:
@@ -63,7 +86,7 @@ class PageBuilder:
     def _check(self, it: TruthItem) -> TruthItem:
         if it.channel not in CHANNELS:
             raise ValueError(f"{self.name}: unknown channel {it.channel!r}")
-        if it.channel in ("attribute", "url_query") and not it.attribute:
+        if it.channel in ("attribute", "url_query", "url_fragment", "url_path") and not it.attribute:
             raise ValueError(f"{self.name}: {it.id} needs `attribute`")
         return it
 
@@ -80,6 +103,7 @@ class PageBuilder:
         attribute: str | None = None,
         canary: bool = False,
         obfuscation: list[str] | None = None,
+        encoding: list[str] | None = None,
     ) -> None:
         """Plant a value as escaped text (text, input, attribute channels)."""
         shown = value if shown is None else shown
@@ -96,24 +120,56 @@ class PageBuilder:
                     attribute=attribute,
                     canary=canary,
                     obfuscation=obfuscation or [],
+                    encoding=encoding or [],
                 )
             )
         )
 
     def put_split(
-        self, key: str, *, type: str, value: str, shown: str, selector: str, parts: list[int], canary: bool = False
+        self,
+        key: str,
+        *,
+        type: str,
+        value: str,
+        shown: str,
+        selector: str,
+        parts: list[int],
+        canary: bool = False,
+        dom_order: list[int] | None = None,
     ) -> None:
-        """Plant a value split over adjacent <span>s with no text between them."""
+        """Plant a value split over adjacent <span>s with no text between them.
+
+        With ``dom_order`` the spans appear in that (shuffled) order in the DOM
+        and CSS flex ``order`` puts them back on screen: what a human sees is
+        not the DOM order."""
         digits = shown.replace(" ", "")
         if sum(parts) != len(digits):
             raise ValueError(f"{self.name}: split parts don't cover {key}")
-        spans, i = [], 0
+        pieces, i = [], 0
         for n in parts:
-            spans.append(f'<span class="grp">{html.escape(digits[i : i + n])}</span>')
+            pieces.append(digits[i : i + n])
             i += n
+        order = dom_order or list(range(len(pieces)))
+        if sorted(order) != list(range(len(pieces))):
+            raise ValueError(f"{self.name}: dom_order must be a permutation")
+        spans = [
+            f'<span class="grp"{f' style="order:{k}"' if dom_order else ""}>{html.escape(pieces[k])}</span>'
+            for k in order
+        ]
         self._slot(key, "".join(spans))
         self.items.append(
-            self._check(TruthItem(f"{self.name}.{key}", type, value, digits, selector, "text_split", canary=canary))
+            self._check(
+                TruthItem(
+                    f"{self.name}.{key}",
+                    type,
+                    value,
+                    digits,
+                    selector,
+                    "text_split",
+                    canary=canary,
+                    obfuscation=["css_order"] if dom_order else [],
+                )
+            )
         )
 
     def put_url_param(
@@ -154,6 +210,41 @@ class PageBuilder:
             self._check(TruthItem(f"{self.name}.{key}", "face", "", "", selector, "canvas", box=box, motion=motion))
         )
 
+    def injection(
+        self,
+        key: str,
+        *,
+        technique: str,
+        channel: str,
+        language: str,
+        goal: str,
+        selector: str,
+        content: str,
+        attribute: str | None = None,
+        encoding: list[str] | None = None,
+        image_lines: list[str] | None = None,
+    ) -> None:
+        """Plant a prompt injection. ``content`` is inserted escaped (or drawn into a PNG)."""
+        if channel not in CHANNELS:
+            raise ValueError(f"{self.name}: unknown channel {channel!r}")
+        asset = None
+        if image_lines is not None:
+            asset = f"{key}.png"
+            self.assets[asset] = render_text_png(image_lines, style="document")
+            self._slot(key, asset)
+        elif channel == "html_comment":
+            if "--" in content:
+                raise ValueError("comment content can't contain --")
+            self._slot(key, content.replace("<", "&lt;"))
+        else:
+            self._slot(key, html.escape(content, quote=True))
+        self.injections.append(
+            Injection(
+                f"{self.name}.{key}", technique, channel, language, goal, selector, content, attribute,
+                encoding or [], asset,
+            )
+        )  # fmt: skip
+
     # ---- not sensitive
     def decoy(self, key: str, *, type: str, value: str, selector: str) -> None:
         """A look-alike that must NOT be redacted (e.g. a non-Luhn order number)."""
@@ -189,4 +280,5 @@ class PageBuilder:
             "items": [asdict(i) for i in self.items],
             "decoys": [asdict(i) for i in self.decoys],
             "canaries": [i.value for i in self.items if i.canary],
+            "injections": [asdict(i) for i in self.injections],
         }

@@ -20,7 +20,7 @@ from plscen.build import build
 from plscen.builder import PageBuilder
 from plscen.pages import PAGES
 
-INVISIBLE = re.compile("[​-‏⁠﻿­]")
+INVISIBLE = re.compile("[\u200b-\u200f\u2060\ufeff\u00ad]")
 
 
 def normalize(s: str) -> str:
@@ -233,9 +233,9 @@ def _png_chunks(data: bytes) -> list[str]:
 
 
 def test_images_have_no_metadata(out: Path) -> None:
-    pngs = list((out / "site").rglob("*.png"))
-    assert len(pngs) == 3
-    for f in pngs:
+    scenario_pngs = [f for page in PAGES for f in (out / "site" / page).glob("*.png")]
+    assert len(scenario_pngs) == 3
+    for f in (out / "site").rglob("*.png"):
         assert set(_png_chunks(f.read_bytes())) <= {"IHDR", "IDAT", "IEND"}, f
 
 

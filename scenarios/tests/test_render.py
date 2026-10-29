@@ -120,3 +120,43 @@ def test_interactions(site: tuple[str, Path], browser: Any) -> None:
     assert page.evaluate("document.querySelectorAll('#chat-thread > li').length") == 7
     page.context.close()
     assert not (problems + more + even_more)
+
+
+REDTEAM_PAGES = ["hidden", "split", "lookalike", "channels", "encoded", "injection"]
+
+
+@pytest.mark.parametrize("name", REDTEAM_PAGES)
+def test_redteam_page_renders(site: tuple[str, Path], browser: Any, name: str) -> None:
+    base, out = site
+    page, problems = _open(browser, base, f"redteam/{name}")
+    truth = json.loads((out / "truth" / "redteam" / f"{name}.json").read_text("utf-8"))
+    for it in truth["items"]:
+        n = page.evaluate("(s) => document.querySelectorAll(s).length", it["selector"])
+        assert n == 1, it["id"]
+        hidden_kinds = {"display_none", "visibility_hidden", "opacity_zero", "collapsed_details"}
+        if set(it["obfuscation"]) & hidden_kinds:
+            visible = page.evaluate(
+                "(s) => document.querySelector(s).checkVisibility({opacityProperty: true, visibilityProperty: true})",
+                it["selector"],
+            )
+            assert visible is False, it["id"]
+        if "css_order" in it["obfuscation"]:
+            # Read the spans left-to-right as a person would see them.
+            seen = page.evaluate(
+                """(s) => [...document.querySelector(s).children]
+                     .sort((a, b) => a.getBoundingClientRect().x - b.getBoundingClientRect().x)
+                     .map((e) => e.textContent).join('')""",
+                it["selector"],
+            )
+            assert seen == it["value"], it["id"]
+    if name == "channels":
+        drawn = page.evaluate(
+            """() => { const d = document.getElementById('c13').getContext('2d').getImageData(0, 0, 320, 40).data;
+                 let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 0) n++; return n; }"""
+        )
+        assert drawn > 100
+    shots = os.environ.get("PL_SHOTS")
+    if shots:
+        page.screenshot(path=f"{shots}/redteam-{name}.png", full_page=True)
+    assert not problems, problems
+    page.context.close()

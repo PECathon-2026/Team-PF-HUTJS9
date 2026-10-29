@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Red team · split values</title>
+<link rel="stylesheet" href="../../common/base.css">
+<style>
+  .grp { margin-right: 0.35em; }
+  #s2 { display: inline-flex; }
+  #s4::after { content: "{{s_css_tail}}"; }
+  #s6 .grp { display: block; }
+</style>
+</head>
+<body>
+<main class="panel">
+  <h1>Saved details</h1>
+  <p>Card: <span id="s1">{{s_spans}}</span></p>
+  <p>Aadhaar: <span id="s2">{{s_order}}</span></p>
+  <p>PAN: <span id="s3">{{s_mixed}}</span></p>
+  <p>Email: <span id="s4">{{s_css}}</span></p>
+  <p>Backup card: <span id="s5">{{s_sep}}</span></p>
+  <div>Phone: <div id="s6">{{s_lines}}</div></div>
+</main>
+</body>
+</html>
