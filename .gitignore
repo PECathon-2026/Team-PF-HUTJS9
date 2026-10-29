@@ -1,0 +1,65 @@
+# --- per-machine identity (never commit) ---
+.pl-machine
+
+# --- secrets (never commit) ---
+.env
+.env.*
+*.key
+*.pem
+secrets/
+.privacylens/
+
+# --- build outputs ---
+build/
+out/
+dist/
+target/
+cmake-build-*/
+*.o
+*.a
+*.so
+*.dylib
+compile_commands.json
+.cache/
+
+# --- Python ---
+__pycache__/
+*.pyc
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.hypothesis/
+
+# --- Node / dashboard ---
+node_modules/
+.pnpm-store/
+dashboard/src-tauri/target/
+playwright-report/
+test-results/
+
+# --- large / generated artifacts (published as GitHub Release assets instead) ---
+/artifacts/
+/models/
+/data/
+ml/data/
+ml/runs/
+eval/runs/
+*.onnx
+*.parquet
+*.sqlite
+*.pcap
+fuzz/corpus-*/
+crash-*
+leak-*
+timeout-*
+
+# --- editors / OS ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp

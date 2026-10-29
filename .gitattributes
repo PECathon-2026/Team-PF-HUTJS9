@@ -1,0 +1,34 @@
+# Everything is LF, on every OS. Git normalises on commit.
+* text=auto eol=lf
+
+# Shell, make and docker files must be LF or they break inside Linux containers
+*.sh      text eol=lf
+Makefile  text eol=lf
+*.mk      text eol=lf
+Dockerfile* text eol=lf
+*.Dockerfile text eol=lf
+
+# Windows-only scripts (if any are ever added) keep CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binaries: never touch
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.pdf  binary
+*.onnx binary
+*.bin  binary
+*.parquet binary
+*.sqlite binary
+*.db   binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.zip  binary
+*.gz   binary
+*.pcap binary
