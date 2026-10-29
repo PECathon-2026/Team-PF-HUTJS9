@@ -15,6 +15,10 @@ dev = [
   "pytest-cov==6.1.1",
   "mypy==1.15.0",
   "ruff==0.11.6",
+  "beautifulsoup4==4.13.4",
+]
+browser = [
+  "playwright==1.52.0",
 ]
 
 [build-system]
@@ -27,13 +31,18 @@ packages = ["gen", "reference"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-q"
+markers = ["browser: needs headless Chromium via Playwright (browser dependency group)"]
 
 [tool.coverage.run]
-omit = ["reference/bench_fourier.py"]
+omit = ["reference/bench_fourier.py", "gen/render.py"]
 
 [tool.mypy]
 strict = true
 python_version = "3.12"
+
+[[tool.mypy.overrides]]
+module = ["playwright.*"]
+ignore_missing_imports = true
 
 [tool.ruff]
 line-length = 120
