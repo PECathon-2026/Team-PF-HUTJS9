@@ -1,0 +1,2 @@
+# Empty fragment for compose.yaml include slots whose real file doesn't exist yet. Owner: LNX.
+services: {}

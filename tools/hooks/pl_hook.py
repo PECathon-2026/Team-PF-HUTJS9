@@ -71,9 +71,7 @@ BLOCKED_SUFFIXES = (
     ".jks",
     ".keystore",
 )
-BLOCKED_NAMES = re.compile(
-    r"^(\.pl-machine|\.env(\..*)?|id_(rsa|dsa|ecdsa|ed25519)(\.pub)?|hf_token|.*_api_key)$"
-)
+BLOCKED_NAMES = re.compile(r"^(\.pl-machine|\.env(\..*)?|id_(rsa|dsa|ecdsa|ed25519)(\.pub)?|hf_token|.*_api_key)$")
 
 # Built-in secret patterns. Always run, so the hook never passes silently when
 # gitleaks is unavailable.
@@ -91,9 +89,7 @@ SECRET_PATTERNS: tuple[tuple[str, re.Pattern[bytes]], ...] = (
     ("google-api-key", re.compile(rb"\bAIza[0-9A-Za-z_\-]{35}\b")),
     (
         "jwt",
-        re.compile(
-            rb"\beyJ[A-Za-z0-9_\-]{10,}\.eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}"
-        ),
+        re.compile(rb"\beyJ[A-Za-z0-9_\-]{10,}\.eyJ[A-Za-z0-9_\-]{10,}\.[A-Za-z0-9_\-]{10,}"),
     ),
 )
 
@@ -138,9 +134,7 @@ def parse_tsv(text: str, valid_owners: tuple[str, ...], source: str) -> list[Rul
             continue
         parts = line.split("\t")
         if len(parts) != 2 or parts[1].strip() not in valid_owners:
-            raise ValueError(
-                f"{source}:{n}: expected '<glob><TAB><{'|'.join(valid_owners)}>', got {line!r}"
-            )
+            raise ValueError(f"{source}:{n}: expected '<glob><TAB><{'|'.join(valid_owners)}>', got {line!r}")
         glob, owner = parts[0].strip(), parts[1].strip()
         rules.append(Rule(glob, owner, glob_to_regex(glob)))
     return rules
@@ -246,26 +240,16 @@ def load_ownership(old_spec: str | None, new_spec: str, machine: str) -> Ownersh
 # ---------------------------------------------------------------- checks
 
 
-def check_ownership(
-    changes: list[Change], own: Ownership, allowed: set[str]
-) -> list[str]:
+def check_ownership(changes: list[Change], own: Ownership, allowed: set[str]) -> list[str]:
     errors = []
     for ch in changes:
         for p in filter(None, (ch.path, ch.old_path)):
             owner = own.owner_of(p)
             if owner is None:
-                errors.append(
-                    f"{p}: no owner in {RULES_PATH} (unknown paths are blocked; add a line there)"
-                )
+                errors.append(f"{p}: no owner in {RULES_PATH} (unknown paths are blocked; add a line there)")
             elif owner not in allowed:
-                hint = (
-                    " (USER path: only the human may change it, with PL_USER_COMMIT=1)"
-                    if owner == "USER"
-                    else ""
-                )
-                errors.append(
-                    f"{p}: owned by {owner}, not {'/'.join(sorted(allowed))}{hint}"
-                )
+                hint = " (USER path: only the human may change it, with PL_USER_COMMIT=1)" if owner == "USER" else ""
+                errors.append(f"{p}: owned by {owner}, not {'/'.join(sorted(allowed))}{hint}")
     return errors
 
 
@@ -277,26 +261,18 @@ def scan_secrets(data: bytes) -> list[str]:
     return [name for name, rx in SECRET_PATTERNS if rx.search(data)]
 
 
-def check_content(
-    path: str, size: int, data: bytes | None, worktree: bytes | None = None
-) -> list[str]:
+def check_content(path: str, size: int, data: bytes | None, worktree: bytes | None = None) -> list[str]:
     errors = []
     base = path.rsplit("/", 1)[-1]
     lower = base.lower()
     if BLOCKED_NAMES.match(base):
-        errors.append(
-            f"{path}: file name is never committed (machine identity, env or key file)"
-        )
+        errors.append(f"{path}: file name is never committed (machine identity, env or key file)")
     if lower.endswith(BLOCKED_SUFFIXES):
-        errors.append(
-            f"{path}: model/data/archive/key file type is blocked (publish it as a release asset, AD-08)"
-        )
+        errors.append(f"{path}: model/data/archive/key file type is blocked (publish it as a release asset, AD-08)")
     if size > MAX_BYTES:
         errors.append(f"{path}: {size} bytes is over the 5 MB limit")
     if data is not None and not is_binary(data):
-        crlf = b"\r\n" in data or (
-            worktree is not None and not is_binary(worktree) and b"\r\n" in worktree
-        )
+        crlf = b"\r\n" in data or (worktree is not None and not is_binary(worktree) and b"\r\n" in worktree)
         if crlf and not lower.endswith(CRLF_ALLOWED_SUFFIXES):
             errors.append(f"{path}: CRLF line endings; convert to LF")
         for name in scan_secrets(data):
@@ -384,9 +360,7 @@ def pre_commit() -> int:
     machine = marker.read_text().strip() if marker.is_file() else ""
     if machine not in MACHINES:
         return report(
-            [
-                f".pl-machine must contain LNX or WIN (got {machine!r}); never guess the role"
-            ],
+            [f".pl-machine must contain LNX or WIN (got {machine!r}); never guess the role"],
             "commit",
         )
     allowed = {machine}
@@ -395,9 +369,7 @@ def pre_commit() -> int:
 
     has_head = git("rev-parse", "--verify", "-q", "HEAD", check=False).returncode == 0
     own = load_ownership("HEAD" if has_head else None, ":", machine)
-    changes = parse_name_status(
-        git("diff", "--cached", "--name-status", "-z", "-M").stdout
-    )
+    changes = parse_name_status(git("diff", "--cached", "--name-status", "-z", "-M").stdout)
 
     errors = check_ownership(changes, own, allowed)
     for ch in changes:
@@ -406,11 +378,7 @@ def pre_commit() -> int:
         data = git_show(f":{ch.path}")
         size = blob_size(f":{ch.path}")
         wt_file = repo / ch.path
-        worktree = (
-            wt_file.read_bytes()
-            if wt_file.is_file() and wt_file.stat().st_size <= MAX_BYTES
-            else None
-        )
+        worktree = wt_file.read_bytes() if wt_file.is_file() and wt_file.stat().st_size <= MAX_BYTES else None
         errors += check_content(ch.path, size, data, worktree)
     errors += run_gitleaks(repo)
     return report(errors, "commit")
@@ -426,14 +394,10 @@ def branch_machine(branch: str) -> str | None:
 def ci(base: str, head: str, branch: str) -> int:
     machine = branch_machine(branch)
     if machine is None:
-        return report(
-            [f"branch {branch!r} must start with lnx/, win/ or user/"], "branch"
-        )
+        return report([f"branch {branch!r} must start with lnx/, win/ or user/"], "branch")
     merge_base = git("merge-base", base, head).stdout.decode().strip()
     own = load_ownership(merge_base, head, machine)
-    changes = parse_name_status(
-        git("diff", "--name-status", "-z", "-M", merge_base, head).stdout
-    )
+    changes = parse_name_status(git("diff", "--name-status", "-z", "-M", merge_base, head).stdout)
     errors = check_ownership(changes, own, {machine})
     for ch in changes:
         if ch.status == "D":
@@ -441,9 +405,7 @@ def ci(base: str, head: str, branch: str) -> int:
         spec = f"{head}:{ch.path}"
         errors += check_content(ch.path, blob_size(spec), git_show(spec))
     if not errors:
-        print(
-            f"pl-hook: {len(changes)} changed path(s) on {branch} are all owned by {machine} and pass content checks"
-        )
+        print(f"pl-hook: {len(changes)} changed path(s) on {branch} are all owned by {machine} and pass content checks")
     return report(errors, f"branch {branch}")
 
 
@@ -452,9 +414,7 @@ def owner_cmd(paths: list[str]) -> int:
     prod = Path(PRODUCERS_PATH)
     own = Ownership(
         parse_tsv(Path(RULES_PATH).read_text(), OWNERS, RULES_PATH),
-        parse_tsv(prod.read_text(), ("LNX", "WIN"), PRODUCERS_PATH)
-        if prod.exists()
-        else [],
+        parse_tsv(prod.read_text(), ("LNX", "WIN"), PRODUCERS_PATH) if prod.exists() else [],
     )
     for p in paths:
         print(f"{own.owner_of(p) or 'BLOCKED'}\t{p}")

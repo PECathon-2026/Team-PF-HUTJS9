@@ -13,15 +13,11 @@ import pytest
 REPO = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(REPO / "tools" / "hooks"))
 
-import pl_hook
+import pl_hook  # noqa: E402  (path set up above)
 
 
-def run(
-    cwd: Path, *args: str, env: dict[str, str] | None = None
-) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        args, check=False, cwd=cwd, capture_output=True, text=True, env=env
-    )
+def run(cwd: Path, *args: str, env: dict[str, str] | None = None) -> subprocess.CompletedProcess[str]:
+    return subprocess.run(args, check=False, cwd=cwd, capture_output=True, text=True, env=env)
 
 
 @pytest.fixture
@@ -44,9 +40,7 @@ def repo(tmp_path: Path) -> Path:
         shutil.copy2(REPO / rel, r / rel)
     (r / "CLAUDE.md").write_text("bootstrap\n")
     run(r, "git", "add", "-A")
-    assert (
-        run(r, "git", "commit", "-q", "-m", "bootstrap").returncode == 0
-    )  # no hook yet
+    assert run(r, "git", "commit", "-q", "-m", "bootstrap").returncode == 0  # no hook yet
     run(r, "git", "config", "core.hooksPath", "tools/hooks")
     (r / ".pl-machine").write_text("LNX\n")
     return r
@@ -155,9 +149,7 @@ def test_fake_secret_blocked(repo: Path, kind: str) -> None:
     assert kind in r.stderr
 
 
-@pytest.mark.skipif(
-    shutil.which("gitleaks") is None, reason="gitleaks binary only in the dev image"
-)
+@pytest.mark.skipif(shutil.which("gitleaks") is None, reason="gitleaks binary only in the dev image")
 def test_gitleaks_runs_and_blocks(repo: Path) -> None:
     r = commit(
         repo,
@@ -222,12 +214,8 @@ def test_glob(glob: str, path: str, hit: bool) -> None:
 
 def test_every_shared_md_path_has_expected_owner() -> None:
     own = pl_hook.Ownership(
-        pl_hook.parse_tsv(
-            (REPO / "tools/ownership.tsv").read_text(), pl_hook.OWNERS, "t"
-        ),
-        pl_hook.parse_tsv(
-            (REPO / "contracts/OWNERS.tsv").read_text(), ("LNX", "WIN"), "o"
-        ),
+        pl_hook.parse_tsv((REPO / "tools/ownership.tsv").read_text(), pl_hook.OWNERS, "t"),
+        pl_hook.parse_tsv((REPO / "contracts/OWNERS.tsv").read_text(), ("LNX", "WIN"), "o"),
     )
     expect = {
         "CLAUDE.md": "USER",

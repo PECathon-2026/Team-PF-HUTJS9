@@ -56,9 +56,9 @@ test-security-lnx: py-sync-lnx
 lint-lnx: lint-py-lnx lint-contracts-lnx lint-cpp-lnx
 
 lint-py-lnx: py-sync-lnx
-	$(IN_DEV) $(UVRUN) ruff check $(PY_LINT_DIRS)
-	$(IN_DEV) $(UVRUN) ruff format --check $(PY_LINT_DIRS)
-	$(IN_DEV) $(UVRUN) mypy --strict $(PY_LINT_DIRS)
+	$(IN_DEV) $(UVRUN) ruff check --config $(PLPY)/pyproject.toml $(PY_LINT_DIRS)
+	$(IN_DEV) $(UVRUN) ruff format --config $(PLPY)/pyproject.toml --check $(PY_LINT_DIRS)
+	$(IN_DEV) $(UVRUN) mypy --config-file $(PLPY)/pyproject.toml --strict $(PY_LINT_DIRS)
 
 lint-contracts-lnx: py-sync-lnx
 	$(if $(HAVE_CONTRACTS),$(IN_DEV) $(UVRUN) python -m pl_contracts.cli lint contracts,@echo "lint-contracts: nothing to run yet")

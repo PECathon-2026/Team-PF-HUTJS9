@@ -7,6 +7,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+
 from pl_contracts import ValidationFailure, load_registry
 from pl_contracts.cli import check_fixtures, main
 from pl_contracts.lint import lint_contracts, lint_schema
@@ -28,7 +29,7 @@ LEVELS = ["public", "internal", "personal", "sensitive", "secret"]
 
 
 def lint(schema: dict[str, Any], name: str = "event.v1.json") -> list[str]:
-    return lint_schema(Path(name), schema, LEVELS, {name.split(".")[0]})
+    return lint_schema(Path(name), schema, LEVELS, {name.split(".", maxsplit=1)[0]})
 
 
 def mutate(**props: Any) -> dict[str, Any]:
@@ -97,10 +98,7 @@ def test_lint_top_level_rules() -> None:
     s["required"] = ["schema", "ghost"]
     assert any("missing from properties" in e for e in lint(s))
     assert lint(BASE, "Bad-Name.json")
-    assert any(
-        "OWNERS.tsv" in e
-        for e in lint_schema(Path("event.v1.json"), BASE, LEVELS, set())
-    )
+    assert any("OWNERS.tsv" in e for e in lint_schema(Path("event.v1.json"), BASE, LEVELS, set()))
     vault = copy.deepcopy(BASE)
     vault["x-pl-zone"] = "vault"
     vault["properties"]["plaintext"] = {"type": "string", "maxLength": 9}
@@ -122,9 +120,7 @@ def test_lint_contracts_dir_problems(tmp_path: Path) -> None:
 
 def test_registry_dispatch_and_errors_hide_values() -> None:
     reg = load_registry(CONTRACTS / "schemas")
-    good = json.loads(
-        (CONTRACTS / "fixtures/event.v1/valid/detection.json").read_text()
-    )
+    good = json.loads((CONTRACTS / "fixtures/event.v1/valid/detection.json").read_text())
     assert reg.validate(good) == "event.v1"
     bad = dict(good, type="Card 4111 found")
     with pytest.raises(ValidationFailure) as e:

@@ -14,9 +14,9 @@ Branch prefix `lnx/p0-*`. Each step is merged to `main` via PR when done.
 - [x] 6. CI: `lnx-ci.yml` (merged early, with steps 2–5)
 - [x] 7. Contracts: README, OWNERS.tsv, C++/Python validators, linter, LNX schemas v1 + fixtures
 - [x] 8. plcommon / plpy v0: framing, UDS, validation hooks, logging + scrubber, taint lattice, IDs; tests; frame-decoder fuzz ≥ 10 min
-- [ ] 9. Compose skeleton + `tests/e2e/platform/test_compose_policy.py`
-- [ ] 10. `docs/architecture/lnx.md`
-- [ ] 11. `detect_api_proposal.hpp`, `NullDetector`, request `L-001`
+- [x] 9. Compose skeleton + `tests/e2e/platform/test_compose_policy.py`
+- [x] 10. `docs/architecture/lnx.md`
+- [x] 11. `detect_api_proposal.hpp`, `NullDetector`, request `L-001`
 - [ ] 12. Independent review, fixes, tag `p0-lnx-done`
 
 PR 1 (`lnx/p0-bootstrap`) carries steps 1–8 together: CI (step 6) only means something once the
@@ -39,6 +39,9 @@ dev image, Makefile and the first tests exist, so they land in the same first me
 | clang-tidy (19 files) | clean |
 | Contracts: lint + fixtures (Python and C++) | 18 schemas, 93 fixtures, both engines agree |
 | fuzz-smoke 60 s: `fuzz_frame_decoder`, `fuzz_scrub` | 1.2 M / 0.95 M execs, no crashes |
+| fuzz 10 min each (local): `fuzz_frame_decoder`, `fuzz_scrub` | 6.5 M / 3.7 M execs, no crashes |
+| Compose policy (`make test-security-lnx`) | 22 passed |
+| C++ incl. core shell NullDetector | 56/56 tests, clang-tidy clean (22 files) |
 | TSan | needs `vm.mmap_rnd_bits=28` on the host (see `mk/lnx.mk`); runs in CI |
 
 ## Notes for resuming
