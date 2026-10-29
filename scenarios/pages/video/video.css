@@ -1,0 +1,12 @@
+.call { display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 16px; max-width: 1280px; }
+@media (max-width: 900px) { .call { grid-template-columns: 1fr; } }
+.canvas-wrap { position: relative; width: 960px; max-width: 100%; }
+#call-canvas { display: block; width: 960px; height: 540px; background: #111; border-radius: 10px; }
+.tile-label { position: absolute; padding: 2px 8px; border-radius: 4px; font-size: 12px;
+  background: rgba(0, 0, 0, 0.55); color: #fff; }
+.controls { display: flex; gap: 8px; margin-top: 10px; }
+#leave { background: var(--warn); }
+.side h3 { margin: 4px 0 8px; font-size: 15px; }
+.people, .chat { list-style: none; padding: 0; margin: 0 0 14px; }
+.people li, .chat li { padding: 4px 0; font-size: 14px; }
+.chat .who { color: var(--muted); font-size: 12px; }

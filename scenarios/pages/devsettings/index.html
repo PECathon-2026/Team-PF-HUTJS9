@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API &amp; integrations · Nimbus Cloud console</title>
+<link rel="stylesheet" href="../common/base.css">
+<link rel="stylesheet" href="devsettings.css">
+</head>
+<body>
+<header class="site"><span class="logo">Nimbus Cloud</span><span class="muted">Project “orders-prod” · owner <span id="owner-email">{{owner_email}}</span></span></header>
+<main class="grid">
+  <section class="panel">
+    <h2>API keys</h2>
+    <table class="keys">
+      <thead><tr><th>Name</th><th>Key</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>production</td><td><code id="key-primary">{{sk_key}}</code></td>
+          <td><button type="button" id="copy-primary" class="ghost" aria-label="Copy key {{sk_copy}}">Copy</button></td></tr>
+        <tr id="aws-row" data-access-key-id="{{akia}}"><td>aws-export</td><td><code>AWS access key (hidden)</code></td>
+          <td><button type="button" class="ghost" id="rotate-aws">Rotate</button></td></tr>
+      </tbody>
+    </table>
+    <p><a id="docs-link" href="docs?lang=curl&amp;api_key={{docs_key}}">Open API docs with this key</a></p>
+
+    <h2>Example request</h2>
+    <pre id="curl-example">curl https://api.nimbus.example/v1/orders \
+  -H "Authorization: Bearer {{jwt}}"</pre>
+  </section>
+
+  <section class="panel">
+    <h2>Integrations</h2>
+    <form id="integrations-form" action="#">
+      <label for="github-token">GitHub token (for deploys)</label>
+      <input id="github-token" name="github_token" autocomplete="off" spellcheck="false" value="{{ghp}}">
+      <label for="webhook-url">Webhook URL</label>
+      <input id="webhook-url" name="webhook" autocomplete="off" spellcheck="false" value="https://hooks.example.com/notify?token={{webhook_canary}}">
+      <h3>IP allow-list</h3>
+      <ul class="ips"><li id="ip-1">{{ip_1}}</li><li id="ip-2">{{ip_2}}</li></ul>
+      <button type="submit" id="save">Save changes</button>
+      <button type="button" id="delete-project" class="danger">Delete project</button>
+      <p id="settings-result" class="muted" role="status"></p>
+    </form>
+  </section>
+</main>
+<script src="devsettings.js"></script>
+</body>
+</html>

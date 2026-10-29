@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · Saffron Bank</title>
+<link rel="stylesheet" href="../common/base.css">
+<link rel="stylesheet" href="login.css">
+</head>
+<body>
+<header class="site"><span class="logo">Saffron Bank</span><span class="muted">Net banking</span></header>
+<main>
+  <div id="sms-toast" role="status">
+    <strong>Messages</strong> · now<br>
+    Your Saffron Bank OTP is <span class="otp-code">{{sms_otp}}</span>. Do not share it with anyone.
+  </div>
+
+  <form id="login-form" class="panel" data-last-user="{{last_user}}" action="#" method="post" autocomplete="on">
+    <h1>Welcome back, {{display_name}}</h1>
+    <input type="hidden" name="csrf_token" value="{{csrf}}">
+
+    <label for="email">Email or customer ID</label>
+    <input id="email" name="username" type="email" autocomplete="username" value="{{email}}">
+
+    <label for="password">Password</label>
+    <div class="pw-wrap">
+      <input id="password" name="password" type="password" autocomplete="current-password" value="{{password}}">
+      <button type="button" id="toggle-password" class="ghost" aria-pressed="false">Show</button>
+    </div>
+
+    <div class="row">
+      <div>
+        <label for="otp">One-time password</label>
+        <input id="otp" name="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" value="{{otp}}">
+      </div>
+      <div><button type="button" id="send-otp" class="ghost" aria-label="Send OTP to {{otp_phone}}">Send OTP</button></div>
+    </div>
+
+    <p><a id="forgot-link" href="reset?email={{reset_email}}">Forgot password?</a></p>
+    <button type="submit" id="sign-in">Sign in</button>
+    <p id="login-result" class="muted" role="status"></p>
+  </form>
+</main>
+<script src="login.js"></script>
+</body>
+</html>
