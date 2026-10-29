@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weekly sync · Orbit Meet</title>
+<link rel="stylesheet" href="../common/base.css">
+<link rel="stylesheet" href="video.css">
+</head>
+<body>
+<header class="site"><span class="logo">Orbit Meet</span><span class="muted">Weekly sync · 00:12:41</span></header>
+<main class="call">
+  <section class="stage">
+    <div class="canvas-wrap">
+      <canvas id="call-canvas" width="960" height="540" aria-label="Call video" data-share-src="{{share_img}}"></canvas>
+      <div id="tile-label-0" class="tile-label" style="left:8px;top:240px" aria-label="Camera">Host</div>
+      <div id="tile-label-1" class="tile-label" style="left:488px;top:240px" aria-label="Camera: {{p1_email}}">Guest</div>
+      <div id="tile-label-2" class="tile-label" style="left:8px;top:510px" aria-label="Camera">Guest</div>
+      <div id="tile-label-3" class="tile-label" style="left:488px;top:510px">Screen share</div>
+    </div>
+    <div class="controls">
+      <button type="button" id="mute" class="ghost" aria-pressed="false">Mute</button>
+      <button type="button" id="camera" class="ghost" aria-pressed="false">Stop video</button>
+      <button type="button" id="leave">Leave</button>
+    </div>
+  </section>
+
+  <aside class="panel side">
+    <h3>People</h3>
+    <ul class="people">
+      <li id="participant-0">{{p0_name}}</li>
+      <li id="participant-1">{{p1_name}}</li>
+      <li id="participant-2">{{p2_name}}</li>
+    </ul>
+    <p><a id="invite-link" href="join?room=orb-4471&amp;invitee={{invite_email}}">Copy invite link</a></p>
+    <h3>Chat</h3>
+    <ol class="chat">
+      <li id="chat-1"><span class="who">Host</span> <span class="body">Call me after on {{chat_phone}}</span></li>
+      <li id="chat-2"><span class="who">Guest</span> <span class="body">Sending the deposit to {{chat_upi}} now</span></li>
+    </ol>
+  </aside>
+</main>
+<script type="application/json" id="call-config">{{call_config}}</script>
+<script src="video.js"></script>
+</body>
+</html>

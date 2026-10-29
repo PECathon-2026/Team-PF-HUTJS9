@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Help centre chat · Kestrel Telecom</title>
+<link rel="stylesheet" href="../common/base.css">
+<link rel="stylesheet" href="support.css">
+</head>
+<body>
+<header class="site"><span class="logo">Kestrel Telecom</span><span class="muted">Help centre</span></header>
+<main class="panel chat">
+  <div class="chat-head">
+    <strong>Chat with Kavya (support)</strong>
+    <a id="ticket-link" class="muted" href="ticket?id=KT-58213&amp;email={{ticket_email}}">Ticket KT-58213</a>
+  </div>
+
+  <ol id="chat-thread" class="thread" role="log" aria-live="polite" data-customer-phone="{{customer_phone}}">
+    <li id="msg-1" class="msg agent"><span class="who">Kavya</span>
+      <p class="body">Hi {{customer_first}}! To update the SIM, I need to verify your KYC. Could you share your Aadhaar and date of birth?</p></li>
+    <li id="msg-2" class="msg me"><span class="who">You</span>
+      <p class="body">Sure, Aadhaar {{msg_aadhaar}}, DOB {{msg_dob}}</p></li>
+    <li id="msg-3" class="msg agent"><span class="who">Kavya</span>
+      <p class="body">Thanks. Which number should we send the confirmation to?</p></li>
+    <li id="msg-4" class="msg me"><span class="who">You</span>
+      <p class="body">This one: {{msg_phone}}</p></li>
+    <li id="msg-5" class="msg agent"><span class="who">Kavya</span>
+      <p class="body">Got it. For the refund, please share your PAN, email and a cancelled cheque.</p></li>
+    <li id="msg-6" class="msg me"><span class="who">You</span>
+      <p class="body">PAN is {{msg_pan}} and email {{msg_email}}. Cheque attached.</p>
+      <img id="attach-cheque" class="attachment" src="{{cheque_img}}" width="320" height="130" alt="Cancelled cheque, account {{cheque_alt_acct}}"></li>
+  </ol>
+
+  <form id="composer-form" class="composer" action="#">
+    <label for="composer" class="sr-only">Message</label>
+    <textarea id="composer" name="message" rows="2">You can also refund to my UPI {{draft_upi}}</textarea>
+    <button type="submit" id="send">Send</button>
+  </form>
+</main>
+<script src="support.js"></script>
+</body>
+</html>
