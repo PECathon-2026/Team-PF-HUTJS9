@@ -1,0 +1,13 @@
+{
+  "schema": "approval_token.v1",
+  "token_id": "apt-0000000000000001",
+  "approval_id": "apr-0000000000000001",
+  "session_id": "ses-0000000000001a2b",
+  "action_sha256": "abababababababababababababababababababababababababababababababab",
+  "decision": "later",
+  "nonce": "fedcba9876543210fedcba9876543210",
+  "issued_ns": 1793318400000000000,
+  "expires_ns": 1793318460000000000,
+  "signer_key_id": "dashboard:0011223344556677",
+  "signature": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+}

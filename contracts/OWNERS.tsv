@@ -1,0 +1,32 @@
+# Schema producers (SHARED.md §5). Owner of this file: LNX.
+# Format: <schema-name glob><TAB><LNX|WIN>. The producer owns contracts/schemas/<name>.vN.json
+# and contracts/fixtures/<name>.vN/**. A schema not listed here is blocked by the hook.
+
+# --- LNX ---
+frame	LNX
+page_snapshot	LNX
+event	LNX
+decision_record	LNX
+vault_api	LNX
+gate_ai_request	LNX
+gate_ai_response	LNX
+egress_record	LNX
+browsing_policy	LNX
+liveness	LNX
+capability_report	LNX
+isolation_counters	LNX
+approval_token	LNX
+ui_stream	LNX
+taint_label	LNX
+attestation	LNX
+merkle_proof	LNX
+pipeline_timing	LNX
+
+# --- WIN ---
+detection	WIN
+sanitized_page	WIN
+agent_action	WIN
+approval_request	WIN
+policy	WIN
+eval_results	WIN
+xray_*	WIN

@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/capability_report.v1.json",
+  "title": "Capability report",
+  "description": "Output of the capability probe (spec \u00a72): each kernel protection is green (full enforcement) or amber (defined fallback active, with reason). red means a load-bearing protection is missing and the appliance refuses to start.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "capability_report.v1"
+    },
+    "report_id": {
+      "$ref": "#/$defs/id"
+    },
+    "generated_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "host": {
+      "type": "object",
+      "properties": {
+        "os": {
+          "enum": [
+            "linux",
+            "wsl2",
+            "macos"
+          ]
+        },
+        "kernel": {
+          "type": "string",
+          "maxLength": 64,
+          "pattern": "^[0-9A-Za-z._+-]{1,64}$"
+        },
+        "cpu_count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "mem_mb": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "required": [
+        "os",
+        "kernel",
+        "cpu_count",
+        "mem_mb"
+      ],
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      },
+      "minItems": 1,
+      "maxItems": 64
+    }
+  },
+  "required": [
+    "schema",
+    "report_id",
+    "generated_ns",
+    "host",
+    "checks"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "check": {
+      "type": "object",
+      "properties": {
+        "feature": {
+          "enum": [
+            "gvisor",
+            "gvisor_monitoring",
+            "ebpf",
+            "btf",
+            "memfd_secret",
+            "seccomp",
+            "landlock",
+            "apparmor",
+            "hugepages",
+            "cpu_topology",
+            "nvidia",
+            "mlock"
+          ]
+        },
+        "status": {
+          "enum": [
+            "green",
+            "amber",
+            "red"
+          ]
+        },
+        "fallback": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]{1,48}$",
+          "description": "Fallback in effect when not green."
+        },
+        "reason_code": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]{1,48}$"
+        }
+      },
+      "required": [
+        "feature",
+        "status"
+      ],
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

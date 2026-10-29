@@ -1,0 +1,19 @@
+{
+  "schema": "decision_record.v1",
+  "decision_id": "dec-0000000000000001",
+  "ts_ns": 1793318400000000000,
+  "component": "gate",
+  "session_id": "ses-0000000000001a2b",
+  "subject": "egress",
+  "subject_id": "req-0000000000000001",
+  "verdict": "block",
+  "rule_id": "G-012",
+  "evidence": [
+    {
+      "kind": "canary",
+      "field_type": "CARD",
+      "detail_code": "canary_card_hit"
+    }
+  ],
+  "score": 1
+}

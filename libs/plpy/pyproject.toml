@@ -1,0 +1,67 @@
+# plpy: Python twin of libs/plcommon (owner: LNX).
+# This uv project also carries the Python dev tooling for everything LNX owns
+# (hook tests, contract tools, compose policy tests); uv.lock is committed.
+[project]
+name = "plpy"
+version = "0.0.0"
+description = "PrivacyLens common Python library: framing, UDS, validation, scrubbed logging, taint lattice"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "jsonschema>=4.23",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "hypothesis>=6.120",
+  "mypy>=1.13",
+  "ruff>=0.8",
+  "types-jsonschema",
+  "pyyaml>=6.0",
+  "types-pyyaml",
+  "pl-contracts",
+]
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/plpy"]
+
+[tool.uv]
+package = true
+
+[tool.uv.sources]
+pl-contracts = { path = "../../contracts/lib/python", editable = true }
+
+[tool.ruff]
+line-length = 132
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "S", "SIM", "RUF", "PL"]
+ignore = ["S101", "S603", "S607", "PLR2004", "PLR0913", "PLR0911", "PLR0912", "PLR0915"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["plpy", "pl_contracts", "pl_hook"]
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/**" = ["S311"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
+[tool.pytest.ini_options]
+markers = [
+  "e2e: needs the running compose stack (make e2e)",
+  "gpu: needs more VRAM than this machine has",
+]
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+exclude_also = ["if __name__ == .__main__.:"]

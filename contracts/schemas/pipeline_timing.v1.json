@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/pipeline_timing.v1.json",
+  "title": "Pipeline timing",
+  "description": "Per-frame stage timings for the dashboard waterfall (spec \u00a712) and the p50/p99 budgets (SHARED \u00a77).",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "pipeline_timing.v1"
+    },
+    "frame_id": {
+      "$ref": "#/$defs/id"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "ts_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "stages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/stage"
+      },
+      "minItems": 1,
+      "maxItems": 32
+    },
+    "total_ns": {
+      "$ref": "#/$defs/dur_ns"
+    }
+  },
+  "required": [
+    "schema",
+    "frame_id",
+    "ts_ns",
+    "stages",
+    "total_ns"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "component": {
+      "enum": [
+        "core",
+        "vault",
+        "agent",
+        "gate",
+        "ledger",
+        "dashboard",
+        "monitor"
+      ]
+    },
+    "dur_ns": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "stage": {
+      "type": "object",
+      "properties": {
+        "stage": {
+          "enum": [
+            "capture",
+            "snapshot",
+            "detect",
+            "sanitize",
+            "vault",
+            "agent",
+            "gate",
+            "llm",
+            "validate",
+            "actuate",
+            "render"
+          ]
+        },
+        "start_ns": {
+          "$ref": "#/$defs/ts_ns"
+        },
+        "duration_ns": {
+          "$ref": "#/$defs/dur_ns"
+        },
+        "component": {
+          "$ref": "#/$defs/component"
+        }
+      },
+      "required": [
+        "stage",
+        "start_ns",
+        "duration_ns"
+      ],
+      "additionalProperties": false
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

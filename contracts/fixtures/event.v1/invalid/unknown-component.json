@@ -1,0 +1,13 @@
+{
+  "schema": "event.v1",
+  "event_id": "evt-0000000000000001",
+  "ts_ns": 1793318400000000000,
+  "component": "browser",
+  "session_id": "ses-0000000000001a2b",
+  "type": "detection.found",
+  "field_type": "CARD",
+  "placeholder": "[REDACTED:CARD#3]",
+  "element_id": "n42",
+  "score": 0.97,
+  "taint": "sensitive"
+}

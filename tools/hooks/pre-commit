@@ -1,0 +1,4 @@
+#!/bin/sh
+# PrivacyLens pre-commit hook (owner: LNX). Installed by `make hooks`.
+# Never bypass it (--no-verify is forbidden, SHARED.md §4).
+exec python3 "$(git rev-parse --show-toplevel)/tools/hooks/pl_hook.py" pre-commit

@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/approval_token.v1.json",
+  "title": "Signed approval token",
+  "description": "The dashboard's Ed25519-signed answer to an approval_request (spec \u00a79). core verifies signature, action hash, nonce (single use) and expiry before any irreversible action; no valid token before expiry means deny. The signature covers the canonical JSON of every other field.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "approval_token.v1"
+    },
+    "token_id": {
+      "$ref": "#/$defs/id"
+    },
+    "approval_id": {
+      "$ref": "#/$defs/id"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "action_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "decision": {
+      "enum": [
+        "approve",
+        "deny"
+      ]
+    },
+    "nonce": {
+      "$ref": "#/$defs/hex128"
+    },
+    "issued_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "expires_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "signer_key_id": {
+      "$ref": "#/$defs/key_id"
+    },
+    "signature": {
+      "$ref": "#/$defs/ed25519_sig"
+    }
+  },
+  "required": [
+    "schema",
+    "token_id",
+    "approval_id",
+    "session_id",
+    "action_sha256",
+    "decision",
+    "nonce",
+    "issued_ns",
+    "expires_ns",
+    "signer_key_id",
+    "signature"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ed25519_sig": {
+      "type": "string",
+      "maxLength": 88,
+      "pattern": "^[A-Za-z0-9+/]{86}==$",
+      "description": "Ed25519 signature, standard base64."
+    },
+    "hex128": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "key_id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,16}:[0-9a-f]{16}$",
+      "description": "<component>:<first 8 bytes of the public key, hex>."
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

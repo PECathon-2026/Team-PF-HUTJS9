@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/egress_record.v1.json",
+  "title": "Egress record",
+  "description": "What actually left (or tried to leave) through the gate, published to the ledger and shown as \"what the AI sees\" (spec \u00a712). For the AI lane it carries the exact outgoing payload, which by construction passed every check; for the browsing lane only metadata (host, bytes).",
+  "x-pl-zone": "sanitized",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "egress_record.v1"
+    },
+    "record_id": {
+      "$ref": "#/$defs/id"
+    },
+    "request_id": {
+      "$ref": "#/$defs/id"
+    },
+    "ts_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "lane": {
+      "enum": [
+        "ai",
+        "browsing"
+      ]
+    },
+    "verdict": {
+      "enum": [
+        "sent",
+        "blocked"
+      ]
+    },
+    "decision_id": {
+      "$ref": "#/$defs/id"
+    },
+    "destination": {
+      "type": "object",
+      "properties": {
+        "provider": {
+          "$ref": "#/$defs/provider"
+        },
+        "host": {
+          "$ref": "#/$defs/host"
+        },
+        "port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 65535
+        }
+      },
+      "required": [
+        "host",
+        "port"
+      ],
+      "additionalProperties": false
+    },
+    "payload_sha256": {
+      "$ref": "#/$defs/sha256"
+    },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "messages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/message"
+          },
+          "maxItems": 64
+        },
+        "image_count": {
+          "$ref": "#/$defs/count"
+        }
+      },
+      "required": [
+        "messages",
+        "image_count"
+      ],
+      "additionalProperties": false,
+      "description": "Exact outgoing messages (AI lane, verdict sent only)."
+    },
+    "bytes_out": {
+      "$ref": "#/$defs/count"
+    },
+    "bytes_in": {
+      "$ref": "#/$defs/count"
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/check"
+      },
+      "maxItems": 32
+    }
+  },
+  "required": [
+    "schema",
+    "record_id",
+    "ts_ns",
+    "lane",
+    "verdict",
+    "decision_id",
+    "destination",
+    "bytes_out",
+    "checks"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "check": {
+      "type": "object",
+      "properties": {
+        "check": {
+          "enum": [
+            "schema",
+            "taint",
+            "allow_list",
+            "liveness",
+            "recheck_text",
+            "recheck_ocr",
+            "decode",
+            "winnow",
+            "qgram",
+            "canary",
+            "local_only",
+            "kill_switch",
+            "domain"
+          ]
+        },
+        "result": {
+          "enum": [
+            "pass",
+            "fail",
+            "skipped"
+          ]
+        },
+        "rule_id": {
+          "$ref": "#/$defs/rule_id"
+        }
+      },
+      "required": [
+        "check",
+        "result"
+      ],
+      "additionalProperties": false
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "host": {
+      "type": "string",
+      "maxLength": 253,
+      "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "message": {
+      "type": "object",
+      "properties": {
+        "role": {
+          "enum": [
+            "system",
+            "user",
+            "assistant"
+          ]
+        },
+        "content": {
+          "type": "string",
+          "maxLength": 200000
+        }
+      },
+      "required": [
+        "role",
+        "content"
+      ],
+      "additionalProperties": false
+    },
+    "provider": {
+      "enum": [
+        "replay",
+        "ollama",
+        "anthropic"
+      ]
+    },
+    "rule_id": {
+      "type": "string",
+      "pattern": "^[A-Z]{1,4}-[0-9]{3,5}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

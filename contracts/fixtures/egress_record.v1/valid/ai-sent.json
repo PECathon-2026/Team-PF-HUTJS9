@@ -1,0 +1,41 @@
+{
+  "schema": "egress_record.v1",
+  "record_id": "egr-0000000000000001",
+  "request_id": "req-0000000000000001",
+  "ts_ns": 1793318400000000000,
+  "session_id": "ses-0000000000001a2b",
+  "lane": "ai",
+  "verdict": "sent",
+  "decision_id": "dec-0000000000000001",
+  "destination": {
+    "provider": "replay",
+    "host": "replay.local",
+    "port": 443
+  },
+  "payload_sha256": "abababababababababababababababababababababababababababababababab",
+  "payload": {
+    "messages": [
+      {
+        "role": "user",
+        "content": "Field n7 holds [REDACTED:PASSWORD#12]. Log in."
+      }
+    ],
+    "image_count": 0
+  },
+  "bytes_out": 2048,
+  "bytes_in": 512,
+  "checks": [
+    {
+      "check": "taint",
+      "result": "pass"
+    },
+    {
+      "check": "canary",
+      "result": "pass"
+    },
+    {
+      "check": "recheck_text",
+      "result": "pass"
+    }
+  ]
+}

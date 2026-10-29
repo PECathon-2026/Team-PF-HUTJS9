@@ -1,0 +1,25 @@
+{
+  "schema": "attestation.v1",
+  "attestation_id": "att-0000000000000001",
+  "algorithm": "sha256-chain-v1",
+  "created_ns": 1793318400000000000,
+  "components": [
+    {
+      "index": 1,
+      "kind": "image",
+      "name": "ghcr.io/pecathon-2026/team-pf-hutjs9/core@sha256:abababababababababababababababababababababababababababababababab",
+      "sha256": "abababababababababababababababababababababababababababababababab"
+    },
+    {
+      "index": 2,
+      "kind": "policy",
+      "name": "policy.yaml",
+      "sha256": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+    }
+  ],
+  "chain": [
+    "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "abababababababababababababababababababababababababababababababab"
+  ],
+  "final": "abababababababababababababababababababababababababababababababab"
+}

@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/liveness.v1.json",
+  "title": "Liveness ping/pong",
+  "description": "Watchdog traffic (spec \u00a72): the gate pings core, vault and agent; a missed pong for 2 s closes the AI lane.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "liveness.v1"
+    },
+    "component": {
+      "$ref": "#/$defs/component"
+    },
+    "kind": {
+      "enum": [
+        "ping",
+        "pong"
+      ]
+    },
+    "nonce": {
+      "$ref": "#/$defs/hex128"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sent_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "degraded",
+        "shutting_down"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "component",
+    "kind",
+    "nonce",
+    "seq",
+    "sent_ns"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "component": {
+      "enum": [
+        "core",
+        "vault",
+        "agent",
+        "gate",
+        "ledger",
+        "dashboard",
+        "monitor"
+      ]
+    },
+    "hex128": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$"
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/frame.v1.json",
+  "title": "IPC frame envelope",
+  "description": "The JSON envelope inside every length-prefixed IPC frame (AD-04). In Phase 1 the whole envelope travels inside a libsodium secretstream; seq is checked to reject replay and reordering. The payload is validated separately against payload_schema.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "frame.v1"
+    },
+    "channel": {
+      "type": "string",
+      "maxLength": 32,
+      "pattern": "^[a-z]+\\.[a-z]+$",
+      "description": "<sender>.<receiver>, e.g. core.vault"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "sent_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "payload_schema": {
+      "$ref": "#/$defs/schema_id"
+    },
+    "payload": {
+      "type": "object",
+      "description": "A message valid against payload_schema."
+    }
+  },
+  "required": [
+    "schema",
+    "channel",
+    "seq",
+    "sent_ns",
+    "payload_schema",
+    "payload"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "schema_id": {
+      "type": "string",
+      "maxLength": 64,
+      "pattern": "^[a-z][a-z0-9_]*\\.v[1-9][0-9]*$"
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

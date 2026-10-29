@@ -1,0 +1,89 @@
+# Path ownership for the PrivacyLens repo (SHARED.md §3). Owner: LNX.
+#
+# Format: <glob><TAB><owner>. Owners: USER, LNX, WIN, PRODUCER.
+# FIRST MATCH WINS, so specific globs go above broader ones.
+# Globs: `**` matches across directories, `*` and `?` stay inside one path segment.
+# PRODUCER resolves through contracts/OWNERS.tsv by schema name.
+# A path that matches no line is blocked: new top-level folders need a line here.
+
+# --- USER (never edited by either machine) ---
+CLAUDE.md	USER
+docs/prompts/**	USER
+docs/PrivacyLens_Features.md	USER
+docs/SETUP.md	USER
+.claude/settings.json	USER
+
+# --- root build glue ---
+.gitattributes	LNX
+.gitignore	LNX
+.editorconfig	LNX
+Makefile	LNX
+CMakeLists.txt	LNX
+CMakePresets.json	LNX
+mk/lnx.mk	LNX
+mk/win.mk	WIN
+
+# --- tools ---
+tools/ownership.tsv	LNX
+tools/hooks/**	LNX
+tools/lnx/**	LNX
+tools/win/**	WIN
+
+# --- CI ---
+.github/workflows/lnx-*.yml	LNX
+.github/workflows/ownership.yml	LNX
+.github/workflows/release.yml	LNX
+.github/workflows/win-*.yml	WIN
+
+# --- platform ---
+platform/**	LNX
+
+# --- contracts ---
+contracts/README.md	LNX
+contracts/OWNERS.tsv	LNX
+contracts/lib/**	LNX
+contracts/schemas/*.json	PRODUCER
+contracts/fixtures/**	PRODUCER
+
+# --- libraries ---
+libs/plcommon/**	LNX
+libs/plpy/**	LNX
+
+# --- daemons (WIN's three core folders before the broader core glob) ---
+daemons/core/detect/**	WIN
+daemons/core/sanitize/**	WIN
+daemons/core/fourier/**	WIN
+daemons/core/**	LNX
+daemons/vault/**	LNX
+daemons/gate/**	LNX
+daemons/ledger/**	LNX
+daemons/agent/**	WIN
+
+# --- dashboard, ML, evaluation, scenarios ---
+dashboard/**	LNX
+ml/**	WIN
+eval/**	WIN
+scenarios/**	WIN
+
+# --- end-to-end tests ---
+tests/e2e/platform/**	LNX
+tests/e2e/scenarios/**	WIN
+
+# --- docs ---
+README.md	LNX
+docs/readme-parts/lnx.md	LNX
+docs/readme-parts/win.md	WIN
+docs/architecture/lnx.md	LNX
+docs/architecture/win.md	WIN
+docs/status/lnx.md	LNX
+docs/status/win.md	WIN
+docs/limits/skipped-lnx.md	LNX
+docs/limits/skipped-win.md	WIN
+docs/requests/to-win.md	LNX
+docs/requests/done-by-lnx.md	LNX
+docs/requests/to-user-lnx.md	LNX
+docs/requests/to-lnx.md	WIN
+docs/requests/done-by-win.md	WIN
+docs/requests/to-user-win.md	WIN
+docs/adr/*-lnx-*.md	LNX
+docs/adr/*-win-*.md	WIN

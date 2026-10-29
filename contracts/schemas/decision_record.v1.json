@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/decision_record.v1.json",
+  "title": "Decision record",
+  "description": "Every security decision in one format (spec \u00a711): decision ID, component, verdict, rule ID, evidence, score. Evidence is types, placeholders, element IDs and codes only (explanation safety rule).",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "decision_record.v1"
+    },
+    "decision_id": {
+      "$ref": "#/$defs/id"
+    },
+    "ts_ns": {
+      "$ref": "#/$defs/ts_ns"
+    },
+    "component": {
+      "$ref": "#/$defs/component"
+    },
+    "session_id": {
+      "$ref": "#/$defs/id"
+    },
+    "subject": {
+      "enum": [
+        "egress",
+        "browsing",
+        "action",
+        "detection",
+        "approval",
+        "policy",
+        "isolation",
+        "liveness",
+        "ingest",
+        "attestation"
+      ]
+    },
+    "subject_id": {
+      "$ref": "#/$defs/id"
+    },
+    "verdict": {
+      "enum": [
+        "allow",
+        "block",
+        "redact",
+        "require_approval",
+        "error"
+      ]
+    },
+    "rule_id": {
+      "$ref": "#/$defs/rule_id"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      },
+      "maxItems": 64
+    },
+    "score": {
+      "$ref": "#/$defs/score"
+    }
+  },
+  "required": [
+    "schema",
+    "decision_id",
+    "ts_ns",
+    "component",
+    "subject",
+    "verdict",
+    "rule_id",
+    "evidence"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "category": {
+      "enum": [
+        "CARD",
+        "AADHAAR",
+        "PAN",
+        "API_KEY",
+        "OTP",
+        "PASSWORD",
+        "EMAIL",
+        "PHONE",
+        "IP_ADDRESS",
+        "PIN_CODE",
+        "BANK_ACCOUNT",
+        "IFSC",
+        "UPI_ID",
+        "PASSPORT",
+        "DOB",
+        "NAME",
+        "ADDRESS",
+        "FACE",
+        "SECRET",
+        "QUASI_ID"
+      ]
+    },
+    "component": {
+      "enum": [
+        "core",
+        "vault",
+        "agent",
+        "gate",
+        "ledger",
+        "dashboard",
+        "monitor"
+      ]
+    },
+    "element_id": {
+      "type": "string",
+      "pattern": "^n[0-9]{1,9}$",
+      "description": "Capture-model node id, never page text."
+    },
+    "evidence": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "enum": [
+            "pattern",
+            "checksum",
+            "structural",
+            "model",
+            "ocr",
+            "canary",
+            "taint",
+            "format",
+            "liveness",
+            "policy",
+            "winnow",
+            "qgram",
+            "signature",
+            "isolation",
+            "risk",
+            "rate_limit"
+          ]
+        },
+        "field_type": {
+          "$ref": "#/$defs/category"
+        },
+        "placeholder": {
+          "$ref": "#/$defs/placeholder"
+        },
+        "element_id": {
+          "$ref": "#/$defs/element_id"
+        },
+        "detail_code": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]{1,48}$"
+        },
+        "score": {
+          "$ref": "#/$defs/score"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "additionalProperties": false
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    },
+    "placeholder": {
+      "type": "string",
+      "pattern": "^\\[REDACTED:[A-Z][A-Z0-9_]{1,23}#[0-9]{1,6}\\]$"
+    },
+    "rule_id": {
+      "type": "string",
+      "pattern": "^[A-Z]{1,4}-[0-9]{3,5}$"
+    },
+    "score": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "ts_ns": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Unix time in nanoseconds."
+    }
+  }
+}

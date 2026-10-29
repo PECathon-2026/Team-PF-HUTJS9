@@ -1,0 +1,21 @@
+{
+  "schema": "egress_record.v1",
+  "record_id": "egr-0000000000000002",
+  "ts_ns": 1793318400000000000,
+  "session_id": "ses-0000000000001a2b",
+  "lane": "browsing",
+  "verdict": "blocked",
+  "decision_id": "dec-0000000000000002",
+  "destination": {
+    "host": "tracker.invalid",
+    "port": 443
+  },
+  "bytes_out": 0,
+  "checks": [
+    {
+      "check": "domain",
+      "result": "fail",
+      "rule_id": "B-001"
+    }
+  ]
+}

@@ -1,0 +1,152 @@
+{
+ "comment": "Shared scrubber vectors for plcommon (C++) and plpy (Python). Synthetic values only: public test card numbers, a generated Verhoeff-valid number, fake tokens. An input given as a list is the concatenation of its parts (keeps secret-shaped literals out of git).",
+ "vectors": [
+  {
+   "name": "plain text stays",
+   "input": "user clicked submit on form 3",
+   "expected": "user clicked submit on form 3"
+  },
+  {
+   "name": "short numbers stay",
+   "input": "order 1234567 at 10:42",
+   "expected": "order 1234567 at 10:42"
+  },
+  {
+   "name": "visa test card",
+   "input": "card 4111111111111111 ok",
+   "expected": "card [CARD] ok"
+  },
+  {
+   "name": "card with spaces",
+   "input": "pay 4111 1111 1111 1111.",
+   "expected": "pay [CARD]."
+  },
+  {
+   "name": "card with dashes",
+   "input": "5555-5555-5555-4444",
+   "expected": "[CARD]"
+  },
+  {
+   "name": "amex test card",
+   "input": "amex 378282246310005",
+   "expected": "amex [CARD]"
+  },
+  {
+   "name": "luhn-invalid 16 digits",
+   "input": "ref 4111111111111112",
+   "expected": "ref [NUMBER]"
+  },
+  {
+   "name": "aadhaar",
+   "input": "id 2345 6789 0124",
+   "expected": "id [AADHAAR]"
+  },
+  {
+   "name": "aadhaar-like failing verhoeff",
+   "input": "id 234567890125",
+   "expected": "id [NUMBER]"
+  },
+  {
+   "name": "aadhaar starting with 1 is a number",
+   "input": "100000000001",
+   "expected": "[NUMBER]"
+  },
+  {
+   "name": "email",
+   "input": "mail jane.doe+test@example.com, thanks",
+   "expected": "mail [EMAIL], thanks"
+  },
+  {
+   "name": "email trailing dot",
+   "input": "to a@b.example.",
+   "expected": "to [EMAIL]."
+  },
+  {
+   "name": "not an email",
+   "input": "a@b, x@y.z",
+   "expected": "a@b, x@y.z"
+  },
+  {
+   "name": "pan",
+   "input": "pan ABCDE1234F here",
+   "expected": "pan [PAN] here"
+  },
+  {
+   "name": "pan glued to letters stays",
+   "input": "XABCDE1234F",
+   "expected": "XABCDE1234F"
+  },
+  {
+   "name": "anthropic-style key",
+   "input": [
+    "key=sk-ant-",
+    "QQQQQQQQQQQQQQQQQQQQQQQQ"
+   ],
+   "expected": "key=[KEY]"
+  },
+  {
+   "name": "github token",
+   "input": [
+    "ghp_",
+    "A1b2C3d4E5A1b2C3d4E5A1b2C3d4E5A1b2C3d4E5"
+   ],
+   "expected": "[KEY]"
+  },
+  {
+   "name": "aws key",
+   "input": [
+    "AKIA",
+    "QWERTYUIOP123456"
+   ],
+   "expected": "[KEY]"
+  },
+  {
+   "name": "short prefix stays",
+   "input": "sk-learn and hf_x",
+   "expected": "sk-learn and hf_x"
+  },
+  {
+   "name": "jwt",
+   "input": [
+    "Bearer eyJ",
+    "hbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0In0.c2lnbmF0dXJl"
+   ],
+   "expected": "Bearer [JWT]"
+  },
+  {
+   "name": "eyJ without dots stays",
+   "input": "eyJhbGciOiJIUzI1NiJ9 only",
+   "expected": "eyJhbGciOiJIUzI1NiJ9 only"
+  },
+  {
+   "name": "unicode passthrough",
+   "input": "naïve café 東京 4111111111111111",
+   "expected": "naïve café 東京 [CARD]"
+  },
+  {
+   "name": "eight digit number",
+   "input": "otp 12345678",
+   "expected": "otp [NUMBER]"
+  },
+  {
+   "name": "seven digit number stays",
+   "input": "otp 1234567",
+   "expected": "otp 1234567"
+  },
+  {
+   "name": "phone",
+   "input": "+91 98765 43210",
+   "expected": "+[NUMBER]"
+  },
+  {
+   "name": "empty",
+   "input": "",
+   "expected": ""
+  },
+  {
+   "name": "separator not doubled",
+   "input": "4111  1111 1111 1111",
+   "expected": "4111  [NUMBER]"
+  }
+ ]
+}

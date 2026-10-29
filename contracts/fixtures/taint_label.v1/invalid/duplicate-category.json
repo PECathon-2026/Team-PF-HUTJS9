@@ -1,0 +1,8 @@
+{
+  "schema": "taint_label.v1",
+  "level": "secret",
+  "categories": [
+    "OTP",
+    "OTP"
+  ]
+}

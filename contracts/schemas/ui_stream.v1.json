@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/ui_stream.v1.json",
+  "title": "UI relay stream frame",
+  "description": "End-to-end encrypted dashboard stream frame as the gate's UI relay sees it (AD-05): routing metadata plus ciphertext the relay cannot decrypt.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "ui_stream.v1"
+    },
+    "stream_id": {
+      "$ref": "#/$defs/id"
+    },
+    "seq": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "direction": {
+      "enum": [
+        "to_dashboard",
+        "to_appliance"
+      ]
+    },
+    "endpoint": {
+      "enum": [
+        "core",
+        "ledger"
+      ]
+    },
+    "kind": {
+      "enum": [
+        "handshake",
+        "data",
+        "close"
+      ]
+    },
+    "ciphertext_b64": {
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 22369624,
+      "x-pl-opaque": "base64",
+      "description": "Opaque ciphertext; base64 checked in code (no pattern: std::regex recursion on long strings)."
+    }
+  },
+  "required": [
+    "schema",
+    "stream_id",
+    "seq",
+    "direction",
+    "endpoint",
+    "kind",
+    "ciphertext_b64"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]{2,8}-[0-9a-f]{16}$",
+      "description": "Monotonic ID: <prefix>-<16 hex> (plcommon ids)."
+    }
+  }
+}

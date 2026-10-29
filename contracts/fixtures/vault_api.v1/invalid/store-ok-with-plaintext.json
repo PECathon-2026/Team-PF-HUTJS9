@@ -1,0 +1,7 @@
+{
+  "schema": "vault_api.v1",
+  "op": "store.ok",
+  "request_id": "vr-0000000000000001",
+  "handle": "vh-0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f0f",
+  "plaintext": "x"
+}

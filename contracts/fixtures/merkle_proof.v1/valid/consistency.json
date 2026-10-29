@@ -1,0 +1,17 @@
+{
+  "schema": "merkle_proof.v1",
+  "proof_type": "consistency",
+  "tree_size": 8,
+  "first_size": 5,
+  "hashes": [
+    "abababababababababababababababababababababababababababababababab",
+    "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd"
+  ],
+  "sth": {
+    "tree_size": 8,
+    "root": "cdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcdcd",
+    "ts_ns": 1793318400000000000,
+    "key_id": "ledger:8899aabbccddeeff",
+    "signature": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "capability_report.v1",
+  "report_id": "cap-0000000000000001",
+  "generated_ns": 1793318400000000000,
+  "host": {
+    "os": "linux",
+    "kernel": "7.0.0-42-generic",
+    "cpu_count": 16,
+    "mem_mb": 7400
+  },
+  "checks": [
+    {
+      "feature": "gvisor",
+      "status": "green"
+    },
+    {
+      "feature": "memfd_secret",
+      "status": "amber",
+      "fallback": "mlock_madv_dontdump",
+      "reason_code": "syscall_enosys"
+    }
+  ]
+}
