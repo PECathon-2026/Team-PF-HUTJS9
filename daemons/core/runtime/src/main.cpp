@@ -13,6 +13,7 @@
 #include <mutex>
 #include <sstream>
 #include <thread>
+#include <utility>
 
 #include "pl/channel.hpp"
 #include "pl/contracts.hpp"
@@ -33,7 +34,7 @@ void on_signal(int /*sig*/) { g_stop = true; }
 
 std::string env_or(const char* name, std::string def) {
   const char* v = std::getenv(name);
-  return v != nullptr && *v != '\0' ? std::string(v) : def;
+  return v != nullptr && *v != '\0' ? std::string(v) : std::move(def);
 }
 
 pl::Logger& logger() {
@@ -119,14 +120,14 @@ class Core {
     const auto op = cmd.value("op", "");
     if (op == "open") {
       const auto sid = cmd.value("session_id", "");
-      if (sid.size() != 19 || sid.rfind("ss-", 0) != 0) {
+      if (sid.size() != 19 || !sid.starts_with("ss-")) {
         return reply("rejected", "C-101");
       }
       end_session();
       session_ = std::make_unique<Session>();
       session_->id = sid;
       session_->num = std::stoull(sid.substr(3), nullptr, 16);
-      pl::core::ActionVerdict nav;
+      pl::core::ActionVerdict const nav;
       if (!navigate(cmd.value("url", ""))) {
         return reply("rejected", "C-107");
       }
@@ -170,8 +171,8 @@ class Core {
   }
 
   bool navigate(const std::string& url) {
-    nlohmann::json nav = {{"kind", "navigate"}, {"url", url}};
-    pl::core::CaptureModel empty;
+    nlohmann::json const nav = {{"kind", "navigate"}, {"url", url}};
+    pl::core::CaptureModel const empty;
     if (!pl::core::validate_action(nav, empty, {}, allowed_).ok) {
       return false;
     }
@@ -295,7 +296,7 @@ class Core {
       // Binding is rebuilt with the CURRENT site: a value stored on one site can't be typed into another.
       auto binding = v.vault->binding;
       binding["site"] = session_->page->host();
-      nlohmann::json req = {{"schema", "vault_api.v1"}, {"op", "decrypt"}, {"request_id", pl::format_id("rq", ids_.next())},
+      nlohmann::json const req = {{"schema", "vault_api.v1"}, {"op", "decrypt"}, {"request_id", pl::format_id("rq", ids_.next())},
                             {"handle", v.vault->handle}, {"binding", binding}};
       auto& ch = vault();
       ch.send_json(req, nullptr);

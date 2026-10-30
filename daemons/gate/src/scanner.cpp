@@ -3,6 +3,7 @@
 
 #include <array>
 #include <cctype>
+#include <ranges>
 
 namespace pl::gate {
 namespace {
@@ -92,8 +93,8 @@ std::string_view Finding::rule_id() const noexcept {
 bool luhn_ok(std::string_view digits) noexcept {
   int sum = 0;
   bool dbl = false;
-  for (auto it = digits.rbegin(); it != digits.rend(); ++it) {
-    int d = *it - '0';
+  for (char digit : std::ranges::reverse_view(digits)) {
+    int d = digit - '0';
     if (dbl) {
       d *= 2;
       if (d > 9) {

@@ -72,7 +72,7 @@ std::optional<std::string> ReplayProvider::complete(const nlohmann::json& reques
 }
 
 std::optional<std::string> OllamaProvider::complete(const nlohmann::json& request) {
-  nlohmann::json body = {{"model", request.at("model")}, {"messages", request.at("messages")}, {"stream", false},
+  nlohmann::json const body = {{"model", request.at("model")}, {"messages", request.at("messages")}, {"stream", false},
                          {"options", {{"temperature", request.value("temperature", 0.0)}, {"seed", 7}}}};
   auto resp = http_post_json(host_, port_, "/api/chat", body.dump(), std::chrono::seconds{120});
   if (!resp || resp->status != 200) {

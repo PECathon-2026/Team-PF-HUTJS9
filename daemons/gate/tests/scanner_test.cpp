@@ -14,7 +14,7 @@ using pl::gate::scan;
 std::string make_canary(const std::string& body) {
   static const std::string kAlpha = "0123456789ABCDEFGHJKMNPQRSTVWXYZ";
   int v = 0;
-  for (char c : body) {
+  for (char const c : body) {
     v = (v * 32 + static_cast<int>(kAlpha.find(c))) % 97;
   }
   std::string chk = std::to_string(v);

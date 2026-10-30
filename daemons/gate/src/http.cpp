@@ -152,11 +152,11 @@ void splice_bidirectional(int a, int b) {
 
 std::optional<HttpResponse> http_post_json(const std::string& host, int port, const std::string& path,
                                            const std::string& body, std::chrono::milliseconds timeout) {
-  Fd s = tcp_connect(host, port, timeout);
+  Fd const s = tcp_connect(host, port, timeout);
   if (!s.valid()) {
     return std::nullopt;
   }
-  std::string req = "POST " + path + " HTTP/1.1\r\nHost: " + host + "\r\nContent-Type: application/json\r\n" +
+  std::string const req = "POST " + path + " HTTP/1.1\r\nHost: " + host + "\r\nContent-Type: application/json\r\n" +
                     "Content-Length: " + std::to_string(body.size()) + "\r\nConnection: close\r\n\r\n" + body;
   if (!write_all(s.get(), req)) {
     return std::nullopt;
@@ -177,7 +177,7 @@ std::optional<HttpResponse> http_post_json(const std::string& host, int port, co
     }
   }
   const auto he = resp.find("\r\n\r\n");
-  if (resp.rfind("HTTP/1.", 0) != 0 || he == std::string::npos || resp.size() < 12) {
+  if (!resp.starts_with("HTTP/1.") || he == std::string::npos || resp.size() < 12) {
     return std::nullopt;
   }
   HttpResponse out;

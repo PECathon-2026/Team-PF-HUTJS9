@@ -4,24 +4,30 @@ T0 = 2026-10-30T00:45:19+00:00
 
 Machine: Linux Mint laptop (8 GB RAM, 4 GB VRAM). Owner of this file: LNX.
 
-## Sprint 1 (stopped at 01:06 UTC: account usage limit, on WIN-A's instruction)
+## Sprint 1 (second stop at 01:33 UTC: account usage limit, on WIN-A's instruction)
 
 ### Merged to main
-- [x] PR #2 `5547bf8`: ownership change (ledger, dashboard, docs/status/win-b.md, EVALUATION/RESULTS/DEMO -> WIN). CI green. **WIN-B is unblocked.**
+- [x] PR #2 `5547bf8`: ownership change. WIN-B unblocked.
 
-### Open PR (not merged yet)
-- PR #3 `lnx/p0-compose-iface` (Phase 0 steps 9-12), rebased onto main after #2. Local `make ci-lnx` green (before the rebase); after the rebase `make test-py-lnx` passed 132 and `pl_hook.py ci` passed. CI was running when I stopped (it builds dev image b968bf43f5f2a1a9 in-job). Fuzz 10-min runs skipped (user decision).
-  - Next: `gh pr checks 3 --watch` -> `gh pr merge 3 --squash --delete-branch` -> `git fetch origin && git tag p0-lnx-done origin/main && git push origin p0-lnx-done`.
+### PR #3 `lnx/p0-compose-iface` (Phase 0 steps 9-12): NOT merged yet
+- First CI run failed `make lint-cpp-lnx`: clang-tidy checked `contracts/lib/cpp/fuzz/fuzz_registry.cpp` with guessed flags (it isn't in the clang-debug compile database), so `PL_CONTRACTS_DIR` was missing.
+- Fixed in `02b2bdc` (`tools/lnx/clang-tidy.sh`): every file is checked against the compile database that builds it: clang-debug for libraries and tests, and for fuzz targets the fuzz preset configured into `build/fuzz-tidy` (`-DCMAKE_CXX_SCAN_FOR_MODULES=OFF`, not built). Files in neither database are skipped with a message. Also falls back to `find` when git can't run inside the container (worktrees mount without the parent `.git`; before this, lint said "nothing to run yet" locally in a worktree). Local `make lint-cpp-lnx`: rc 0, 23 files (fuzz targets included).
+- CI at 01:33: dev-image pass, fuzz-smoke pass, `ci` still running.
+- Next: `cd ~/pl-lnx-own && gh pr checks 3 --watch` -> if all green `gh pr merge 3 --squash --delete-branch` -> `git fetch origin && git tag p0-lnx-done origin/main && git push origin p0-lnx-done` -> `git worktree remove ~/pl-lnx-own`.
 
-### Branch `lnx/s1-platform` (pushed, stacked on lnx/p0-compose-iface, no PR)
+### Branch `lnx/s1-platform` (pushed, now stacked on `02b2bdc`, no PR)
 After PR #3 merges: `git rebase --onto origin/main lnx/p0-compose-iface lnx/s1-platform`.
-- [x] `libs/plcommon` SecureChannel (`channel.hpp/.cpp`): crypto_kx + secretstream over FramedSocket; ephemeral keys, peer by SO_PEERCRED (no pinned component keys yet). 3 tests (round trip, tamper, replay) pass.
-- [x] `daemons/vault`: lib + `pl-vault` daemon. memfd_secret key (fallback mmap+mlock+MADV_DONTDUMP), per-session BLAKE2b subkey, XChaCha20-Poly1305 with AD = canonical binding, wipe, shred, vault_api.v1 handler; PR_SET_DUMPABLE 0, RLIMIT_CORE 0. 8 tests pass (debug build).
-- [x] `daemons/gate`: lib + `pl-gate` daemon. AI lane checks in order: schema, kill switch, watchdog (liveness.v1 pongs, 2 s), taint == public, allow-list, local_only, independent re-check (Luhn, Verhoeff, PAN, key prefixes, PEM), canary (PLCANARY self-check mod 97 + listed canaries from `canaries[]` in truth JSON), images blocked (no gate OCR yet). Egress_record with the exact payload. Replay provider (WIN's pl.replay.v1 cassettes, model = cassette name), ollama provider. Browsing lane (CONNECT + absolute-form HTTP, domain allow-list). UI port 8787: dashboard/dist static, /api/egress, /api/status, /api/stream (SSE: egress + relay of /run/pl/ledger-stream.sock), POST /api/kill. 14 tests pass (debug build). Fuzz target `fuzz_gate_decoder` written, not run yet.
-- [ ] **In progress, not built yet:** `daemons/core/runtime/` (cdp.cpp: Chrome over --remote-debugging-pipe fds 3/4; capture.cpp: DOMSnapshot -> capture model; actuator.cpp: action validation C-101..C-109; main.cpp: /run/pl/core.sock agent protocol open/observe/act/end, vault hand-off, loopback forwarder 127.0.0.1:3128 -> gate-web.sock, heartbeats). Root CMakeLists now adds daemons/gate before daemons/core and daemons/core/runtime at the end.
-  - Next: `DEV=... cmake --build --preset debug` in the dev image and fix compile errors; write `daemons/core/runtime/tests/capture_test.cpp` (and add it back in that CMakeLists); run clang-tidy (`make lint-cpp-lnx`) and ASan on vault/gate/core.
-  - The vault daemon does not send heartbeats yet (gate requires core,vault live by default: `PL_GATE_REQUIRE_LIVE`).
-- [ ] Not started: core image with Chrome for Testing headless shell 131.0.6778.85 (`chrome-headless-shell-linux64.zip`, sha256 `a39e418d96afbc982cfd36432c775b9cbc2ae9a34703db6b0310326cb366057c`), vault/gate images, compose wiring (runsc for core, `--host-uds` question), `make llm-pull`, `make e2e` harness + isolation test + leak scan, to-win.md note on the core.sock protocol and ledger socket names.
+- [x] plcommon SecureChannel, vault lib + daemon, gate lib + daemon (see commit messages; 87 C++ tests pass in `make test-cpp-lnx`).
+- [x] `daemons/core/runtime/` (cdp.cpp, capture.cpp, actuator.cpp, main.cpp) **now compiles** (debug preset), `pl-core` links. `make test-cpp-lnx`: 87/87 pass.
+- [ ] **In progress: clang-tidy.** Auto-fixes applied (`clang-tidy --fix`, committed as WIP). 26 findings left, all need hand fixes:
+  - `g_stop` globals + `concurrency-mt-unsafe` (getenv/strerror) in core/gate/vault `main.cpp` (use NOLINT with a reason, or a function-local static)
+  - empty catch blocks in core `main.cpp` (81, 370), gate `main.cpp` (99, 143, 162, 286), vault `main.cpp` (39): log a scrubbed event
+  - implicit widening in gate `http.cpp:175`, gate `main.cpp:184,313`; nested ternary gate `main.cpp:257`; `bugprone-exception-escape` gate `main()`; `return-braced-init-list` gate `main.cpp:75`
+  - `scanner.hpp:15` uninitialized `kind`; `scanner.cpp:38` + `scanner_test.cpp:28` any_of; `scanner.cpp:96` const; vault `vault.cpp:102` const_cast
+  - Next: fix those, `make lint-cpp-lnx` (rc 0), `make test-cpp-lnx`, then ASan (`make test-asan-lnx`), then write `daemons/core/runtime/tests/capture_test.cpp`.
+- [ ] Vault doesn't send heartbeats yet (gate requires core,vault live: `PL_GATE_REQUIRE_LIVE`).
+- [ ] Actuator: confirm it refuses `text` fills on fields the detector marked sensitive (user decision a), with a test.
+- [ ] Not started: core image (Chrome headless shell 131.0.6778.85, sha256 `a39e418d96afbc982cfd36432c775b9cbc2ae9a34703db6b0310326cb366057c`), vault/gate images, compose wiring (runsc for core, runc fallback + amber note), `make llm-pull`, `make e2e` (isolation, scenarios on replay, leak scan), to-win.md note (sockets: core.sock, gate-ai.sock, gate-live.sock; ledger.sock / ledger-stream.sock match WIN-B's ledgerd defaults), WB-001 (gate already has /api/stream SSE + POST /api/kill; POST /api/approval missing).
 
 ## Phase 0: Bootstrap (in progress, paused 2026-10-30 for a machine hand-over)
 

@@ -17,6 +17,7 @@
 #include <fstream>
 #include <sstream>
 #include <thread>
+#include <utility>
 
 #include "pl/contracts.hpp"
 #include "pl/gate/ai_lane.hpp"
@@ -34,7 +35,7 @@ void on_signal(int /*sig*/) { g_stop = true; }
 
 std::string env_or(const char* name, std::string def) {
   const char* v = std::getenv(name);
-  return v != nullptr && *v != '\0' ? std::string(v) : def;
+  return v != nullptr && *v != '\0' ? std::string(v) : std::move(def);
 }
 
 std::vector<std::string> split_csv(const std::string& s) {
@@ -185,11 +186,11 @@ void serve_web(pl::Fd fd, Gate& g) {
     return;
   }
   std::optional<std::pair<std::string, int>> hp;
-  bool connect = req->method == "CONNECT";
+  bool const connect = req->method == "CONNECT";
   std::string forward;
   if (connect) {
     hp = pl::gate::split_host_port(req->target, 443);
-  } else if (req->target.rfind("http://", 0) == 0) {
+  } else if (req->target.starts_with("http://")) {
     const auto rest = std::string_view(req->target).substr(7);
     const auto slash = rest.find('/');
     hp = pl::gate::split_host_port(rest.substr(0, slash), 80);
@@ -201,7 +202,7 @@ void serve_web(pl::Fd fd, Gate& g) {
     while (std::getline(hs, line) && line != "\r") {
       std::string lower = line;
       std::transform(lower.begin(), lower.end(), lower.begin(), [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
-      if (lower.rfind("proxy-", 0) == 0 || lower.rfind("connection:", 0) == 0 || lower.rfind("keep-alive", 0) == 0) {
+      if (lower.starts_with("proxy-") || lower.starts_with("connection:") || lower.starts_with("keep-alive")) {
         continue;
       }
       head += line + "\n";
@@ -235,19 +236,26 @@ void serve_web(pl::Fd fd, Gate& g) {
 
 std::string content_type(const fs::path& p) {
   const auto e = p.extension().string();
-  if (e == ".html") return "text/html; charset=utf-8";
-  if (e == ".js") return "text/javascript";
-  if (e == ".css") return "text/css";
-  if (e == ".svg") return "image/svg+xml";
-  if (e == ".png") return "image/png";
-  if (e == ".json") return "application/json";
-  if (e == ".woff2") return "font/woff2";
+  if (e == ".html") { return "text/html; charset=utf-8";
+}
+  if (e == ".js") { return "text/javascript";
+}
+  if (e == ".css") { return "text/css";
+}
+  if (e == ".svg") { return "image/svg+xml";
+}
+  if (e == ".png") { return "image/png";
+}
+  if (e == ".json") { return "application/json";
+}
+  if (e == ".woff2") { return "font/woff2";
+}
   return "application/octet-stream";
 }
 
 void respond(int fd, int status, std::string_view type, std::string_view body) {
   const char* reason = status == 200 ? "OK" : status == 404 ? "Not Found" : status == 403 ? "Forbidden" : "Bad Request";
-  std::string head = "HTTP/1.1 " + std::to_string(status) + " " + reason + "\r\nContent-Type: " + std::string(type) +
+  std::string const head = "HTTP/1.1 " + std::to_string(status) + " " + reason + "\r\nContent-Type: " + std::string(type) +
                      "\r\nContent-Length: " + std::to_string(body.size()) +
                      "\r\nCache-Control: no-store\r\nX-Content-Type-Options: nosniff\r\nConnection: close\r\n\r\n";
   (void)pl::gate::write_all(fd, head);
@@ -308,7 +316,7 @@ void serve_ui(pl::Fd fd, Gate& g) {
   }
   // Only same-origin requests from the local dashboard may change state.
   const auto host = req->headers.contains("host") ? req->headers["host"] : "";
-  if (host != "127.0.0.1:8787" && host != "localhost:8787" && host.rfind("gate:", 0) != 0) {
+  if (host != "127.0.0.1:8787" && host != "localhost:8787" && !host.starts_with("gate:")) {
     respond(fd.get(), 403, "text/plain", "forbidden host");
     return;
   }
@@ -316,7 +324,7 @@ void serve_ui(pl::Fd fd, Gate& g) {
   if (req->method == "POST" && path == "/api/kill") {
     g.lane->kill();
     logger().warn("gate.kill_switch", {});
-    nlohmann::json ev = {{"schema", "event.v1"}, {"event_id", pl::format_id("ev", g.ids.next())},
+    nlohmann::json const ev = {{"schema", "event.v1"}, {"event_id", pl::format_id("ev", g.ids.next())},
                          {"ts_ns", pl::realtime_ns()}, {"component", "gate"}, {"type", "gate.kill_switch"}};
     EgressHub::forward_to_ledger(ev);
     respond(fd.get(), 200, "application/json", R"({"killed":true})");
@@ -347,7 +355,7 @@ void serve_ui(pl::Fd fd, Gate& g) {
   const fs::path root = fs::weakly_canonical(g.dashboard_dir);
   fs::path file = fs::weakly_canonical(root / (path == "/" ? "index.html" : path.substr(1)));
   const auto rel = file.lexically_relative(root);
-  if (rel.empty() || rel.native().rfind("..", 0) == 0) {
+  if (rel.empty() || rel.native().starts_with("..")) {
     respond(fd.get(), 404, "text/plain", "not found");
     return;
   }

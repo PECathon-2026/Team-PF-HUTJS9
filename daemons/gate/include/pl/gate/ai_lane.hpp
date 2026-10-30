@@ -117,7 +117,7 @@ class AiLane {
   std::mutex mu_;
   CanaryRegistry canaries_;
   std::atomic<bool> killed_{false};
-  MonotonicIds ids_{};
+  MonotonicIds ids_;
 };
 
 // Canonical sha256 hex of the outgoing messages (as recorded in egress_record).

@@ -39,7 +39,7 @@ struct Fixture : ::testing::Test {
     live.beat("core", pl::realtime_ns());
     live.beat("vault", pl::realtime_ns());
   }
-  void expect_valid(const pl::gate::LaneResult& r) {
+  static void expect_valid(const pl::gate::LaneResult& r) {
     EXPECT_TRUE(reg().validate("gate_ai_response.v1", r.response).ok) << r.response.dump();
     EXPECT_TRUE(reg().validate("egress_record.v1", r.egress).ok) << r.egress.dump();
   }
