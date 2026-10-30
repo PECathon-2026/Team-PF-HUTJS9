@@ -180,6 +180,9 @@ void Server::step(int timeout_ms) {
   const std::uint64_t t = now_ms();
   if (t - last_stats_ms_ >= 1000) {
     last_stats_ms_ = t;
+    if (auto sth = ledger_->publish_sth()) {
+      broadcast(*sth);
+    }
     broadcast(ledger_->stats_message());
   }
 }

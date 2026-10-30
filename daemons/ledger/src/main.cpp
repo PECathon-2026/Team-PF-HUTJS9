@@ -4,6 +4,7 @@
 #include <atomic>
 #include <csignal>
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -25,6 +26,7 @@ int main(int argc, char** argv) {
   std::string dir = "/var/lib/pl/ledger";
   std::string schemas = "/contracts/schemas";
   std::string verify;
+  std::string attestation;
   bool no_sync = false;
   try {
     for (int i = 1; i < argc; ++i) {
@@ -45,6 +47,8 @@ int main(int argc, char** argv) {
         schemas = next();
       } else if (a == "--verify") {
         verify = next();
+      } else if (a == "--attestation") {
+        attestation = next();
       } else if (a == "--no-sync") {
         no_sync = true;
       } else {
@@ -66,6 +70,16 @@ int main(int argc, char** argv) {
     cfg.segments.dir = dir;
     cfg.segments.sync = !no_sync;
     pl::ledger::Ledger ledger(std::move(cfg), registry);
+    if (!attestation.empty() && ledger.next_seq() == 1) {
+      // Entry #0 of the log is the attestation value (spec §11), recorded before anything is served.
+      std::ifstream in(attestation);
+      const auto att = nlohmann::json::parse(in, nullptr, false);
+      const auto r = ledger.ingest(att);
+      if (!r.accepted || att.value("schema", "") != "attestation.v1") {
+        std::cerr << "ledgerd: attestation rejected (" << r.rule_id << " " << r.code << ")\n";
+        return 1;
+      }
+    }
     pl::ledger::Server server(ledger, ingest, stream);
     (void)std::signal(SIGINT, on_signal);
     (void)std::signal(SIGTERM, on_signal);

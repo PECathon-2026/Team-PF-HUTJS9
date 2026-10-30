@@ -1,6 +1,6 @@
 # ledger
 
-**Owner: WIN-B (moved from LNX for Sprint 1).** Metadata-only event bus over Unix sockets, reject rules, decision records, append-only hash-chained segments, stream endpoint. No network. Merkle tree and Ed25519-signed roots are Sprint 2.
+**Owner: WIN-B (moved from LNX for Sprint 1).** Metadata-only event bus over Unix sockets, reject rules, decision records, append-only hash-chained segments, stream endpoint. No network.
 
 Run: `ledgerd --ingest /run/pl/ledger.sock --stream /run/pl/ledger-stream.sock --dir /var/lib/pl/ledger --schemas /contracts/schemas`; `ledgerd --verify <dir>` checks the hash chain. Make: `ledger-test`, `ledger-asan` (daemons/ledger/ledger.mk).
 
@@ -22,3 +22,10 @@ Every rejection is itself recorded as a `decision_record.v1` (component `ledger`
 
 ## Stream socket
 Subscribers receive framed JSON, never send: `{"type":"hello","stream":"ledger.stream.v0","next_seq"}`, then the retained backlog (last 1000 entries), then live `{"type":"entry","seq","ts_ns","kind","record"}` and `{"type":"stats",accepted,rejected,by_rule,by_schema,head,next_seq}` (every second). Slow subscribers are dropped.
+
+## Merkle audit log (Sprint 2)
+- Leaf i is entry seq i+1: `leaf = SHA-256(0x00 || line)`, node = `SHA-256(0x01 || l || r)` (RFC 6962 / 9162). Known-answer test uses the Certificate Transparency vectors; every inclusion and consistency proof for trees up to 37 leaves is checked, plus tampering.
+- Signed tree head (STH, `merkle_proof.v1` `sth`): Ed25519 over `"pl-sth-v1\n<tree_size>\n<root hex>\n<ts_ns>"`, `key_id = ledger:<8 bytes of pubkey hex>`. A new STH is appended to `<dir>/sth.jsonl` and sent on the stream (`{"type":"sth",...}`) at most once a second when the log grew. `stats` carries `tree_size`, `root`, `key_id`.
+- Key: 32-byte seed generated on first start in `<dir>/ledger.key` (0600); public key in `<dir>/ledger.pub`. LIMITATION: the key sits next to the log, so a host that can rewrite the log can re-sign it. Production needs the key in a separate trust domain (vault/TPM); not done.
+- `ledgerd --attestation <file>` records the attestation value as entry #0 (only on an empty log).
+- `pl-audit verify <dir> [--pub f]` checks chain, every STH signature and root, and consistency between consecutive heads. `pl-audit inclusion <dir> <seq>`, `pl-audit consistency <dir> <m> <n>` print proofs (consistency adds `first_root`, not part of the contract); `pl-audit check <file> --pub f` verifies a proof file.

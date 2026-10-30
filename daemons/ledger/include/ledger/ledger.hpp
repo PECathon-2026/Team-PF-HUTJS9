@@ -13,9 +13,11 @@
 #include <functional>
 #include <map>
 #include <nlohmann/json.hpp>
+#include <optional>
 #include <string>
 #include <vector>
 
+#include "ledger/merkle.hpp"
 #include "ledger/reject.hpp"
 #include "ledger/segment.hpp"
 #include "pl/ids.hpp"
@@ -54,6 +56,14 @@ class Ledger {
   [[nodiscard]] nlohmann::json stats_message() const;
   [[nodiscard]] std::uint64_t next_seq() const noexcept { return writer_.next_seq(); }
 
+  // Merkle log over the entries (leaf i = entry seq i+1). The signing key is created on first start in
+  // <dir>/ledger.key (mode 0600, seed hex); the public key is written to <dir>/ledger.pub.
+  [[nodiscard]] const MerkleTree& tree() const noexcept { return tree_; }
+  [[nodiscard]] const PublicKey& public_key() const noexcept { return signer_.pk; }
+  // When the tree grew since the last signed head: signs it, appends it to <dir>/sth.jsonl and returns the
+  // stream message {"type":"sth", ...sth}.
+  std::optional<nlohmann::json> publish_sth();
+
  private:
   IngestResult reject(RejectCode code);
   std::uint64_t store(std::string_view kind, const nlohmann::json& record);
@@ -61,6 +71,9 @@ class Ledger {
   LedgerConfig cfg_;
   const MessageValidator& validator_;
   SegmentWriter writer_;
+  MerkleTree tree_;
+  Signer signer_;
+  std::uint64_t last_sth_size_ = 0;
   MonotonicIds ids_;
   Sink sink_;
   std::deque<nlohmann::json> ring_;
