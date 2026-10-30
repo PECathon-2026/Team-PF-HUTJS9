@@ -7,8 +7,10 @@ T0 = 2026-10-30T00:45:19+00:00 (sprint plan: ~/pl-sprint/docs/prompts/SPRINT.md)
 - [~] 1. Phase 0 completion: early branches rebased onto LNX's branch (branch `win/s1-p0`); schemas v1 (detection, sanitized_page, agent_action, approval_request, policy) with fixtures; `mk/win.mk` (test-win, lint-win, ci-win, doctor-win, fetch-artifacts-win, scenarios-build; WIN-B fence); `sites` compose fragment; L-001/L-002 acknowledged. Left: merge after LNX's Phase 0 lands, tag p0-win-done.
 - [x] 2. detect v1 (C++): normaliser, digit-run scanner + Hyperscan families, validators, structural, split re-join by geometry, taint labels. 16 Win* tests pass (debug + ASan/UBSan).
 - [x] 3. sanitize v1 (C++): vault_store per value, placeholders, field boxes, PNG re-encode, href query/fragment dropped.
-- [ ] 4. agent on plpy IPC + replay cassettes for login/checkout.
+- [ ] 4. agent on plpy IPC + replay cassettes for login/checkout. NEXT: write daemons/agent/plagent/daemon.py (plpy UDS: receive sanitized_page.v1 -> adapter to plagent.page.SanitizedPage -> agent.step via gate_ai_request -> send agent_action.v1), Dockerfile + compose.yml (network_mode: none).
 - [ ] 5. scenario e2e tests (login, checkout) in tests/e2e/scenarios.
+
+Usage-limit pause at ~01:05 UTC (T0+0:20). State: branch `win/s1-p0` (based on origin/lnx/p0-compose-iface) pushed with all of the above; `make test-cpp-win` (16/16, also ASan), `make test-py-win` (exit 0), `make test-security-lnx` (27 passed with the sites fragment) and `make scenarios-build` all ran green. Not yet merged: wait for LNX's Phase 0 PR to land on main, then `git rebase --onto origin/main origin/lnx/p0-compose-iface win/s1-p0`, `make ci`, PR, merge, tag p0-win-done. LNX and WIN-B subagents were told to commit, push and update their status files (docs/status/lnx.md on lnx/*, docs/status/win-b.md on win/winb-s1). On "Resume": read all three status files, relaunch the LNX (opus) and WIN-B (sonnet) subagents with the same briefs, then continue item 4.
 
 Decisions applied (user, 2026-10-30): (a) non-sensitive fields accept PII-scanned plain text, sensitive fields only their placeholder (A-24); (b) hard-rule weakness accepted, approvals are the backstop, Sprint 2 classifier is the fix; (c) risk weights calibrated in Sprint 2 on the benign + malicious cassettes; (e) PLCANARY adopted by LNX's gate.
 
