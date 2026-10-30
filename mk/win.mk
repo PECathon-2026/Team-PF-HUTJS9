@@ -38,6 +38,12 @@ fetch-artifacts-win:
 scenarios-build: py-sync-win
 	$(IN_DEV) bash -c 'cd scenarios && $(call win_uv,.) run --frozen python -m plscen.build'
 
+# Data pipeline demo: scenario pages -> Chromium capture -> detect -> sanitize -> vault -> leak check -> HTML + 3D report.
+# Runs in the Playwright image (Chromium); report in scenarios/build/demo/index.html, publishable subset in scenarios/demo-output/.
+.PHONY: demo-pipeline
+demo-pipeline:
+	tools/win/demo-pipeline.sh
+
 # --- WIN-B ---
 # (WIN-B: ledger + dashboard targets go here. WIN-A never edits inside this block.)
 # --- /WIN-B ---

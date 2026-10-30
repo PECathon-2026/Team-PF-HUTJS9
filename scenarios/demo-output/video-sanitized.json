@@ -1,0 +1,352 @@
+{
+  "schema": "sanitized_page.v1",
+  "snapshot_id": 7,
+  "url": "http://sites/video/",
+  "title": "Weekly sync · Orbit Meet",
+  "elements": [
+    {
+      "element_id": "n7",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Orbit Meet",
+      "bounds": [
+        24,
+        14,
+        82.7,
+        24
+      ]
+    },
+    {
+      "element_id": "n8",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Weekly sync · 00:12:41",
+      "bounds": [
+        118.7,
+        17,
+        134.6,
+        18
+      ]
+    },
+    {
+      "element_id": "n12",
+      "flags": 1,
+      "placeholders": [],
+      "role": "img",
+      "name": "Call video",
+      "bounds": [
+        59,
+        77,
+        960,
+        540
+      ],
+      "pixels_redacted": true
+    },
+    {
+      "element_id": "n13",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Host",
+      "bounds": [
+        67,
+        317,
+        40.5,
+        21
+      ]
+    },
+    {
+      "element_id": "n14",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:EMAIL#4630]"
+      ],
+      "role": "text",
+      "name": "Guest",
+      "bounds": [
+        547,
+        317,
+        46.9,
+        21
+      ]
+    },
+    {
+      "element_id": "n15",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Guest",
+      "bounds": [
+        67,
+        587,
+        46.9,
+        21
+      ]
+    },
+    {
+      "element_id": "n16",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Screen share",
+      "bounds": [
+        547,
+        587,
+        85.5,
+        21
+      ]
+    },
+    {
+      "element_id": "n18",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Mute",
+      "bounds": [
+        59,
+        627,
+        69.5,
+        41
+      ]
+    },
+    {
+      "element_id": "n19",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Stop video",
+      "bounds": [
+        136.5,
+        627,
+        107.8,
+        41
+      ]
+    },
+    {
+      "element_id": "n20",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Leave",
+      "bounds": [
+        252.3,
+        627,
+        72.9,
+        41
+      ]
+    },
+    {
+      "element_id": "n22",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "People",
+      "bounds": [
+        1048,
+        102,
+        238,
+        19
+      ]
+    },
+    {
+      "element_id": "n24",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#7506]"
+      ],
+      "role": "listitem",
+      "name": "[REDACTED:NAME#7506]",
+      "bounds": [
+        1048,
+        129,
+        238,
+        26
+      ]
+    },
+    {
+      "element_id": "n25",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#3564]"
+      ],
+      "role": "listitem",
+      "name": "[REDACTED:NAME#3564]",
+      "bounds": [
+        1048,
+        155,
+        238,
+        26
+      ]
+    },
+    {
+      "element_id": "n26",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#1173]"
+      ],
+      "role": "listitem",
+      "name": "[REDACTED:NAME#1173]",
+      "bounds": [
+        1048,
+        181,
+        238,
+        26
+      ]
+    },
+    {
+      "element_id": "n28",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:EMAIL#2042]"
+      ],
+      "role": "link",
+      "name": "Copy invite link",
+      "bounds": [
+        1048,
+        223,
+        104.8,
+        20
+      ],
+      "href": "join"
+    },
+    {
+      "element_id": "n29",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Chat",
+      "bounds": [
+        1048,
+        260,
+        238,
+        19
+      ]
+    },
+    {
+      "element_id": "n32",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Host",
+      "bounds": [
+        1048,
+        292,
+        24.5,
+        16
+      ]
+    },
+    {
+      "element_id": "n33",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:PHONE#7122]"
+      ],
+      "role": "text",
+      "name": "Call me after on [REDACTED:PHONE#7122]",
+      "bounds": [
+        1076.7,
+        291,
+        190.2,
+        17
+      ]
+    },
+    {
+      "element_id": "n35",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Guest",
+      "bounds": [
+        1048,
+        318,
+        30.9,
+        16
+      ]
+    },
+    {
+      "element_id": "n36",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:UPI_ID#4909]"
+      ],
+      "role": "text",
+      "name": "Sending the deposit to [REDACTED:UPI_ID#4909] now",
+      "bounds": [
+        1048,
+        317,
+        173.8,
+        35
+      ]
+    }
+  ],
+  "redactions": [
+    {
+      "element_id": "n24",
+      "category": "NAME",
+      "box": [
+        1044.0,
+        129.0,
+        96.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:NAME#7506]"
+    },
+    {
+      "element_id": "n25",
+      "category": "NAME",
+      "box": [
+        1044.0,
+        155.0,
+        96.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:NAME#3564]"
+    },
+    {
+      "element_id": "n26",
+      "category": "NAME",
+      "box": [
+        1044.0,
+        181.0,
+        96.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:NAME#1173]"
+    },
+    {
+      "element_id": "n33",
+      "category": "PHONE",
+      "box": [
+        1174.7,
+        287.0,
+        128.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:PHONE#7122]"
+    },
+    {
+      "element_id": "n36",
+      "category": "UPI_ID",
+      "box": [
+        1044.0,
+        331.0,
+        128.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:UPI_ID#4909]"
+    },
+    {
+      "element_id": "n12",
+      "category": "SECRET",
+      "box": [
+        55.0,
+        73.0,
+        968.0,
+        548.0
+      ],
+      "fail_closed": true
+    }
+  ]
+}
