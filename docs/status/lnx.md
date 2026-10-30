@@ -1,5 +1,7 @@
 # LNX status
 
+T0 = 2026-10-30T00:45:19+00:00
+
 Machine: Linux Mint laptop (8 GB RAM, 4 GB VRAM). Owner of this file: LNX.
 
 ## Phase 0: Bootstrap (in progress, paused 2026-10-30 for a machine hand-over)
