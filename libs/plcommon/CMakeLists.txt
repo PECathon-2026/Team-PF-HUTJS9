@@ -1,14 +1,14 @@
 # plcommon (owner: LNX).
-add_library(plcommon STATIC src/frame.cpp src/uds.cpp src/validate.cpp src/scrub.cpp src/taint.cpp src/ids.cpp src/log.cpp)
+add_library(plcommon STATIC src/frame.cpp src/uds.cpp src/validate.cpp src/scrub.cpp src/taint.cpp src/ids.cpp src/log.cpp src/channel.cpp)
 add_library(pl::plcommon ALIAS plcommon)
 target_include_directories(plcommon PUBLIC include)
-target_link_libraries(plcommon PUBLIC nlohmann_json::nlohmann_json)
+target_link_libraries(plcommon PUBLIC nlohmann_json::nlohmann_json PkgConfig::SODIUM)
 pl_target_defaults(plcommon)
 
 if(BUILD_TESTING)
   pl_add_test(plcommon_test
     SOURCES tests/frame_test.cpp tests/uds_test.cpp tests/validate_test.cpp tests/scrub_test.cpp
-            tests/taint_test.cpp tests/ids_test.cpp tests/log_test.cpp
+            tests/taint_test.cpp tests/ids_test.cpp tests/log_test.cpp tests/channel_test.cpp
     LIBS pl::plcommon)
   target_compile_definitions(plcommon_test PRIVATE PL_TESTDATA_DIR="${CMAKE_CURRENT_SOURCE_DIR}/testdata")
   find_package(rapidcheck CONFIG REQUIRED)
