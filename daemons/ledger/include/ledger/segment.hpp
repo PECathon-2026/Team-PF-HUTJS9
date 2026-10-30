@@ -9,10 +9,9 @@
 
 #include <cstdint>
 #include <filesystem>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
-
-#include <nlohmann/json.hpp>
 
 #include "pl/uds.hpp"
 
@@ -20,7 +19,7 @@ namespace pl::ledger {
 
 struct SegmentConfig {
   std::filesystem::path dir;
-  std::uint64_t max_segment_bytes = 4U * 1024U * 1024U;
+  std::uint64_t max_segment_bytes = std::uint64_t{4} * 1024 * 1024;
   bool sync = true;  // fdatasync after every append
 };
 
@@ -34,7 +33,8 @@ class SegmentWriter {
   explicit SegmentWriter(SegmentConfig cfg);
 
   // Appends one entry; returns the line written (without newline). Throws on I/O error.
-  std::string append(std::string_view kind, const nlohmann::json& record, std::uint64_t ts_ns, std::uint64_t* seq_out = nullptr);
+  std::string append(std::string_view kind, const nlohmann::json& record, std::uint64_t ts_ns,
+                     std::uint64_t* seq_out = nullptr);
 
   [[nodiscard]] std::uint64_t next_seq() const noexcept { return next_seq_; }
   [[nodiscard]] const std::string& head_hash() const noexcept { return head_; }

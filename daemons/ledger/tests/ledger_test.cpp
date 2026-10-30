@@ -1,3 +1,5 @@
+#include "ledger/ledger.hpp"
+
 #include <gtest/gtest.h>
 #include <sys/socket.h>
 #include <unistd.h>
@@ -5,9 +7,8 @@
 #include <filesystem>
 #include <fstream>
 
-#include "pl/contracts.hpp"
-#include "ledger/ledger.hpp"
 #include "ledger/server.hpp"
+#include "pl/contracts.hpp"
 
 using namespace pl::ledger;
 namespace fs = std::filesystem;
@@ -15,7 +16,8 @@ namespace fs = std::filesystem;
 namespace {
 
 fs::path tmpdir(const char* name) {
-  const fs::path p = fs::temp_directory_path() / (std::string("pl-ledger-test-") + name + "-" + std::to_string(::getpid()));
+  const fs::path p =
+      fs::temp_directory_path() / (std::string("pl-ledger-test-") + name + "-" + std::to_string(::getpid()));
   fs::remove_all(p);
   return p;
 }
@@ -78,7 +80,9 @@ TEST(Ledger, RejectsPlantedCanaryEvenInsideEgressPayload) {
   const auto r = l.ingest(eg);
   EXPECT_FALSE(r.accepted);
   EXPECT_EQ(r.rule_id, "LG-002");
-  for (const auto& line : read_all_lines(dir)) EXPECT_EQ(line.find("7QK3M9"), std::string::npos);
+  for (const auto& line : read_all_lines(dir)) {
+    EXPECT_EQ(line.find("7QK3M9"), std::string::npos);
+  }
   fs::remove_all(dir);
 }
 
@@ -117,9 +121,13 @@ nlohmann::json recv_msg(pl::FramedSocket& s, bool want_stats = false) {
   for (;;) {
     const auto p = s.recv(std::chrono::milliseconds(1000));
     EXPECT_TRUE(p.has_value());
-    if (!p) return {};
+    if (!p) {
+      return {};
+    }
     auto m = pl::parse_json_bounded(*p);
-    if (want_stats || m["type"] != "stats") return m;
+    if (want_stats || m["type"] != "stats") {
+      return m;
+    }
   }
 }
 }  // namespace

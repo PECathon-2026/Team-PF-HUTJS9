@@ -1,16 +1,17 @@
+#include "ledger/segment.hpp"
+
 #include <gtest/gtest.h>
 
 #include <filesystem>
 #include <fstream>
-
-#include "ledger/segment.hpp"
 
 using namespace pl::ledger;
 namespace fs = std::filesystem;
 
 namespace {
 fs::path tmpdir(const char* name) {
-  const fs::path p = fs::temp_directory_path() / (std::string("pl-ledger-test-") + name + "-" + std::to_string(::getpid()));
+  const fs::path p =
+      fs::temp_directory_path() / (std::string("pl-ledger-test-") + name + "-" + std::to_string(::getpid()));
   fs::remove_all(p);
   return p;
 }
@@ -29,7 +30,8 @@ TEST(Segments, AppendChainAndVerify) {
     std::uint64_t seq = 0;
     const auto l1 = w.append("event", {{"a", 1}}, 100, &seq);
     EXPECT_EQ(seq, 1U);
-    EXPECT_EQ(l1, R"({"kind":"event","prev":")" + std::string(kZeroHash) + R"(","record":{"a":1},"seq":1,"ts_ns":100})");
+    EXPECT_EQ(l1,
+              R"({"kind":"event","prev":")" + std::string(kZeroHash) + R"(","record":{"a":1},"seq":1,"ts_ns":100})");
     const auto l2 = w.append("event", {{"a", 2}}, 101, &seq);
     EXPECT_EQ(seq, 2U);
     EXPECT_NE(l2.find(sha256_hex(l1)), std::string::npos);  // prev = hash of line 1
@@ -44,7 +46,9 @@ TEST(Segments, RotationSealsAndRecoveryContinuesChain) {
   const auto dir = tmpdir("rot");
   {
     SegmentWriter w({dir, 200, false});
-    for (int i = 0; i < 10; ++i) w.append("event", {{"i", i}}, 1, nullptr);
+    for (int i = 0; i < 10; ++i) {
+      w.append("event", {{"i", i}}, 1, nullptr);
+    }
   }
   std::size_t files = 0;
   for (const auto& e : fs::directory_iterator(dir)) {
@@ -85,7 +89,9 @@ TEST(Segments, TamperingIsDetected) {
   const auto dir = tmpdir("tamper");
   {
     SegmentWriter w({dir, 4096, false});
-    for (int i = 0; i < 3; ++i) w.append("event", {{"i", i}}, 1, nullptr);
+    for (int i = 0; i < 3; ++i) {
+      w.append("event", {{"i", i}}, 1, nullptr);
+    }
   }
   const auto file = dir / "seg-00000001.jsonl";
   std::string content;

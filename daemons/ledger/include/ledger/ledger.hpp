@@ -12,10 +12,9 @@
 #include <deque>
 #include <functional>
 #include <map>
+#include <nlohmann/json.hpp>
 #include <string>
 #include <vector>
-
-#include <nlohmann/json.hpp>
 
 #include "ledger/reject.hpp"
 #include "ledger/segment.hpp"
@@ -27,14 +26,14 @@ namespace pl::ledger {
 struct LedgerConfig {
   SegmentConfig segments;
   std::size_t backlog_entries = 1000;
-  std::size_t backlog_bytes = 32U * 1024U * 1024U;
+  std::size_t backlog_bytes = std::size_t{32} * 1024 * 1024;
 };
 
 struct IngestResult {
   bool accepted = false;
-  std::uint64_t seq = 0;       // seq of the stored entry (accepted) or of the ledger's own rejection record
-  std::string rule_id;         // set when rejected
-  std::string code;            // set when rejected
+  std::uint64_t seq = 0;  // seq of the stored entry (accepted) or of the ledger's own rejection record
+  std::string rule_id;    // set when rejected
+  std::string code;       // set when rejected
 };
 
 [[nodiscard]] bool schema_allowed(std::string_view schema_id) noexcept;

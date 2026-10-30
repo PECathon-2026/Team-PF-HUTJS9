@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 #include <algorithm>
+#include <array>
 #include <cerrno>
 #include <cstdio>
 #include <fstream>
@@ -17,28 +18,36 @@ namespace pl::ledger {
 namespace fs = std::filesystem;
 
 std::string sha256_hex(std::string_view data) {
-  if (sodium_init() < 0) throw std::runtime_error("sodium_init failed");
-  unsigned char out[crypto_hash_sha256_BYTES];
-  crypto_hash_sha256(out, reinterpret_cast<const unsigned char*>(data.data()), data.size());
-  char hex[crypto_hash_sha256_BYTES * 2 + 1];
-  sodium_bin2hex(hex, sizeof hex, out, sizeof out);
-  return std::string(hex);
+  if (sodium_init() < 0) {
+    throw std::runtime_error("sodium_init failed");
+  }
+  std::array<unsigned char, crypto_hash_sha256_BYTES> out{};
+  crypto_hash_sha256(out.data(), reinterpret_cast<const unsigned char*>(data.data()), data.size());
+  std::array<char, crypto_hash_sha256_BYTES * 2 + 1> hex{};
+  sodium_bin2hex(hex.data(), hex.size(), out.data(), out.size());
+  return {hex.data()};
 }
 
 namespace {
 
 std::string segment_name(std::uint64_t index) {
-  char buf[32];
-  std::snprintf(buf, sizeof buf, "seg-%08llu.jsonl", static_cast<unsigned long long>(index));
-  return buf;
+  std::string digits = std::to_string(index);
+  if (digits.size() < 8) {
+    digits.insert(0, 8 - digits.size(), '0');
+  }
+  return "seg-" + digits + ".jsonl";
 }
 
 std::vector<fs::path> list_segments(const fs::path& dir) {
   std::vector<fs::path> out;
-  if (!fs::exists(dir)) return out;
+  if (!fs::exists(dir)) {
+    return out;
+  }
   for (const auto& e : fs::directory_iterator(dir)) {
     const auto name = e.path().filename().string();
-    if (name.size() == 18 && name.rfind("seg-", 0) == 0 && name.ends_with(".jsonl")) out.push_back(e.path());
+    if (name.size() == 18 && name.starts_with("seg-") && name.ends_with(".jsonl")) {
+      out.push_back(e.path());
+    }
   }
   std::sort(out.begin(), out.end());
   return out;
@@ -51,7 +60,9 @@ void write_all(int fd, std::string_view data) {
   while (off < data.size()) {
     const ssize_t n = ::write(fd, data.data() + off, data.size() - off);
     if (n < 0) {
-      if (errno == EINTR) continue;
+      if (errno == EINTR) {
+        continue;
+      }
       throw std::system_error(errno, std::generic_category(), "ledger segment write");
     }
     off += static_cast<std::size_t>(n);
@@ -68,7 +79,7 @@ SegmentWriter::SegmentWriter(SegmentConfig cfg) : cfg_(std::move(cfg)) {
     return;
   }
   // Recover from the last segment: find the last complete line.
-  const fs::path last = segs.back();
+  const fs::path& last = segs.back();
   std::string content;
   {
     std::ifstream in(last, std::ios::binary);
@@ -88,8 +99,11 @@ SegmentWriter::SegmentWriter(SegmentConfig cfg) : cfg_(std::move(cfg)) {
     // Empty last segment: chain head comes from the previous segment if any.
     if (segs.size() > 1) {
       std::ifstream in(segs[segs.size() - 2], std::ios::binary);
-      std::string line, prev;
-      while (std::getline(in, line)) prev = line;
+      std::string line;
+      std::string prev;
+      while (std::getline(in, line)) {
+        prev = line;
+      }
       if (!prev.empty()) {
         head_ = sha256_hex(prev);
         next_seq_ = nlohmann::json::parse(prev).at("seq").get<std::uint64_t>() + 1;
@@ -106,36 +120,47 @@ SegmentWriter::SegmentWriter(SegmentConfig cfg) : cfg_(std::move(cfg)) {
   size_ = content.size();
   fs::permissions(last, fs::perms::owner_read | fs::perms::owner_write, fs::perm_options::add);
   fd_ = Fd(::open(last.c_str(), O_WRONLY | O_APPEND | O_CLOEXEC));
-  if (!fd_.valid()) throw std::system_error(errno, std::generic_category(), "open segment");
+  if (!fd_.valid()) {
+    throw std::system_error(errno, std::generic_category(), "open segment");
+  }
 }
 
 void SegmentWriter::open_segment(std::uint64_t index) {
   const fs::path p = cfg_.dir / segment_name(index);
   fd_ = Fd(::open(p.c_str(), O_WRONLY | O_APPEND | O_CREAT | O_EXCL | O_CLOEXEC, 0640));
-  if (!fd_.valid()) throw std::system_error(errno, std::generic_category(), "create segment");
+  if (!fd_.valid()) {
+    throw std::system_error(errno, std::generic_category(), "create segment");
+  }
   index_ = index;
   size_ = 0;
 }
 
 void SegmentWriter::seal_current() {
-  if (!fd_.valid()) return;
-  ::fdatasync(fd_.get());
-  ::fchmod(fd_.get(), 0440);
+  if (!fd_.valid()) {
+    return;
+  }
+  (void)::fdatasync(fd_.get());
+  (void)::fchmod(fd_.get(), 0440);
   fd_.reset();
 }
 
 std::string SegmentWriter::append(std::string_view kind, const nlohmann::json& record, std::uint64_t ts_ns,
                                   std::uint64_t* seq_out) {
-  nlohmann::json entry = {{"kind", kind}, {"prev", head_}, {"record", record}, {"seq", next_seq_}, {"ts_ns", ts_ns}};
+  nlohmann::json const entry = {
+      {"kind", kind}, {"prev", head_}, {"record", record}, {"seq", next_seq_}, {"ts_ns", ts_ns}};
   const std::string line = entry.dump(-1, ' ', false, nlohmann::json::error_handler_t::replace);
   if (size_ > 0 && size_ + line.size() + 1 > cfg_.max_segment_bytes) {
     seal_current();
     open_segment(index_ + 1);
   }
   write_all(fd_.get(), line + "\n");
-  if (cfg_.sync && ::fdatasync(fd_.get()) != 0) throw std::system_error(errno, std::generic_category(), "fdatasync");
+  if (cfg_.sync && ::fdatasync(fd_.get()) != 0) {
+    throw std::system_error(errno, std::generic_category(), "fdatasync");
+  }
   size_ += line.size() + 1;
-  if (seq_out != nullptr) *seq_out = next_seq_;
+  if (seq_out != nullptr) {
+    *seq_out = next_seq_;
+  }
   ++next_seq_;
   head_ = sha256_hex(line);
   return line;
@@ -146,7 +171,9 @@ std::vector<std::string> read_all_lines(const fs::path& dir) {
   for (const auto& seg : list_segments(dir)) {
     std::ifstream in(seg, std::ios::binary);
     std::string line;
-    while (std::getline(in, line)) lines.push_back(line);
+    while (std::getline(in, line)) {
+      lines.push_back(line);
+    }
   }
   return lines;
 }

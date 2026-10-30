@@ -6,15 +6,22 @@
 // first offence, never the offending value.
 #pragma once
 
+#include <nlohmann/json.hpp>
 #include <optional>
 #include <string>
 #include <string_view>
 
-#include <nlohmann/json.hpp>
-
 namespace pl::ledger {
 
-enum class RejectCode : unsigned char { banned_field, canary, canary_prefix, too_deep, unknown_schema, schema_invalid, oversize };
+enum class RejectCode : unsigned char {
+  banned_field,
+  canary,
+  canary_prefix,
+  too_deep,
+  unknown_schema,
+  schema_invalid,
+  oversize
+};
 
 struct Rejection {
   RejectCode code;

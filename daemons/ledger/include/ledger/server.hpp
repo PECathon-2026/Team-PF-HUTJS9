@@ -33,7 +33,7 @@ class Server {
   bool read_ingest(Ingest& c);  // false: close
   void broadcast(const nlohmann::json& msg);
 
-  Ledger& ledger_;
+  Ledger* ledger_;
   Fd ingest_listener_;
   Fd stream_listener_;
   std::vector<Ingest> ingest_;
