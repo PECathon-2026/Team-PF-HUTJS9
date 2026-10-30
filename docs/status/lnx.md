@@ -4,6 +4,25 @@ T0 = 2026-10-30T00:45:19+00:00
 
 Machine: Linux Mint laptop (8 GB RAM, 4 GB VRAM). Owner of this file: LNX.
 
+## Sprint 1 (stopped at 01:06 UTC: account usage limit, on WIN-A's instruction)
+
+### Merged to main
+- [x] PR #2 `5547bf8`: ownership change (ledger, dashboard, docs/status/win-b.md, EVALUATION/RESULTS/DEMO -> WIN). CI green. **WIN-B is unblocked.**
+
+### Open PR (not merged yet)
+- PR #3 `lnx/p0-compose-iface` (Phase 0 steps 9-12), rebased onto main after #2. Local `make ci-lnx` green (before the rebase); after the rebase `make test-py-lnx` passed 132 and `pl_hook.py ci` passed. CI was running when I stopped (it builds dev image b968bf43f5f2a1a9 in-job). Fuzz 10-min runs skipped (user decision).
+  - Next: `gh pr checks 3 --watch` -> `gh pr merge 3 --squash --delete-branch` -> `git fetch origin && git tag p0-lnx-done origin/main && git push origin p0-lnx-done`.
+
+### Branch `lnx/s1-platform` (pushed, stacked on lnx/p0-compose-iface, no PR)
+After PR #3 merges: `git rebase --onto origin/main lnx/p0-compose-iface lnx/s1-platform`.
+- [x] `libs/plcommon` SecureChannel (`channel.hpp/.cpp`): crypto_kx + secretstream over FramedSocket; ephemeral keys, peer by SO_PEERCRED (no pinned component keys yet). 3 tests (round trip, tamper, replay) pass.
+- [x] `daemons/vault`: lib + `pl-vault` daemon. memfd_secret key (fallback mmap+mlock+MADV_DONTDUMP), per-session BLAKE2b subkey, XChaCha20-Poly1305 with AD = canonical binding, wipe, shred, vault_api.v1 handler; PR_SET_DUMPABLE 0, RLIMIT_CORE 0. 8 tests pass (debug build).
+- [x] `daemons/gate`: lib + `pl-gate` daemon. AI lane checks in order: schema, kill switch, watchdog (liveness.v1 pongs, 2 s), taint == public, allow-list, local_only, independent re-check (Luhn, Verhoeff, PAN, key prefixes, PEM), canary (PLCANARY self-check mod 97 + listed canaries from `canaries[]` in truth JSON), images blocked (no gate OCR yet). Egress_record with the exact payload. Replay provider (WIN's pl.replay.v1 cassettes, model = cassette name), ollama provider. Browsing lane (CONNECT + absolute-form HTTP, domain allow-list). UI port 8787: dashboard/dist static, /api/egress, /api/status, /api/stream (SSE: egress + relay of /run/pl/ledger-stream.sock), POST /api/kill. 14 tests pass (debug build). Fuzz target `fuzz_gate_decoder` written, not run yet.
+- [ ] **In progress, not built yet:** `daemons/core/runtime/` (cdp.cpp: Chrome over --remote-debugging-pipe fds 3/4; capture.cpp: DOMSnapshot -> capture model; actuator.cpp: action validation C-101..C-109; main.cpp: /run/pl/core.sock agent protocol open/observe/act/end, vault hand-off, loopback forwarder 127.0.0.1:3128 -> gate-web.sock, heartbeats). Root CMakeLists now adds daemons/gate before daemons/core and daemons/core/runtime at the end.
+  - Next: `DEV=... cmake --build --preset debug` in the dev image and fix compile errors; write `daemons/core/runtime/tests/capture_test.cpp` (and add it back in that CMakeLists); run clang-tidy (`make lint-cpp-lnx`) and ASan on vault/gate/core.
+  - The vault daemon does not send heartbeats yet (gate requires core,vault live by default: `PL_GATE_REQUIRE_LIVE`).
+- [ ] Not started: core image with Chrome for Testing headless shell 131.0.6778.85 (`chrome-headless-shell-linux64.zip`, sha256 `a39e418d96afbc982cfd36432c775b9cbc2ae9a34703db6b0310326cb366057c`), vault/gate images, compose wiring (runsc for core, `--host-uds` question), `make llm-pull`, `make e2e` harness + isolation test + leak scan, to-win.md note on the core.sock protocol and ledger socket names.
+
 ## Phase 0: Bootstrap (in progress, paused 2026-10-30 for a machine hand-over)
 
 ### Where things stand

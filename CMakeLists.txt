@@ -15,9 +15,9 @@ set(PL_COMPONENT_DIRS
   daemons/core/detect
   daemons/core/sanitize
   daemons/core/fourier
+  daemons/gate
   daemons/core
   daemons/vault
-  daemons/gate
   daemons/ledger
   platform
 )
@@ -27,3 +27,8 @@ foreach(dir IN LISTS PL_COMPONENT_DIRS)
     add_subdirectory(${dir})
   endif()
 endforeach()
+
+# core runtime needs pl::gate (scanner) and the core shell.
+if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/daemons/core/runtime/CMakeLists.txt")
+  add_subdirectory(daemons/core/runtime)
+endif()
