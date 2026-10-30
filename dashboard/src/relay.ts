@@ -13,22 +13,32 @@ export interface State {
   killed: boolean;
   notices: string[];
 }
-const initial: State = { mode: 'connecting', entries: [], screens: {}, killed: false, notices: [] };
+export const initial: State = { mode: 'connecting', entries: [], screens: {}, killed: false, notices: [] };
 
-type Action = { t: 'msg'; m: StreamMsg } | { t: 'mode'; mode: Mode } | { t: 'clearApproval'; notice?: string } | { t: 'killed' } | { t: 'reset' };
+type Action = { t: 'egress'; r: { record_id?: string; ts_ns?: number } } | { t: 'msg'; m: StreamMsg } | { t: 'mode'; mode: Mode } | { t: 'clearApproval'; notice?: string } | { t: 'killed' } | { t: 'reset' };
 
-function reducer(s: State, a: Action): State {
+export function reducer(s: State, a: Action): State {
   switch (a.t) {
     case 'mode': return { ...s, mode: a.mode };
     case 'reset': return { ...initial, mode: s.mode };
     case 'killed': return { ...s, killed: true };
     case 'clearApproval': return { ...s, approval: undefined, notices: a.notice ? [a.notice, ...s.notices].slice(0, 20) : s.notices };
+    case 'egress': {
+      // The gate also sends its own egress records as a named SSE event. Show them at once;
+      // the ledger copy (with a real seq) replaces the synthetic one when it arrives.
+      const id = a.r.record_id;
+      if (id && s.entries.some((e) => recordId(e) === id)) return s;
+      const syn: EntryMsg = { type: 'entry', seq: -(s.entries.filter((e) => e.seq < 0).length + 1), ts_ns: a.r.ts_ns ?? 0, kind: 'egress_record', record: a.r };
+      return { ...s, entries: sortEntries([...s.entries, syn]).slice(-MAX_ENTRIES) };
+    }
     case 'msg': {
       const m = a.m;
       switch (m.type) {
         case 'entry': {
           if (s.entries.some((e) => e.seq === m.seq)) return s;
-          const entries = [...s.entries, m].sort((x, y) => x.seq - y.seq).slice(-MAX_ENTRIES);
+          const rid = m.kind === 'egress_record' ? recordId(m) : undefined;
+          const kept = rid ? s.entries.filter((e) => !(e.seq < 0 && recordId(e) === rid)) : s.entries;
+          const entries = sortEntries([...kept, m]).slice(-MAX_ENTRIES);
           return { ...s, entries };
         }
         case 'stats': return { ...s, stats: m };
@@ -45,6 +55,14 @@ function reducer(s: State, a: Action): State {
     }
   }
   return s;
+}
+
+function recordId(e: EntryMsg): string | undefined {
+  const r = e.record as { record_id?: string } | null;
+  return e.kind === 'egress_record' ? r?.record_id : undefined;
+}
+function sortEntries(es: EntryMsg[]): EntryMsg[] {
+  return es.sort((x, y) => (x.ts_ns - y.ts_ns) || (x.seq - y.seq));
 }
 
 async function post(path: string, body: unknown): Promise<boolean> {
@@ -70,8 +88,22 @@ export function useRelay() {
     es.onmessage = (ev) => {
       try { dispatch({ t: 'msg', m: JSON.parse(ev.data) as StreamMsg }); } catch { /* ignore malformed frame */ }
     };
+    // LNX gate (WB-001 reply, as built): named SSE events. `ledger` carries the ledger stream
+    // frames unchanged (hello/entry/stats); `egress` carries the gate's own egress_record.v1.
+    es.addEventListener('ledger', (ev) => {
+      try { dispatch({ t: 'msg', m: JSON.parse((ev as MessageEvent).data) as StreamMsg }); } catch { /* ignore */ }
+    });
+    es.addEventListener('egress', (ev) => {
+      try { dispatch({ t: 'egress', r: JSON.parse((ev as MessageEvent).data) }); } catch { /* ignore */ }
+    });
+    const poll = window.setInterval(async () => {
+      try {
+        const st = await (await fetch('api/status', { cache: 'no-store' })).json() as { killed?: boolean };
+        if (st.killed) dispatch({ t: 'killed' });
+      } catch { /* stream onerror handles reachability */ }
+    }, 3000);
     es.onerror = () => dispatch({ t: 'mode', mode: 'disconnected' });
-    return () => es.close();
+    return () => { es.close(); window.clearInterval(poll); };
   }, []);
 
   const startMockMode = useCallback(() => {
@@ -106,7 +138,7 @@ export function useRelay() {
 
   const answer = useCallback(async (id: string, decision: 'approve' | 'deny', why?: string) => {
     dispatch({ t: 'clearApproval', notice: `Approval ${id.slice(-6)}: ${decision}${why ? ` (${why})` : ''}` });
-    if (modeRef.current !== 'mock') await post('api/approval', { approval_id: id, decision });
+    if (modeRef.current !== 'mock' && !(await post('api/approval', { approval_id: id, decision }))) dispatch({ t: 'clearApproval', notice: 'Approval could not be delivered (the relay has no approval endpoint yet); treated as deny.' });
   }, []);
 
   return { state: { ...state, screens }, kill, answer, useMock, useLive, mockApproval: () => mockRef.current?.approval() };
