@@ -127,6 +127,7 @@
     },
     "signature": {
       "type": "string",
+      "maxLength": 88,
       "pattern": "^[A-Za-z0-9+/]{86}==$"
     }
   },
