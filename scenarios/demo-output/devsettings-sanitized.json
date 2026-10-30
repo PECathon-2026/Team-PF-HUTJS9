@@ -34,10 +34,10 @@
       "element_id": "n9",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:EMAIL#3259]"
+        "[REDACTED:EMAIL#4828]"
       ],
       "role": "text",
-      "name": "[REDACTED:EMAIL#3259]",
+      "name": "[REDACTED:EMAIL#4828]",
       "bounds": [
         310.6,
         17,
@@ -101,10 +101,10 @@
       "element_id": "n23",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:API_KEY#3174]"
+        "[REDACTED:API_KEY#6535]"
       ],
       "role": "code",
-      "name": "[REDACTED:API_KEY#3174]",
+      "name": "[REDACTED:API_KEY#6535]",
       "bounds": [
         277.6,
         170,
@@ -116,7 +116,7 @@
       "element_id": "n25",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:API_KEY#3174]"
+        "[REDACTED:API_KEY#6535]"
       ],
       "role": "button",
       "name": "Copy",
@@ -131,7 +131,7 @@
       "element_id": "n26",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:API_KEY#2788]"
+        "[REDACTED:API_KEY#1004]"
       ],
       "role": "text",
       "name": "",
@@ -185,7 +185,7 @@
       "element_id": "n33",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:API_KEY#2049]"
+        "[REDACTED:API_KEY#1242]"
       ],
       "role": "link",
       "name": "Open API docs with this key",
@@ -214,10 +214,10 @@
       "element_id": "n35",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:API_KEY#2255]"
+        "[REDACTED:API_KEY#4417]"
       ],
       "role": "code",
-      "name": "curl https://api.nimbus.example/v1/orders \\\n  -H \"Authorization: Bearer [REDACTED:API_KEY#2255]\"",
+      "name": "curl https://api.nimbus.example/v1/orders \\\n  -H \"Authorization: Bearer [REDACTED:API_KEY#4417]\"",
       "bounds": [
         200,
         355,
@@ -255,7 +255,7 @@
       "element_id": "n40",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:API_KEY#9343]"
+        "[REDACTED:API_KEY#3600]"
       ],
       "role": "textbox",
       "name": "GitHub token (for deploys)",
@@ -285,7 +285,7 @@
       "element_id": "n42",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:SECRET#1106]"
+        "[REDACTED:SECRET#2659]"
       ],
       "role": "textbox",
       "name": "Webhook URL",
@@ -315,10 +315,10 @@
       "element_id": "n45",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:IP_ADDRESS#7729]"
+        "[REDACTED:IP_ADDRESS#5546]"
       ],
       "role": "listitem",
-      "name": "[REDACTED:IP_ADDRESS#7729]",
+      "name": "[REDACTED:IP_ADDRESS#5546]",
       "bounds": [
         730,
         323,
@@ -330,10 +330,10 @@
       "element_id": "n46",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:IP_ADDRESS#9012]"
+        "[REDACTED:IP_ADDRESS#9349]"
       ],
       "role": "listitem",
-      "name": "[REDACTED:IP_ADDRESS#9012]",
+      "name": "[REDACTED:IP_ADDRESS#9349]",
       "bounds": [
         730,
         344,
@@ -378,7 +378,7 @@
         192.0,
         25.0
       ],
-      "placeholder": "[REDACTED:EMAIL#3259]"
+      "placeholder": "[REDACTED:EMAIL#4828]"
     },
     {
       "element_id": "n23",
@@ -389,7 +389,7 @@
         320.0,
         25.0
       ],
-      "placeholder": "[REDACTED:API_KEY#3174]"
+      "placeholder": "[REDACTED:API_KEY#6535]"
     },
     {
       "element_id": "n23",
@@ -400,7 +400,7 @@
         96.0,
         25.0
       ],
-      "placeholder": "[REDACTED:API_KEY#3174]"
+      "placeholder": "[REDACTED:API_KEY#6535]"
     },
     {
       "element_id": "n35",
@@ -411,7 +411,7 @@
         1056.0,
         25.0
       ],
-      "placeholder": "[REDACTED:API_KEY#2255]"
+      "placeholder": "[REDACTED:API_KEY#4417]"
     },
     {
       "element_id": "n40",
@@ -422,7 +422,7 @@
         462.0,
         49.0
       ],
-      "placeholder": "[REDACTED:API_KEY#9343]"
+      "placeholder": "[REDACTED:API_KEY#3600]"
     },
     {
       "element_id": "n42",
@@ -433,7 +433,7 @@
         462.0,
         49.0
       ],
-      "placeholder": "[REDACTED:SECRET#1106]"
+      "placeholder": "[REDACTED:SECRET#2659]"
     },
     {
       "element_id": "n45",
@@ -444,7 +444,7 @@
         96.0,
         28.0
       ],
-      "placeholder": "[REDACTED:IP_ADDRESS#7729]"
+      "placeholder": "[REDACTED:IP_ADDRESS#5546]"
     },
     {
       "element_id": "n46",
@@ -455,7 +455,7 @@
         128.0,
         28.0
       ],
-      "placeholder": "[REDACTED:IP_ADDRESS#9012]"
+      "placeholder": "[REDACTED:IP_ADDRESS#9349]"
     }
   ]
 }

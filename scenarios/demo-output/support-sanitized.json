@@ -34,10 +34,10 @@
       "element_id": "n11",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#6752]"
+        "[REDACTED:NAME#4807]"
       ],
       "role": "text",
-      "name": "Chat with [REDACTED:NAME#6752] (support)",
+      "name": "Chat with [REDACTED:NAME#4807] (support)",
       "bounds": [
         344,
         98,
@@ -49,7 +49,7 @@
       "element_id": "n12",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:EMAIL#1324]"
+        "[REDACTED:EMAIL#6871]"
       ],
       "role": "link",
       "name": "Ticket KT-58213",
@@ -65,7 +65,7 @@
       "element_id": "n13",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:PHONE#3317]"
+        "[REDACTED:PHONE#3135]"
       ],
       "role": "log",
       "name": "",
@@ -80,10 +80,10 @@
       "element_id": "n15",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#6752]"
+        "[REDACTED:NAME#4807]"
       ],
       "role": "text",
-      "name": "[REDACTED:NAME#6752]",
+      "name": "[REDACTED:NAME#4807]",
       "bounds": [
         356,
         139,
@@ -95,10 +95,10 @@
       "element_id": "n16",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#8058]"
+        "[REDACTED:NAME#5210]"
       ],
       "role": "text",
-      "name": "Hi [REDACTED:NAME#8058]! To update the SIM, I need to verify your KYC. Could you share your Aadhaar and date of birth?",
+      "name": "Hi [REDACTED:NAME#5210]! To update the SIM, I need to verify your KYC. Could you share your Aadhaar and date of birth?",
       "bounds": [
         356,
         158,
@@ -123,11 +123,11 @@
       "element_id": "n19",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:AADHAAR#2834]",
-        "[REDACTED:DOB#2087]"
+        "[REDACTED:AADHAAR#4737]",
+        "[REDACTED:DOB#1907]"
       ],
       "role": "text",
-      "name": "Sure, Aadhaar [REDACTED:AADHAAR#2834], DOB [REDACTED:DOB#2087]",
+      "name": "Sure, Aadhaar [REDACTED:AADHAAR#4737], DOB [REDACTED:DOB#1907]",
       "bounds": [
         642.7,
         249.4,
@@ -139,10 +139,10 @@
       "element_id": "n21",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#6752]"
+        "[REDACTED:NAME#4807]"
       ],
       "role": "text",
-      "name": "[REDACTED:NAME#6752]",
+      "name": "[REDACTED:NAME#4807]",
       "bounds": [
         356,
         298.6,
@@ -180,10 +180,10 @@
       "element_id": "n25",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:PHONE#3317]"
+        "[REDACTED:PHONE#3135]"
       ],
       "role": "text",
-      "name": "This one: [REDACTED:PHONE#3317]",
+      "name": "This one: [REDACTED:PHONE#3135]",
       "bounds": [
         776.2,
         385.8,
@@ -195,10 +195,10 @@
       "element_id": "n27",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#6752]"
+        "[REDACTED:NAME#4807]"
       ],
       "role": "text",
-      "name": "[REDACTED:NAME#6752]",
+      "name": "[REDACTED:NAME#4807]",
       "bounds": [
         356,
         434.9,
@@ -236,11 +236,11 @@
       "element_id": "n31",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:EMAIL#4948]",
-        "[REDACTED:PAN#7097]"
+        "[REDACTED:EMAIL#1200]",
+        "[REDACTED:PAN#6326]"
       ],
       "role": "text",
-      "name": "PAN is [REDACTED:PAN#7097] and email [REDACTED:EMAIL#4948]. Cheque attached.",
+      "name": "PAN is [REDACTED:PAN#6326] and email [REDACTED:EMAIL#1200]. Cheque attached.",
       "bounds": [
         509.8,
         545.3,
@@ -252,10 +252,10 @@
       "element_id": "n32",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:BANK_ACCOUNT#8383]"
+        "[REDACTED:BANK_ACCOUNT#7026]"
       ],
       "role": "img",
-      "name": "Cancelled cheque, account [REDACTED:BANK_ACCOUNT#8383]",
+      "name": "Cancelled cheque, account [REDACTED:BANK_ACCOUNT#7026]",
       "bounds": [
         509.8,
         576.5,
@@ -281,7 +281,7 @@
       "element_id": "n35",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:UPI_ID#7559]"
+        "[REDACTED:UPI_ID#4968]"
       ],
       "role": "textbox",
       "name": "Message",
@@ -318,7 +318,7 @@
         64.0,
         28.0
       ],
-      "placeholder": "[REDACTED:NAME#6752]"
+      "placeholder": "[REDACTED:NAME#4807]"
     },
     {
       "element_id": "n15",
@@ -329,7 +329,7 @@
         64.0,
         24.0
       ],
-      "placeholder": "[REDACTED:NAME#6752]"
+      "placeholder": "[REDACTED:NAME#4807]"
     },
     {
       "element_id": "n16",
@@ -340,7 +340,7 @@
         64.0,
         28.0
       ],
-      "placeholder": "[REDACTED:NAME#8058]"
+      "placeholder": "[REDACTED:NAME#5210]"
     },
     {
       "element_id": "n19",
@@ -351,7 +351,7 @@
         160.0,
         28.0
       ],
-      "placeholder": "[REDACTED:AADHAAR#2834]"
+      "placeholder": "[REDACTED:AADHAAR#4737]"
     },
     {
       "element_id": "n19",
@@ -362,7 +362,7 @@
         128.0,
         28.0
       ],
-      "placeholder": "[REDACTED:DOB#2087]"
+      "placeholder": "[REDACTED:DOB#1907]"
     },
     {
       "element_id": "n21",
@@ -373,7 +373,7 @@
         64.0,
         24.0
       ],
-      "placeholder": "[REDACTED:NAME#6752]"
+      "placeholder": "[REDACTED:NAME#4807]"
     },
     {
       "element_id": "n25",
@@ -384,7 +384,7 @@
         192.0,
         28.0
       ],
-      "placeholder": "[REDACTED:PHONE#3317]"
+      "placeholder": "[REDACTED:PHONE#3135]"
     },
     {
       "element_id": "n27",
@@ -395,7 +395,7 @@
         64.0,
         24.0
       ],
-      "placeholder": "[REDACTED:NAME#6752]"
+      "placeholder": "[REDACTED:NAME#4807]"
     },
     {
       "element_id": "n31",
@@ -406,7 +406,7 @@
         128.0,
         28.0
       ],
-      "placeholder": "[REDACTED:PAN#7097]"
+      "placeholder": "[REDACTED:PAN#6326]"
     },
     {
       "element_id": "n31",
@@ -417,7 +417,7 @@
         160.0,
         28.0
       ],
-      "placeholder": "[REDACTED:EMAIL#4948]"
+      "placeholder": "[REDACTED:EMAIL#1200]"
     },
     {
       "element_id": "n35",
@@ -428,7 +428,7 @@
         610.2,
         70.0
       ],
-      "placeholder": "[REDACTED:UPI_ID#7559]"
+      "placeholder": "[REDACTED:UPI_ID#4968]"
     },
     {
       "element_id": "n32",

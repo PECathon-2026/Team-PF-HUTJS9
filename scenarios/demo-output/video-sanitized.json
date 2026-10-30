@@ -61,7 +61,7 @@
       "element_id": "n14",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:EMAIL#4630]"
+        "[REDACTED:EMAIL#6986]"
       ],
       "role": "text",
       "name": "Guest",
@@ -154,10 +154,10 @@
       "element_id": "n24",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#7506]"
+        "[REDACTED:NAME#3664]"
       ],
       "role": "listitem",
-      "name": "[REDACTED:NAME#7506]",
+      "name": "[REDACTED:NAME#3664]",
       "bounds": [
         1048,
         129,
@@ -169,10 +169,10 @@
       "element_id": "n25",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#3564]"
+        "[REDACTED:NAME#5767]"
       ],
       "role": "listitem",
-      "name": "[REDACTED:NAME#3564]",
+      "name": "[REDACTED:NAME#5767]",
       "bounds": [
         1048,
         155,
@@ -184,10 +184,10 @@
       "element_id": "n26",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#1173]"
+        "[REDACTED:NAME#1252]"
       ],
       "role": "listitem",
-      "name": "[REDACTED:NAME#1173]",
+      "name": "[REDACTED:NAME#1252]",
       "bounds": [
         1048,
         181,
@@ -199,7 +199,7 @@
       "element_id": "n28",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:EMAIL#2042]"
+        "[REDACTED:EMAIL#7037]"
       ],
       "role": "link",
       "name": "Copy invite link",
@@ -241,10 +241,10 @@
       "element_id": "n33",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:PHONE#7122]"
+        "[REDACTED:PHONE#9512]"
       ],
       "role": "text",
-      "name": "Call me after on [REDACTED:PHONE#7122]",
+      "name": "Call me after on [REDACTED:PHONE#9512]",
       "bounds": [
         1076.7,
         291,
@@ -269,10 +269,10 @@
       "element_id": "n36",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:UPI_ID#4909]"
+        "[REDACTED:UPI_ID#1703]"
       ],
       "role": "text",
-      "name": "Sending the deposit to [REDACTED:UPI_ID#4909] now",
+      "name": "Sending the deposit to [REDACTED:UPI_ID#1703] now",
       "bounds": [
         1048,
         317,
@@ -291,7 +291,7 @@
         96.0,
         25.0
       ],
-      "placeholder": "[REDACTED:NAME#7506]"
+      "placeholder": "[REDACTED:NAME#3664]"
     },
     {
       "element_id": "n25",
@@ -302,7 +302,7 @@
         96.0,
         25.0
       ],
-      "placeholder": "[REDACTED:NAME#3564]"
+      "placeholder": "[REDACTED:NAME#5767]"
     },
     {
       "element_id": "n26",
@@ -313,7 +313,7 @@
         96.0,
         25.0
       ],
-      "placeholder": "[REDACTED:NAME#1173]"
+      "placeholder": "[REDACTED:NAME#1252]"
     },
     {
       "element_id": "n33",
@@ -324,7 +324,7 @@
         128.0,
         25.0
       ],
-      "placeholder": "[REDACTED:PHONE#7122]"
+      "placeholder": "[REDACTED:PHONE#9512]"
     },
     {
       "element_id": "n36",
@@ -335,7 +335,7 @@
         128.0,
         25.0
       ],
-      "placeholder": "[REDACTED:UPI_ID#4909]"
+      "placeholder": "[REDACTED:UPI_ID#1703]"
     },
     {
       "element_id": "n12",

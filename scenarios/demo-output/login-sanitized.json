@@ -60,10 +60,10 @@
       "element_id": "n13",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:OTP#2199]"
+        "[REDACTED:OTP#7686]"
       ],
       "role": "text",
-      "name": "[REDACTED:OTP#2199]",
+      "name": "[REDACTED:OTP#7686]",
       "bounds": [
         645.0,
         112,
@@ -75,7 +75,7 @@
       "element_id": "n14",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:PHONE#2472]"
+        "[REDACTED:PHONE#7265]"
       ],
       "role": "form",
       "name": "",
@@ -90,10 +90,10 @@
       "element_id": "n15",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:NAME#3977]"
+        "[REDACTED:NAME#9641]"
       ],
       "role": "heading",
-      "name": "Welcome back, [REDACTED:NAME#3977]",
+      "name": "Welcome back, [REDACTED:NAME#9641]",
       "bounds": [
         494,
         180,
@@ -118,7 +118,7 @@
       "element_id": "n18",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:EMAIL#2710]"
+        "[REDACTED:EMAIL#8421]"
       ],
       "role": "textbox",
       "name": "Email or customer ID",
@@ -148,7 +148,7 @@
       "element_id": "n21",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:PASSWORD#5551]"
+        "[REDACTED:PASSWORD#5135]"
       ],
       "role": "textbox",
       "name": "Password",
@@ -191,7 +191,7 @@
       "element_id": "n26",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:OTP#2199]"
+        "[REDACTED:OTP#7686]"
       ],
       "role": "textbox",
       "name": "One-time password",
@@ -208,7 +208,7 @@
       "element_id": "n28",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:PHONE#4225]"
+        "[REDACTED:PHONE#5528]"
       ],
       "role": "button",
       "name": "Send OTP",
@@ -223,7 +223,7 @@
       "element_id": "n30",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:EMAIL#4710]"
+        "[REDACTED:EMAIL#8101]"
       ],
       "role": "link",
       "name": "Forgot password?",
@@ -259,7 +259,7 @@
         64.0,
         25.0
       ],
-      "placeholder": "[REDACTED:OTP#2199]"
+      "placeholder": "[REDACTED:OTP#7686]"
     },
     {
       "element_id": "n15",
@@ -270,7 +270,7 @@
         96.0,
         36.0
       ],
-      "placeholder": "[REDACTED:NAME#3977]"
+      "placeholder": "[REDACTED:NAME#9641]"
     },
     {
       "element_id": "n18",
@@ -281,7 +281,7 @@
         386.0,
         49.0
       ],
-      "placeholder": "[REDACTED:EMAIL#2710]"
+      "placeholder": "[REDACTED:EMAIL#8421]"
     },
     {
       "element_id": "n21",
@@ -292,7 +292,7 @@
         306.3,
         49.0
       ],
-      "placeholder": "[REDACTED:PASSWORD#5551]"
+      "placeholder": "[REDACTED:PASSWORD#5135]"
     },
     {
       "element_id": "n26",
@@ -303,7 +303,7 @@
         191.0,
         49.0
       ],
-      "placeholder": "[REDACTED:OTP#2199]"
+      "placeholder": "[REDACTED:OTP#7686]"
     }
   ]
 }

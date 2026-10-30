@@ -60,7 +60,7 @@
       "element_id": "n13",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:ADDRESS#3030]"
+        "[REDACTED:ADDRESS#1144]"
       ],
       "role": "textbox",
       "name": "Address",
@@ -117,7 +117,7 @@
       "element_id": "n20",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:PIN_CODE#1913]"
+        "[REDACTED:PIN_CODE#1699]"
       ],
       "role": "textbox",
       "name": "PIN code",
@@ -147,7 +147,7 @@
       "element_id": "n24",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:PHONE#5139]"
+        "[REDACTED:PHONE#5829]"
       ],
       "role": "textbox",
       "name": "Mobile",
@@ -177,7 +177,7 @@
       "element_id": "n27",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:EMAIL#2723]"
+        "[REDACTED:EMAIL#2376]"
       ],
       "role": "textbox",
       "name": "Email",
@@ -207,7 +207,7 @@
       "element_id": "n29",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:PAN#2843]"
+        "[REDACTED:PAN#7301]"
       ],
       "role": "textbox",
       "name": "PAN (for GST invoice, optional)",
@@ -250,7 +250,7 @@
       "element_id": "n32",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:CARD#2816]"
+        "[REDACTED:CARD#4859]"
       ],
       "role": "textbox",
       "name": "Card number",
@@ -280,7 +280,7 @@
       "element_id": "n34",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:NAME#9508]"
+        "[REDACTED:NAME#9195]"
       ],
       "role": "textbox",
       "name": "Name on card",
@@ -310,7 +310,7 @@
       "element_id": "n38",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:CARD#7583]"
+        "[REDACTED:CARD#4675]"
       ],
       "role": "textbox",
       "name": "Expiry (MM/YY)",
@@ -340,7 +340,7 @@
       "element_id": "n41",
       "flags": 17,
       "placeholders": [
-        "[REDACTED:PASSWORD#2525]"
+        "[REDACTED:PASSWORD#8786]"
       ],
       "role": "textbox",
       "name": "CVV",
@@ -370,7 +370,7 @@
       "element_id": "n44",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:UPI_ID#2608]"
+        "[REDACTED:UPI_ID#8893]"
       ],
       "role": "button",
       "name": "Pay with UPI",
@@ -476,7 +476,7 @@
       "element_id": "n56",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:PHONE#2479]"
+        "[REDACTED:PHONE#3887]"
       ],
       "role": "link",
       "name": "Track by SMS",
@@ -518,10 +518,10 @@
       "element_id": "n61",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:CARD#7225]"
+        "[REDACTED:CARD#4505]"
       ],
       "role": "text",
-      "name": "[REDACTED:CARD#7225]",
+      "name": "[REDACTED:CARD#4505]",
       "bounds": [
         813,
         308,
@@ -533,7 +533,7 @@
       "element_id": "n65",
       "flags": 1,
       "placeholders": [
-        "[REDACTED:CARD#2075]"
+        "[REDACTED:CARD#3680]"
       ],
       "role": "text",
       "name": "Another card on file ⓘ",
@@ -582,7 +582,7 @@
         462.0,
         49.0
       ],
-      "placeholder": "[REDACTED:ADDRESS#3030]"
+      "placeholder": "[REDACTED:ADDRESS#1144]"
     },
     {
       "element_id": "n20",
@@ -593,7 +593,7 @@
         229.0,
         49.0
       ],
-      "placeholder": "[REDACTED:PIN_CODE#1913]"
+      "placeholder": "[REDACTED:PIN_CODE#1699]"
     },
     {
       "element_id": "n24",
@@ -604,7 +604,7 @@
         229.0,
         49.0
       ],
-      "placeholder": "[REDACTED:PHONE#5139]"
+      "placeholder": "[REDACTED:PHONE#5829]"
     },
     {
       "element_id": "n27",
@@ -615,7 +615,7 @@
         229.0,
         49.0
       ],
-      "placeholder": "[REDACTED:EMAIL#2723]"
+      "placeholder": "[REDACTED:EMAIL#2376]"
     },
     {
       "element_id": "n29",
@@ -626,7 +626,7 @@
         462.0,
         49.0
       ],
-      "placeholder": "[REDACTED:PAN#2843]"
+      "placeholder": "[REDACTED:PAN#7301]"
     },
     {
       "element_id": "n32",
@@ -637,7 +637,7 @@
         462.0,
         49.0
       ],
-      "placeholder": "[REDACTED:CARD#2816]"
+      "placeholder": "[REDACTED:CARD#4859]"
     },
     {
       "element_id": "n34",
@@ -648,7 +648,7 @@
         462.0,
         49.0
       ],
-      "placeholder": "[REDACTED:NAME#9508]"
+      "placeholder": "[REDACTED:NAME#9195]"
     },
     {
       "element_id": "n38",
@@ -659,7 +659,7 @@
         229.0,
         49.0
       ],
-      "placeholder": "[REDACTED:CARD#7583]"
+      "placeholder": "[REDACTED:CARD#4675]"
     },
     {
       "element_id": "n41",
@@ -670,7 +670,7 @@
         229.0,
         49.0
       ],
-      "placeholder": "[REDACTED:PASSWORD#2525]"
+      "placeholder": "[REDACTED:PASSWORD#8786]"
     },
     {
       "element_id": "n61",
@@ -681,7 +681,7 @@
         64.0,
         28.0
       ],
-      "placeholder": "[REDACTED:CARD#7225]"
+      "placeholder": "[REDACTED:CARD#4505]"
     },
     {
       "element_id": "n62",

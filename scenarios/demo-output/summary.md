@@ -16,4 +16,4 @@ Planted values the detector did NOT catch (by type): none.
 
 Leak check: every planted value, as rendered and canonical, in these encodings: as is, case-folded, normalised (look-alikes/invisible characters removed), separators removed (digits only), base64, base64url, hex, URL-encoded, reversed digits, searched in all string content of what the AI would receive. Control: the same scan finds the values in the original DOM capture login 8/8, checkout 12/13, support 9/9, video 7/7, devsettings 10/10.
 
-Session id of the demo vault: `61e66117b17ab467`. Placeholder numbers are random per run.
+Session id of the demo vault: `f1564a7958d8dc76`. Placeholder numbers are random per run.
