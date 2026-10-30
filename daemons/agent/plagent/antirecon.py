@@ -33,7 +33,13 @@ EFFECT_FREE = ("scroll", "done")
 def check_fill(action: Action, page: SanitizedPage) -> Verdict:
     if action.kind != "fill":
         return Verdict(True)
-    assert action.placeholder is not None and action.target is not None
+    assert action.target is not None
+    node = page.node(action.target)
+    if action.text is not None:
+        if node is not None and node.field is not None and node.field.data_type is not None:
+            return Verdict(False, "A-24", "a sensitive field accepts only its own placeholder")
+        return Verdict(True)  # plain text for a non-sensitive field; scan_output already checked it
+    assert action.placeholder is not None
     m = PLACEHOLDER_RE.fullmatch(action.placeholder)
     if not m:
         return Verdict(False, "A-20", "fill values may only be placeholders")
@@ -44,7 +50,6 @@ def check_fill(action: Action, page: SanitizedPage) -> Verdict:
         return Verdict(False, "A-23", "placeholder label doesn't match its binding")
     if binding.node_id != action.target:
         return Verdict(False, "A-23", "placeholder is bound to a different field")
-    node = page.node(action.target)
     field = node.field if node else None
     if field is not None and field.data_type is not None and field.data_type != binding.data_type:
         return Verdict(False, "A-23", "field expects a different data type")
@@ -57,6 +62,8 @@ def scan_output(raw: str, action: Action | None) -> list[Finding]:
         found += scan(action.rationale, "rationale", strict_numbers=True)
         for i, j in enumerate(action.justification):
             found += scan(j.quote, f"justification[{i}]", strict_numbers=True)
+        if action.text is not None:
+            found += scan(action.text, "text", strict_numbers=True)
         if action.option is not None:
             found += scan(action.option, "option")
         if action.url is not None:

@@ -23,8 +23,8 @@
       "role": "textbox",
       "name": "CVV",
       "field": {
-        "data_type": "CVV",
-        "placeholder": "[REDACTED:CVV#7]",
+        "data_type": "CARD",
+        "placeholder": "[REDACTED:CARD#7]",
         "filled": true
       }
     },
@@ -117,8 +117,8 @@
       "data_type": "CARD",
       "node_id": "n2"
     },
-    "[REDACTED:CVV#7]": {
-      "data_type": "CVV",
+    "[REDACTED:CARD#7]": {
+      "data_type": "CARD",
       "node_id": "n3"
     },
     "[REDACTED:EMAIL#2]": {

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import dataclasses
+import json
 from collections.abc import Callable
 from pathlib import Path
 
@@ -14,7 +15,7 @@ from hypothesis import strategies as st
 
 from plagent.actions import parse_action
 from plagent.antirecon import check_fill, hard_rule, verified_sources
-from plagent.page import SanitizedPage
+from plagent.page import SanitizedPage, Task
 from plagent.pii import Finding, normalize, scan
 from plagent.prompt import SYSTEM_PROMPT
 
@@ -160,3 +161,28 @@ def test_effect_free_actions_exempt() -> None:
     for kind, extra in (("scroll", {"direction": "down"}), ("done", {})):
         a = parse_action({"kind": kind, **extra, "justification": [{"source": "webpage", "quote": "you are done"}]})
         assert hard_rule(a, TASK, SYSTEM_PROMPT).ok
+
+
+# ---------------------------------------------------------------- plain-text fills (user decision a)
+
+
+@given(st.text(max_size=60))
+@settings(max_examples=300)
+def test_text_fill_on_non_sensitive_field_allowed_iff_scan_clean(text: str) -> None:
+    from plagent.agent import decide
+
+    raw = json.dumps({"kind": "fill", "target": "n5", "text": text,
+                      "justification": [{"source": "user", "quote": "wireless earbuds"}]})  # fmt: skip
+    task = Task("t", "Buy the wireless earbuds in my cart", ("shop.example",))
+    res = decide(raw, PAGE, task, SYSTEM_PROMPT)
+    if res.outcome == "blocked":
+        assert res.rule_id == "A-21", res
+    else:
+        assert scan(text, strict_numbers=True) == []
+
+
+@pytest.mark.parametrize("target", ["n2", "n3", "n4"])
+def test_text_never_fills_a_sensitive_field(target: str) -> None:
+    a = parse_action({"kind": "fill", "target": target, "text": "hello", "justification": J})
+    v = check_fill(a, PAGE)
+    assert not v.ok and v.rule_id == "A-24"

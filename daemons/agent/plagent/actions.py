@@ -4,6 +4,10 @@
 constrained decoding. The model's output is still re-validated here by
 ``parse_action``, which is stricter than the schema can express.
 
+Fills: a sensitive field takes only its own placeholder; a non-sensitive field
+(search box, quantity) may take plain ``text``, which must pass the PII scan
+(user decision a, 2026-10-30).
+
 There is deliberately no action that returns data (no read, get, extract,
 copy, screenshot): the model only ever gets the next sanitized page.
 """
@@ -17,11 +21,12 @@ from typing import Any
 
 KINDS = ("click", "fill", "select", "navigate", "scroll", "done")
 SOURCES = ("system", "user", "webpage")
-PLACEHOLDER_RE = re.compile(r"\[REDACTED:([A-Z][A-Z0-9_]{0,23})#([0-9]{1,6})\]")
+PLACEHOLDER_RE = re.compile(r"\[REDACTED:([A-Z][A-Z0-9_]{1,23})#([0-9]{1,6})\]")  # contracts/README.md
 NODE_ID_RE = re.compile(r"[A-Za-z0-9_:-]{1,64}")
 MAX_RATIONALE = 300
 MAX_QUOTE = 300
 MAX_URL = 2048
+MAX_TEXT = 500
 
 _JUSTIFICATION = {
     "type": "array",
@@ -65,6 +70,7 @@ ACTION_SCHEMA: dict[str, Any] = {
             ["target", "placeholder"],
             {"target": _TARGET, "placeholder": {"type": "string", "pattern": "^" + PLACEHOLDER_RE.pattern + "$"}},
         ),
+        _variant("fill", ["target", "text"], {"target": _TARGET, "text": {"type": "string", "maxLength": MAX_TEXT}}),
         _variant("select", ["target", "option"], {"target": _TARGET, "option": {"type": "string", "maxLength": 200}}),
         _variant("navigate", ["url"], {"url": {"type": "string", "maxLength": MAX_URL}}),
         _variant("scroll", ["direction"], {"direction": {"enum": ["up", "down"]}}),
@@ -86,6 +92,7 @@ class Action:
     rationale: str = ""
     target: str | None = None
     placeholder: str | None = None
+    text: str | None = None  # plain text for NON-sensitive fields only (user decision a)
     option: str | None = None
     url: str | None = None
     direction: str | None = None
@@ -102,7 +109,7 @@ class ActionError(ValueError):
 
 _FIELDS = {
     "click": {"target"},
-    "fill": {"target", "placeholder"},
+    "fill": {"target"},  # plus exactly one of placeholder / text
     "select": {"target", "option"},
     "navigate": {"url"},
     "scroll": {"direction"},
@@ -136,7 +143,9 @@ def parse_action(raw: str | dict[str, Any]) -> Action:
     keys = set(data)
     if keys & _COORD_KEYS:
         raise ActionError("A-06", "coordinate clicks are not allowed")
-    allowed = {"kind", "justification", "rationale"} | _FIELDS[kind]
+    allowed = (
+        {"kind", "justification", "rationale"} | _FIELDS[kind] | ({"placeholder", "text"} if kind == "fill" else set())
+    )
     if keys - allowed:
         raise ActionError("A-01", f"unexpected fields {sorted(keys - allowed)}")
     if missing := (_FIELDS[kind] | {"justification"}) - keys:
@@ -162,10 +171,15 @@ def parse_action(raw: str | dict[str, Any]) -> Action:
             raise ActionError("A-01", "target must be a node id")
         kw["target"] = t
     if kind == "fill":
-        p = _str(data, "placeholder", 40)
-        if not PLACEHOLDER_RE.fullmatch(p):
-            raise ActionError("A-20", "fill values may only be placeholders like [REDACTED:CARD#3]")
-        kw["placeholder"] = p
+        if ("placeholder" in data) == ("text" in data):
+            raise ActionError("A-01", "fill needs exactly one of placeholder or text")
+        if "placeholder" in data:
+            p = _str(data, "placeholder", 40)
+            if not PLACEHOLDER_RE.fullmatch(p):
+                raise ActionError("A-20", "placeholder must look like [REDACTED:CARD#3]")
+            kw["placeholder"] = p
+        else:
+            kw["text"] = _str(data, "text", MAX_TEXT)
     if kind == "select":
         kw["option"] = _str(data, "option", 200)
     if kind == "navigate":

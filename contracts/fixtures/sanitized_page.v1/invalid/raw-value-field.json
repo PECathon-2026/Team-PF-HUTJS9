@@ -1,0 +1,39 @@
+{
+  "schema": "sanitized_page.v1",
+  "snapshot_id": 7,
+  "url": "https://shop.example/checkout",
+  "title": "Checkout",
+  "elements": [
+    {
+      "element_id": "n12",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:CARD#3]"
+      ],
+      "role": "textbox",
+      "name": "Card number",
+      "data_type": "CARD",
+      "filled": true,
+      "bounds": [
+        100,
+        220,
+        320,
+        36
+      ],
+      "raw": "4111111111111111"
+    }
+  ],
+  "redactions": [
+    {
+      "element_id": "n12",
+      "category": "CARD",
+      "placeholder": "[REDACTED:CARD#3]",
+      "box": [
+        96,
+        216,
+        328,
+        44
+      ]
+    }
+  ]
+}

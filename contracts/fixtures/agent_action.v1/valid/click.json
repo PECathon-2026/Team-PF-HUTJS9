@@ -1,0 +1,14 @@
+{
+  "schema": "agent_action.v1",
+  "action_id": "a-3",
+  "snapshot_id": 7,
+  "kind": "click",
+  "target": "n13",
+  "justification": [
+    {
+      "source": "user",
+      "quote": "pay"
+    }
+  ],
+  "irreversible": true
+}

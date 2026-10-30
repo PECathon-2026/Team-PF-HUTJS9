@@ -4,7 +4,7 @@ Order of checks (every one fail-closed; the first refusal wins):
     1. PII scan of the raw model output                  A-21
     2. strict parse into an Action                        A-01, A-06, A-20, A-22
     3. PII scan of the action's free-text fields          A-21
-    4. placeholder binding for fills                      A-23
+    4. fills: placeholder binding / text only on non-sensitive fields   A-23, A-24
     5. action validator (target, URL, domain)             A-02..A-09
     6. provenance hard rule                               I-01
     7. noisy-OR risk: allow -> execute, ask -> approval, deny -> blocked (A-30)

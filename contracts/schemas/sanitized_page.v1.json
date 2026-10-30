@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/sanitized_page.v1.json",
+  "title": "Sanitized page",
+  "description": "What the agent may see (spec sections 5 and 9): elements with sanitized names and placeholders instead of values, plus redaction boxes. Accepts the core shell's fail-closed NullSanitizer output (fallback = null_detector).",
+  "x-pl-zone": "sanitized",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "sanitized_page.v1"
+    },
+    "snapshot_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "fallback": {
+      "enum": [
+        "null_detector"
+      ]
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 2048
+    },
+    "title": {
+      "type": "string",
+      "maxLength": 512
+    },
+    "elements": {
+      "type": "array",
+      "maxItems": 20000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "element_id",
+          "flags",
+          "placeholders"
+        ],
+        "properties": {
+          "element_id": {
+            "type": "string",
+            "pattern": "^n[0-9]{1,10}$"
+          },
+          "flags": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 4294967295
+          },
+          "placeholders": {
+            "type": "array",
+            "maxItems": 64,
+            "items": {
+              "type": "string",
+              "pattern": "^\\[REDACTED:[A-Z][A-Z0-9_]{1,23}#[0-9]{1,6}\\]$"
+            }
+          },
+          "role": {
+            "type": "string",
+            "pattern": "^[a-z][a-zA-Z]{0,31}$"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 2000
+          },
+          "data_type": {
+            "enum": [
+              "CARD",
+              "AADHAAR",
+              "PAN",
+              "API_KEY",
+              "OTP",
+              "PASSWORD",
+              "EMAIL",
+              "PHONE",
+              "IP_ADDRESS",
+              "PIN_CODE",
+              "BANK_ACCOUNT",
+              "IFSC",
+              "UPI_ID",
+              "PASSPORT",
+              "DOB",
+              "NAME",
+              "ADDRESS",
+              "FACE",
+              "SECRET",
+              "QUASI_ID"
+            ]
+          },
+          "href": {
+            "type": "string",
+            "maxLength": 2048
+          },
+          "options": {
+            "type": "array",
+            "maxItems": 200,
+            "items": {
+              "type": "string",
+              "maxLength": 200
+            }
+          },
+          "filled": {
+            "type": "boolean"
+          },
+          "bounds": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -100000,
+              "maximum": 100000
+            },
+            "minItems": 4,
+            "maxItems": 4
+          }
+        }
+      }
+    },
+    "redactions": {
+      "type": "array",
+      "maxItems": 5000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "element_id",
+          "category",
+          "box"
+        ],
+        "properties": {
+          "element_id": {
+            "type": "string",
+            "pattern": "^n[0-9]{1,10}$"
+          },
+          "category": {
+            "enum": [
+              "CARD",
+              "AADHAAR",
+              "PAN",
+              "API_KEY",
+              "OTP",
+              "PASSWORD",
+              "EMAIL",
+              "PHONE",
+              "IP_ADDRESS",
+              "PIN_CODE",
+              "BANK_ACCOUNT",
+              "IFSC",
+              "UPI_ID",
+              "PASSPORT",
+              "DOB",
+              "NAME",
+              "ADDRESS",
+              "FACE",
+              "SECRET",
+              "QUASI_ID"
+            ]
+          },
+          "placeholder": {
+            "type": "string",
+            "pattern": "^\\[REDACTED:[A-Z][A-Z0-9_]{1,23}#[0-9]{1,6}\\]$"
+          },
+          "box": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -100000,
+              "maximum": 100000
+            },
+            "minItems": 4,
+            "maxItems": 4
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "elements"
+  ],
+  "additionalProperties": false
+}

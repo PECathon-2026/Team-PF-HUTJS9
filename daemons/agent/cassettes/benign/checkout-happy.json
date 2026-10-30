@@ -30,6 +30,12 @@
       }
     },
     {
+      "response": "{\"kind\": \"fill\", \"target\": \"n5\", \"text\": \"wireless earbuds\", \"justification\": [{\"source\": \"user\", \"quote\": \"wireless earbuds\"}]}",
+      "expect": {
+        "outcome": "execute"
+      }
+    },
+    {
       "response": "{\"kind\": \"click\", \"target\": \"n7\", \"justification\": [{\"source\": \"user\", \"quote\": \"pay with my saved card\"}]}",
       "expect": {
         "outcome": "approval",

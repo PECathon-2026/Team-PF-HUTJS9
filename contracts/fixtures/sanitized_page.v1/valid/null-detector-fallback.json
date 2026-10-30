@@ -1,0 +1,13 @@
+{
+  "schema": "sanitized_page.v1",
+  "fallback": "null_detector",
+  "elements": [
+    {
+      "element_id": "n0",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:SECRET#1]"
+      ]
+    }
+  ]
+}

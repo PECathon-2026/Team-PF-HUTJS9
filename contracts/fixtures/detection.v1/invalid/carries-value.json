@@ -1,0 +1,30 @@
+{
+  "schema": "detection.v1",
+  "snapshot_id": 7,
+  "complete": true,
+  "items": [
+    {
+      "element_id": "n12",
+      "channel": "input_value",
+      "begin": 0,
+      "end": 19,
+      "region": [
+        100,
+        220,
+        320,
+        36
+      ],
+      "category": "CARD",
+      "score": 0.99,
+      "source": "checksum",
+      "evidence": [
+        "luhn",
+        "iin:visa",
+        "autocomplete:cc-number"
+      ],
+      "rule_id": "D-01",
+      "placeholder": "[REDACTED:CARD#3]",
+      "value": "4111111111111111"
+    }
+  ]
+}

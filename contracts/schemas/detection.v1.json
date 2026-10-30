@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/detection.v1.json",
+  "title": "Detection set",
+  "description": "What detect found on one snapshot (spec section 4): element, channel, byte range, region, category, score, evidence and rule. Metadata only: never the value.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "detection.v1"
+    },
+    "snapshot_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "complete": {
+      "type": "boolean"
+    },
+    "items": {
+      "type": "array",
+      "maxItems": 5000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "element_id",
+          "channel",
+          "category",
+          "score",
+          "source",
+          "rule_id"
+        ],
+        "properties": {
+          "element_id": {
+            "type": "string",
+            "pattern": "^n[0-9]{1,10}$"
+          },
+          "channel": {
+            "enum": [
+              "text",
+              "input_value",
+              "attribute",
+              "url",
+              "title",
+              "image",
+              "canvas",
+              "video"
+            ]
+          },
+          "attribute": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_:-]{0,40}$"
+          },
+          "begin": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "region": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": -100000,
+              "maximum": 100000
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "category": {
+            "enum": [
+              "CARD",
+              "AADHAAR",
+              "PAN",
+              "API_KEY",
+              "OTP",
+              "PASSWORD",
+              "EMAIL",
+              "PHONE",
+              "IP_ADDRESS",
+              "PIN_CODE",
+              "BANK_ACCOUNT",
+              "IFSC",
+              "UPI_ID",
+              "PASSPORT",
+              "DOB",
+              "NAME",
+              "ADDRESS",
+              "FACE",
+              "SECRET",
+              "QUASI_ID"
+            ]
+          },
+          "score": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "source": {
+            "enum": [
+              "pattern",
+              "checksum",
+              "structural",
+              "model",
+              "ocr",
+              "face",
+              "entropy",
+              "site_memory",
+              "fallback"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "maxItems": 16,
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9_]{0,31}(:[a-z0-9_-]{1,32})?$"
+            }
+          },
+          "rule_id": {
+            "type": "string",
+            "pattern": "^D-[0-9]{2,3}$"
+          },
+          "placeholder": {
+            "type": "string",
+            "pattern": "^\\[REDACTED:[A-Z][A-Z0-9_]{1,23}#[0-9]{1,6}\\]$"
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "snapshot_id",
+    "complete",
+    "items"
+  ],
+  "additionalProperties": false
+}
