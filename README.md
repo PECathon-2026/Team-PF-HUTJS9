@@ -9,13 +9,13 @@ PrivacyLens is an experimental web-agent privacy system. Local detection and san
 | Component | Status | Evidence |
 |---|---|---|
 | Build foundation, contracts, IPC libraries, compose policy | Merged and tested | PRs #1 and #3 merged; PR #3 CI passed. The recorded local run reports 132 Python tests, 64 C++ tests under GCC and ASan/UBSan, and 27 compose-policy tests passing. |
-| Detection and sanitization | On `win/s1-p0` | 16 focused C++ tests passed in debug and ASan/UBSan per WIN status; not merged. |
-| Synthetic ML/scenario generation | On `win/s1-p0` | 131 ML tests plus a browser test; 87 scenario tests plus 13 browser tests; recorded ruff and strict mypy checks clean. |
-| Agent policy logic | On `win/s1-p0` | 180+ tests reported in WIN status; 52/52 malicious replay actions stopped. IPC daemon wiring remains incomplete. |
+| Detection and sanitization | Merged in PR #7; locally tested | 16/16 focused C++ tests passed in this session. |
+| Synthetic ML/scenario generation | Merged in PR #7; locally tested | Python suites passed in this session; WIN status reports 131 ML tests plus a browser test and 87 scenario tests plus 13 browser tests. |
+| Agent policy logic | Partial; merged in PR #7 | Python suites passed in this session; WIN status reports 180+ tests and 52/52 malicious replay actions stopped. IPC daemon wiring remains incomplete. |
 | Vault, gate, and core runtime | Partial on `lnx/s1-platform` | Core runtime compiles; 87/87 C++ tests reported. The branch still has 26 clang-tidy findings and is not merged or containerized. |
 | Ledger | Merged and tested | PRs #4 and #5 merged; PR #5 CI passed. The ledger reports 25 tests, including Merkle proof and tamper cases. |
 | Dashboard | Partial | V1 merged in PR #4 and verified in labelled mock mode. The audit/posture/training additions on `win/winb-s2-dash` report 9/9 tests, but browser smoke failed and the real gate stream is untested. |
-| Five-page data pipeline demo | On `win/s1-p0`; run passed | `make demo-pipeline` completed for all five pages with no failing pages. This is a Python demonstration, not the production C++/daemon pipeline. |
+| Five-page data pipeline demo | Merged in PR #7; run passed | `make demo-pipeline` completed for all five pages with no failing pages. This is a Python demonstration, not the production C++/daemon pipeline. |
 
 ## Data pipeline demo
 
@@ -47,7 +47,6 @@ The demo uses Python validators and a synthetic-name dictionary; it does not cal
 
 | Branch | Contents and current limits |
 |---|---|
-| `win/s1-p0` | Detection/sanitization, agent logic, generated scenarios, ML utilities, and the five-page demo. Unmerged; run `make demo-pipeline` here. |
 | `lnx/s1-platform` | Vault, gate, and core runtime; partial, with clang-tidy findings and container/e2e work outstanding. |
 | `win/winb-s2-dash` | Dashboard audit, isolation, posture, and training screens; 9 tests pass, but browser smoke is not passing and real-stream verification is pending. |
 | `win/early-agent`, `win/early-p2`, `win/p0-early` | Earlier agent, ML, and scenario work; superseded/stacked work, not merged. |
@@ -58,7 +57,7 @@ No `showcase` or `ui-prototype` remote branch was present when this README was p
 ## Running checks
 
 - On the current merged base: `make test-cpp-lnx` (80/80 passed in this session).
-- On `win/s1-p0`: `make demo-pipeline` (five pages; no failing pages).
+- On the current merged base: `make demo-pipeline` (five pages; no failing pages).
 - In the dashboard worktree: `make -f Makefile -f dashboard/dashboard.mk dashboard dashboard-test` (9/9 reported by WIN-B; browser smoke remains unverified).
 
 Use the corresponding worktree/branch for branch-only targets; they are not all available on `main`.
