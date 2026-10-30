@@ -1,0 +1,7 @@
+build/truth
+**/__pycache__
+.venv
+tests
+plscen
+pages
+redteam

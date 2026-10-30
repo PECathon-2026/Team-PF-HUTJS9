@@ -1,5 +1,17 @@
 # WIN status
 
+T0 = 2026-10-30T00:45:19+00:00 (sprint plan: ~/pl-sprint/docs/prompts/SPRINT.md). Sprint 1 ends 02:45, Sprint 2 04:30, feature freeze 05:00, Sprint 3 05:45 (UTC).
+
+## Sprint 1 (WIN-A)
+
+- [~] 1. Phase 0 completion: early branches rebased onto LNX's branch (branch `win/s1-p0`); schemas v1 (detection, sanitized_page, agent_action, approval_request, policy) with fixtures; `mk/win.mk` (test-win, lint-win, ci-win, doctor-win, fetch-artifacts-win, scenarios-build; WIN-B fence); `sites` compose fragment; L-001/L-002 acknowledged. Left: merge after LNX's Phase 0 lands, tag p0-win-done.
+- [x] 2. detect v1 (C++): normaliser, digit-run scanner + Hyperscan families, validators, structural, split re-join by geometry, taint labels. 16 Win* tests pass (debug + ASan/UBSan).
+- [x] 3. sanitize v1 (C++): vault_store per value, placeholders, field boxes, PNG re-encode, href query/fragment dropped.
+- [ ] 4. agent on plpy IPC + replay cassettes for login/checkout.
+- [ ] 5. scenario e2e tests (login, checkout) in tests/e2e/scenarios.
+
+Decisions applied (user, 2026-10-30): (a) non-sensitive fields accept PII-scanned plain text, sensitive fields only their placeholder (A-24); (b) hard-rule weakness accepted, approvals are the backstop, Sprint 2 classifier is the fix; (c) risk weights calibrated in Sprint 2 on the benign + malicious cassettes; (e) PLCANARY adopted by LNX's gate.
+
 ## Phase 0 (early start, branch `win/p0-early`)
 
 Started before `p0-lnx-done` on the user's instruction. Only work that doesn't depend on LNX is done here.
