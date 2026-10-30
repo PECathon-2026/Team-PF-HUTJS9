@@ -1,7 +1,15 @@
 #include "ledger/ledger.hpp"
 
 #include <algorithm>
+#include <sodium.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
 #include <array>
+#include <cstdio>
+#include <fstream>
+
+#include <fcntl.h>
 
 #include "pl/ids.hpp"
 
@@ -26,8 +34,76 @@ bool schema_allowed(std::string_view schema_id) noexcept {
   return std::ranges::any_of(kAllowed, [&](std::string_view a) { return a == schema_id; });
 }
 
+namespace {
+
+Signer load_or_create_signer(const std::filesystem::path& dir) {
+  const auto keyfile = dir / "ledger.key";
+  SeedKey seed{};
+  std::string hex;
+  if (std::ifstream in(keyfile); in && std::getline(in, hex) && hex.size() == 64) {
+    std::size_t len = 0;
+    if (sodium_hex2bin(seed.data(), seed.size(), hex.c_str(), hex.size(), nullptr, &len, nullptr) != 0 ||
+        len != seed.size()) {
+      throw std::runtime_error("ledger: unreadable signing key " + keyfile.string());
+    }
+  } else {
+    randombytes_buf(seed.data(), seed.size());
+    std::string out(seed.size() * 2 + 1, '\0');
+    sodium_bin2hex(out.data(), out.size(), seed.data(), seed.size());
+    out.resize(seed.size() * 2);
+    const int fd = ::open(keyfile.c_str(), O_WRONLY | O_CREAT | O_EXCL | O_CLOEXEC, 0600);
+    if (fd < 0) {
+      throw std::runtime_error("ledger: cannot create signing key " + keyfile.string());
+    }
+    out += "\n";
+    const bool ok = ::write(fd, out.data(), out.size()) == static_cast<ssize_t>(out.size());
+    ::close(fd);
+    sodium_memzero(out.data(), out.size());
+    if (!ok) {
+      throw std::runtime_error("ledger: cannot write signing key");
+    }
+  }
+  Signer s = Signer::from_seed(seed);
+  sodium_memzero(seed.data(), seed.size());
+  std::string pub(s.pk.size() * 2 + 1, '\0');
+  sodium_bin2hex(pub.data(), pub.size(), s.pk.data(), s.pk.size());
+  pub.resize(s.pk.size() * 2);
+  std::ofstream(dir / "ledger.pub", std::ios::trunc) << pub << "\n";
+  return s;
+}
+
+}  // namespace
+
 Ledger::Ledger(LedgerConfig cfg, const MessageValidator& validator)
-    : cfg_(std::move(cfg)), validator_(validator), writer_(cfg_.segments) {}
+    : cfg_(std::move(cfg)), validator_(validator), writer_(cfg_.segments), signer_(load_or_create_signer(cfg_.segments.dir)) {
+  if (sodium_init() < 0) {
+    throw std::runtime_error("sodium_init failed");
+  }
+  for (const auto& line : read_all_lines(cfg_.segments.dir)) {
+    tree_.append(line);
+  }
+  // Heads already signed for the recovered entries need no new signature.
+  if (std::ifstream in(cfg_.segments.dir / "sth.jsonl"); in) {
+    std::string l;
+    while (std::getline(in, l)) {
+      const auto j = nlohmann::json::parse(l, nullptr, false);
+      if (j.is_object() && j.contains("tree_size") && j["tree_size"].is_number_unsigned()) {
+        last_sth_size_ = std::max<std::uint64_t>(last_sth_size_, j["tree_size"].get<std::uint64_t>());
+      }
+    }
+  }
+}
+
+std::optional<nlohmann::json> Ledger::publish_sth() {
+  if (tree_.size() == 0 || tree_.size() == last_sth_size_) {
+    return std::nullopt;
+  }
+  nlohmann::json sth = make_sth(signer_, tree_.size(), tree_.root(), realtime_ns());
+  std::ofstream(cfg_.segments.dir / "sth.jsonl", std::ios::app) << sth.dump() << "\n";
+  last_sth_size_ = tree_.size();
+  sth["type"] = "sth";
+  return sth;
+}
 
 std::uint64_t Ledger::store(std::string_view kind, const nlohmann::json& record) {
   std::uint64_t seq = 0;
@@ -38,6 +114,7 @@ std::uint64_t Ledger::store(std::string_view kind, const nlohmann::json& record)
                               {"ts_ns", stored["ts_ns"]},
                               {"kind", stored["kind"]},
                               {"record", stored["record"]}};
+  tree_.append(line);
   ring_sizes_.push_back(line.size());
   ring_bytes_ += line.size();
   ring_.push_back(msg);
@@ -115,7 +192,8 @@ std::vector<nlohmann::json> Ledger::subscribe_burst() const {
 nlohmann::json Ledger::stats_message() const {
   return {
       {"type", "stats"},         {"accepted", accepted_},       {"rejected", rejected_},         {"by_rule", by_rule_},
-      {"by_schema", by_schema_}, {"head", writer_.head_hash()}, {"next_seq", writer_.next_seq()}};
+      {"by_schema", by_schema_}, {"head", writer_.head_hash()}, {"next_seq", writer_.next_seq()},
+      {"tree_size", tree_.size()},  {"root", to_hex(tree_.root())},   {"key_id", signer_.key_id()}};
 }
 
 }  // namespace pl::ledger
