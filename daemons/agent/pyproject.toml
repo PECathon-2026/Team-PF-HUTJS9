@@ -1,0 +1,49 @@
+[project]
+name = "pl-agent"
+version = "0.1.0"
+description = "PrivacyLens agent: action schema, validator, anti-reconstruction, prompt fences, risk (owner: WIN)"
+requires-python = ">=3.12,<3.13"
+dependencies = []  # standard library only: the agent container stays small and auditable
+
+[dependency-groups]
+dev = [
+  "pytest==8.3.5",
+  "hypothesis==6.131.0",
+  "pytest-cov==6.1.1",
+  "mypy==1.15.0",
+  "ruff==0.11.6",
+  "jsonschema==4.23.0",
+  "pl-ml",  # tests only: synthetic values to scan for
+]
+
+[tool.uv.sources]
+pl-ml = { path = "../../ml", editable = true }
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["plagent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.coverage.run]
+omit = ["cassettes/*"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+
+[[tool.mypy.overrides]]
+module = ["jsonschema.*"]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "RUF"]
