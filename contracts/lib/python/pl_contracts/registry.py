@@ -10,9 +10,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator, FormatChecker
 
-SCHEMA_FILE = re.compile(
-    r"^(?P<name>[a-z][a-z0-9_]*)\.v(?P<version>[1-9][0-9]*)\.json$"
-)
+SCHEMA_FILE = re.compile(r"^(?P<name>[a-z][a-z0-9_]*)\.v(?P<version>[1-9][0-9]*)\.json$")
 DIALECT = "https://json-schema.org/draft/2020-12/schema"
 ID_PREFIX = "https://privacylens.invalid/contracts/"
 # Formats both validators check identically.
@@ -31,16 +29,12 @@ def _checker() -> FormatChecker:
 @dataclass
 class Registry:
     schemas: dict[str, dict[str, Any]] = field(default_factory=dict)
-    _validators: dict[str, Draft202012Validator] = field(
-        default_factory=dict, repr=False
-    )
+    _validators: dict[str, Draft202012Validator] = field(default_factory=dict, repr=False)
 
     def add(self, schema_id: str, schema: dict[str, Any]) -> None:
         Draft202012Validator.check_schema(schema)
         self.schemas[schema_id] = schema
-        self._validators[schema_id] = Draft202012Validator(
-            schema, format_checker=_checker()
-        )
+        self._validators[schema_id] = Draft202012Validator(schema, format_checker=_checker())
 
     def errors(self, schema_id: str, instance: Any) -> list[str]:
         """Return error descriptions (JSON paths and keyword only, never the offending value)."""

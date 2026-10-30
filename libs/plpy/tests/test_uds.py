@@ -108,3 +108,31 @@ def test_json_depth_limit_matches_cpp() -> None:
         parse_json_bounded(nested_obj.encode())
     with pytest.raises(ProtocolError):
         parse_json_bounded(b"\xff\xfe")
+
+
+def test_json_depth_counts_containers_only() -> None:
+    d = MAX_JSON_DEPTH
+    assert parse_json_bounded(("[" * d + "1" + "]" * d).encode()) is not None
+    assert parse_json_bounded(("[" * (d - 1) + '{"a":1}' + "]" * (d - 1)).encode()) is not None
+    with pytest.raises(ProtocolError):
+        parse_json_bounded(("[" * d + '{"a":1}' + "]" * d).encode())
+
+
+@pytest.mark.parametrize("bad", ['{"x": NaN}', '{"x": Infinity}', '{"x": -Infinity}', '{"x": "\\ud800"}', '{"\\udc00": 1}'])
+def test_rejects_nan_and_lone_surrogates(bad: str) -> None:
+    with pytest.raises(ProtocolError):
+        parse_json_bounded(bad.encode())
+
+
+def test_send_rejects_non_strict_json() -> None:
+    a, _ = pair()
+    with pytest.raises(ProtocolError):
+        a.send_json({"schema": "ok.v1", "x": float("nan")}, None)
+    with pytest.raises(ProtocolError):
+        a.send_json({"schema": "ok.v1", "x": "\ud800"}, None)
+
+
+def test_send_times_out_when_peer_never_reads() -> None:
+    a, _b = pair()
+    with pytest.raises(ProtocolError):
+        a.send(b"x" * (1 << 20), timeout_s=0.05)

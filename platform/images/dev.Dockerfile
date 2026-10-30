@@ -13,6 +13,11 @@
 #   - Vectorscan: Ubuntu 24.04 ships Hyperscan 5.4.2 (libhyperscan-dev) on amd64.
 #     Vectorscan is its API-compatible fork; we use the packaged library.
 #   - pocketfft/FFTW: FFTW (libfftw3-dev).
+#   - json-schema-validator is built with Boost.Regex (JSON_SCHEMA_BOOST_REGEX):
+#     std::regex recurses per character and overflows the stack on long strings
+#     (Phase 0 review); consumers link Boost::regex (contracts/lib/CMakeLists.txt).
+#   - ca-certificates is installed from the live archive before the switch to the
+#     snapshot (snapshot.ubuntu.com is HTTPS-only); everything after is frozen.
 #   - LightGBM: the official manylinux shared library from the PyPI wheel, plus
 #     the C API headers from the matching source release.
 
@@ -34,7 +39,7 @@ RUN apt-get update \
       cmake ninja-build ccache \
       git curl xz-utils unzip file jq strace gdb \
       libgtest-dev libgmock-dev libbenchmark-dev librapidcheck-dev \
-      libsodium-dev libhyperscan-dev libeigen3-dev \
+      libsodium-dev libhyperscan-dev libeigen3-dev libboost-regex-dev \
       libopencv-core-dev libopencv-imgproc-dev libopencv-imgcodecs-dev \
       libfftw3-dev nlohmann-json3-dev libyaml-cpp-dev libspdlog-dev libfmt-dev libcli11-dev \
       libsqlite3-dev sqlite3 \
@@ -59,6 +64,7 @@ ARG UV_SHA256=b4dfaef47d491a7296981f8374a4595f55dbf84e8937c8ecd2983574d8bb3da6
 ARG NODE_VERSION=22.23.3
 ARG NODE_SHA256=df450af89261115ef9f9e3830c3eeb2cc9213b63c720b1af623cb5dcbe2e02de
 ARG PNPM_VERSION=10.34.6
+ARG PNPM_SHA256=44d7db90fcbb2315b581f85989a913466765421fc656c28e80fac1b7ab5be456
 ARG GITLEAKS_VERSION=8.30.1
 ARG GITLEAKS_SHA256=551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
 ARG BPFTOOL_VERSION=7.7.0
@@ -85,7 +91,8 @@ RUN set -eux; mkdir -p /tmp/dl && cd /tmp/dl; \
     fetch "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz" node.txz "${NODE_SHA256}"; \
     mkdir -p /opt/node && tar xJf node.txz --strip-components=1 -C /opt/node; \
     for b in node npm npx corepack; do ln -s /opt/node/bin/$b /usr/local/bin/$b; done; \
-    npm install -g --no-fund --no-audit "pnpm@${PNPM_VERSION}"; ln -s /opt/node/bin/pnpm /usr/local/bin/pnpm; \
+    fetch "https://registry.npmjs.org/pnpm/-/pnpm-${PNPM_VERSION}.tgz" pnpm.tgz "${PNPM_SHA256}"; \
+    npm install -g --no-fund --no-audit ./pnpm.tgz; ln -s /opt/node/bin/pnpm /usr/local/bin/pnpm; \
     \
     fetch "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" gitleaks.tgz "${GITLEAKS_SHA256}"; \
     tar xzf gitleaks.tgz -C /usr/local/bin gitleaks; \
@@ -115,7 +122,7 @@ RUN set -eux; mkdir -p /tmp/dl && cd /tmp/dl; \
     tar xzf jsv.tgz; \
     cmake -S "json-schema-validator-${JSV_VERSION}" -B jsv-build -G Ninja -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DJSON_VALIDATOR_INSTALL=ON -DJSON_VALIDATOR_BUILD_TESTS=OFF \
-      -DJSON_VALIDATOR_BUILD_EXAMPLES=OFF -DJSON_VALIDATOR_SHARED_LIBS=OFF \
+      -DJSON_VALIDATOR_BUILD_EXAMPLES=OFF -DJSON_VALIDATOR_SHARED_LIBS=OFF -DCMAKE_CXX_FLAGS=-DJSON_SCHEMA_BOOST_REGEX \
       -DFETCHCONTENT_TRY_FIND_PACKAGE_MODE=ALWAYS -DFETCHCONTENT_FULLY_DISCONNECTED=ON; \
     cmake --build jsv-build -j4 && cmake --install jsv-build --prefix /usr/local; \
     \

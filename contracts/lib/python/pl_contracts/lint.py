@@ -33,9 +33,7 @@ UNBOUNDED_QUANTIFIER = re.compile(r"(?<!\\)[*+]|\{[0-9]+,\}")
 NON_PORTABLE_REGEX = re.compile(r"\(\?<[=!]|\(\?P?<[A-Za-z]|\\[pP]\{|\(\?[imsx]")
 
 
-def subschemas(
-    schema: dict[str, Any], path: str
-) -> Iterator[tuple[str, dict[str, Any]]]:
+def subschemas(schema: dict[str, Any], path: str) -> Iterator[tuple[str, dict[str, Any]]]:
     """Yield (json-path, subschema) for every schema object below and including `schema`."""
     yield path, schema
     for kw in SCHEMA_MAP_KEYWORDS:
@@ -97,11 +95,7 @@ def lint_schema(
     if schema.get("type") != "object":
         err("", "top level must be an object")
     top_schema = (schema.get("properties") or {}).get("schema")
-    if (
-        not isinstance(top_schema, dict)
-        or top_schema.get("const") != sid
-        or "schema" not in (schema.get("required") or [])
-    ):
+    if not isinstance(top_schema, dict) or top_schema.get("const") != sid or "schema" not in (schema.get("required") or []):
         err("", f"top level needs a required 'schema' property with const {sid!r}")
 
     for where, sub in subschemas(schema, ""):
@@ -111,9 +105,7 @@ def lint_schema(
         if where and "x-pl-zone" in sub:
             err(where, "x-pl-zone is only allowed at the top level")
         ref = sub.get("$ref")
-        if ref is not None and (
-            not isinstance(ref, str) or not ref.startswith("#/$defs/")
-        ):
+        if ref is not None and (not isinstance(ref, str) or not ref.startswith("#/$defs/")):
             err(where, "only local '#/$defs/...' references are allowed")
         fmt = sub.get("format")
         if fmt is not None and fmt not in PORTABLE_FORMATS:
@@ -134,11 +126,7 @@ def lint_schema(
                     f"pattern with an unbounded quantifier needs maxLength <= {MAX_PATTERN_INPUT} (std::regex recursion)",
                 )
         opaque = sub.get("x-pl-opaque")
-        if opaque is not None and (
-            opaque not in OPAQUE_ENCODINGS
-            or "pattern" in sub
-            or not isinstance(sub.get("maxLength"), int)
-        ):
+        if opaque is not None and (opaque not in OPAQUE_ENCODINGS or "pattern" in sub or not isinstance(sub.get("maxLength"), int)):
             err(
                 where,
                 f"x-pl-opaque must be one of {sorted(OPAQUE_ENCODINGS)}, with maxLength and no pattern",
@@ -180,9 +168,7 @@ def lint_schema(
                 where,
                 "metadata strings need enum/const/pattern/format (or x-pl-scrubbed: true)",
             )
-        if sub.get("x-pl-scrubbed") is True and not (
-            _is_string_schema(sub) and isinstance(sub.get("maxLength"), int)
-        ):
+        if sub.get("x-pl-scrubbed") is True and not (_is_string_schema(sub) and isinstance(sub.get("maxLength"), int)):
             err(where, "x-pl-scrubbed strings must also set maxLength")
     return errs
 
@@ -208,9 +194,7 @@ def read_producers(contracts: Path) -> set[str]:
 
 
 def _producer_match(name: str, globs: set[str]) -> bool:
-    return any(
-        re.fullmatch(re.escape(g).replace(r"\*", "[a-z0-9_]*"), name) for g in globs
-    )
+    return any(re.fullmatch(re.escape(g).replace(r"\*", "[a-z0-9_]*"), name) for g in globs)
 
 
 def lint_contracts(contracts: Path) -> list[str]:
@@ -230,11 +214,7 @@ def lint_contracts(contracts: Path) -> list[str]:
         taint_levels = levels if isinstance(levels, list) else None
     for path, schema in loaded.items():
         m = SCHEMA_FILE.match(path.name)
-        names = (
-            {m.group("name")}
-            if m and _producer_match(m.group("name"), globs)
-            else set()
-        )
+        names = {m.group("name")} if m and _producer_match(m.group("name"), globs) else set()
         errs += lint_schema(path, schema, taint_levels, names)
         if m:
             errs += lint_fixtures(contracts, path.name.removesuffix(".json"))

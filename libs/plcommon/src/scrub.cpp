@@ -14,7 +14,8 @@ constexpr std::size_t kTokenMin = 8;
 constexpr std::size_t kCardMin = 13;
 constexpr std::size_t kCardMax = 19;
 constexpr std::size_t kAadhaarLen = 12;
-constexpr std::size_t kNumberMin = 8;
+constexpr std::size_t kNumberMin = 6;  // catches 6-digit OTPs and PINs
+constexpr std::size_t kMaxSeparator = 2;
 
 constexpr std::array<std::string_view, 16> kKeyPrefixes = {
     "github_pat_", "sk-ant-", "sk-proj-", "sk-", "ghp_", "gho_", "ghu_", "ghs_",
@@ -131,7 +132,9 @@ struct DigitRun {
   std::string digits;
 };
 
-// Digits with single ' ' or '-' separators between them.
+bool is_separator(char c) noexcept { return c == ' ' || c == '-' || c == '.' || c == '/' || c == '_' || c == '\t'; }
+
+// Digits joined by runs of up to kMaxSeparator separator characters (" .-/_\t").
 DigitRun digit_run(std::string_view s, std::size_t i) {
   DigitRun r{i, {}};
   std::size_t j = i;
@@ -139,11 +142,16 @@ DigitRun digit_run(std::string_view s, std::size_t i) {
     if (is_digit(s[j])) {
       r.digits.push_back(s[j]);
       r.end = ++j;
-    } else if ((s[j] == ' ' || s[j] == '-') && j + 1 < s.size() && is_digit(s[j + 1])) {
-      ++j;
-    } else {
+      continue;
+    }
+    std::size_t k = j;
+    while (k < s.size() && k - j < kMaxSeparator && is_separator(s[k])) {
+      ++k;
+    }
+    if (k == j || k >= s.size() || !is_digit(s[k])) {
       break;
     }
+    j = k;
   }
   return r;
 }

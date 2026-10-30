@@ -2,6 +2,11 @@
 
 Things only you can do. Newest first. Owner of this file: LNX.
 
+## U-LNX-004: protect `main` on GitHub (recommended, Phase 0 review)
+Both Claude sessions push with your GitHub account, so CI can't tell them apart from you. Please set, in the repo's Settings → Rules (or Branch protection) for `main`:
+- require the status checks `ownership`, `ci`, `fuzz-smoke` to pass; block force pushes and deletion;
+- optional but recommended: require a human approval for PRs touching `.github/**`, `tools/ownership.tsv`, `tools/hooks/**`, `contracts/OWNERS.tsv` (via a CODEOWNERS file you add yourself, since `.github/CODEOWNERS` has no machine owner).
+
 ## U-LNX-003: allow TSan on this laptop (optional, Phase 0)
 ThreadSanitizer needs `vm.mmap_rnd_bits <= 28` (this kernel's default is higher, and TSan's own workaround is blocked by Docker's seccomp profile, which we keep on). CI already sets it on its runner. To run `make test-tsan-lnx` locally:
 ```bash

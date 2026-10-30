@@ -7,9 +7,9 @@
    "expected": "user clicked submit on form 3"
   },
   {
-   "name": "short numbers stay",
+   "name": "seven digits become a number",
    "input": "order 1234567 at 10:42",
-   "expected": "order 1234567 at 10:42"
+   "expected": "order [NUMBER] at 10:42"
   },
   {
    "name": "visa test card",
@@ -129,9 +129,9 @@
    "expected": "otp [NUMBER]"
   },
   {
-   "name": "seven digit number stays",
+   "name": "seven digit otp",
    "input": "otp 1234567",
-   "expected": "otp 1234567"
+   "expected": "otp [NUMBER]"
   },
   {
    "name": "phone",
@@ -144,9 +144,49 @@
    "expected": ""
   },
   {
-   "name": "separator not doubled",
+   "name": "card with a double space",
    "input": "4111  1111 1111 1111",
-   "expected": "4111  [NUMBER]"
+   "expected": "[CARD]"
+  },
+  {
+   "name": "card with dots",
+   "input": "4111.1111.1111.1111",
+   "expected": "[CARD]"
+  },
+  {
+   "name": "card with slashes",
+   "input": "4111/1111/1111/1111",
+   "expected": "[CARD]"
+  },
+  {
+   "name": "card with tab",
+   "input": "4111\t1111\t1111\t1111",
+   "expected": "[CARD]"
+  },
+  {
+   "name": "card with underscores",
+   "input": "4111_1111_1111_1111",
+   "expected": "[CARD]"
+  },
+  {
+   "name": "six digit otp",
+   "input": "otp 482913 now",
+   "expected": "otp [NUMBER] now"
+  },
+  {
+   "name": "five digits stay",
+   "input": "code 48291",
+   "expected": "code 48291"
+  },
+  {
+   "name": "three separators break the run",
+   "input": "4111   1111",
+   "expected": "4111   1111"
+  },
+  {
+   "name": "decimal becomes number",
+   "input": "pi 3.14159",
+   "expected": "pi [NUMBER]"
   }
  ]
 }

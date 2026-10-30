@@ -1,6 +1,6 @@
 // libFuzzer target: the log scrubber runs on attacker-influenced text (page
 // content can reach log fields). It must never crash and never emit a run of
-// 8 or more consecutive ASCII digits.
+// 6 or more consecutive ASCII digits.
 #include <cstddef>
 #include <cstdint>
 #include <string_view>
@@ -13,7 +13,7 @@ extern "C" int LLVMFuzzerTestOneInput(const std::uint8_t* data, std::size_t size
   int run = 0;
   for (const char c : out) {
     run = (c >= '0' && c <= '9') ? run + 1 : 0;
-    if (run >= 8) {
+    if (run >= 6) {
       __builtin_trap();
     }
   }

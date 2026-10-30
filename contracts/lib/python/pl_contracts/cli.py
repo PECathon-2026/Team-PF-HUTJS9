@@ -22,13 +22,9 @@ def check_fixtures(contracts: Path) -> list[str]:
                 count += 1
                 problems = reg.errors(sid, json.loads(f.read_text()))
                 if kind == "valid" and problems:
-                    errs.append(
-                        f"{f.relative_to(contracts)}: should validate but {problems}"
-                    )
+                    errs.append(f"{f.relative_to(contracts)}: should validate but {problems}")
                 if kind == "invalid" and not problems:
-                    errs.append(
-                        f"{f.relative_to(contracts)}: should fail but validates"
-                    )
+                    errs.append(f"{f.relative_to(contracts)}: should fail but validates")
     print(f"pl_contracts: {len(reg.schemas)} schemas, {count} fixtures checked")
     return errs
 
@@ -44,15 +40,11 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
     if a.cmd == "validate":
         reg = load_registry(a.schema.parent)
-        errs = reg.errors(
-            a.schema.name.removesuffix(".json"), json.loads(a.instance.read_text())
-        )
+        errs = reg.errors(a.schema.name.removesuffix(".json"), json.loads(a.instance.read_text()))
     elif a.cmd == "lint":
         errs = lint_contracts(a.contracts)
         if not errs:
-            print(
-                f"pl_contracts: lint clean ({len(list((a.contracts / 'schemas').glob('*.json')))} schemas)"
-            )
+            print(f"pl_contracts: lint clean ({len(list((a.contracts / 'schemas').glob('*.json')))} schemas)")
     else:
         errs = check_fixtures(a.contracts)
     for e in errs:

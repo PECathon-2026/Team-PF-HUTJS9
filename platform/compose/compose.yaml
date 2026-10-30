@@ -1,0 +1,76 @@
+# PrivacyLens appliance (owner: LNX). Always run through tools/lnx/compose.sh
+# (`make up/down`), which fills the fragment slots below.
+#
+# Invariants (AD-05, spec §2), checked on the MERGED config by
+# tests/e2e/platform/test_compose_policy.py, whoever wrote a fragment:
+#   - every service except gate (and ollama/sites, internal networks only) has network_mode: none
+#   - read_only, cap_drop [ALL], no-new-privileges, mem_limit, pids_limit everywhere
+#   - no Docker socket, no privileged (the future eBPF monitor is the one exception)
+#   - core runs on gVisor (runtime: runsc)
+#   - published ports bind to 127.0.0.1 only
+name: privacylens
+
+include:
+  # WIN fragments. compose.sh points each slot at the real file once it exists,
+  # otherwise at empty.yml, so the stack starts on either machine at any phase.
+  - path: ${PL_AGENT_COMPOSE:-./empty.yml}
+  - path: ${PL_SCENARIOS_COMPOSE:-./empty.yml}
+
+x-hardening: &hardening
+  read_only: true
+  cap_drop: [ALL]
+  security_opt: ["no-new-privileges:true"]
+  pids_limit: 256
+  restart: unless-stopped
+  tmpfs:
+    - /tmp:rw,noexec,nosuid,size=64m
+
+services:
+  core:
+    <<: *hardening
+    image: ghcr.io/pecathon-2026/team-pf-hutjs9/core:dev   # placeholder until Phase 1
+    runtime: runsc
+    network_mode: none
+    mem_limit: 2g
+    pids_limit: 1024          # Chrome is process-heavy
+    shm_size: 256m
+    volumes:
+      - pl-run:/run/pl
+
+  vault:
+    <<: *hardening
+    image: ghcr.io/pecathon-2026/team-pf-hutjs9/vault:dev
+    network_mode: none
+    mem_limit: 128m
+    volumes:
+      - pl-run:/run/pl
+
+  ledger:
+    <<: *hardening
+    image: ghcr.io/pecathon-2026/team-pf-hutjs9/ledger:dev
+    network_mode: none
+    mem_limit: 256m
+    volumes:
+      - pl-run:/run/pl
+      - pl-ledger:/var/lib/pl/ledger
+
+  gate:
+    <<: *hardening
+    image: ghcr.io/pecathon-2026/team-pf-hutjs9/gate:dev
+    mem_limit: 512m
+    networks: [egress, llm, web]
+    ports:
+      - "127.0.0.1:7443:7443"   # UI relay (end-to-end encrypted dashboard streams)
+    volumes:
+      - pl-run:/run/pl
+
+networks:
+  egress: {}                  # the only route out; gate only
+  llm:
+    internal: true            # gate <-> ollama
+  web:
+    internal: true            # gate <-> sites (scenario pages)
+
+volumes:
+  pl-run: {}                  # Unix sockets (AD-04)
+  pl-ledger: {}               # append-only audit segments

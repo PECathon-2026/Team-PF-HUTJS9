@@ -6,6 +6,7 @@ import re
 from pathlib import Path
 
 import pytest
+from gen_scrub_corpus import OUT, corpus
 from hypothesis import given
 from hypothesis import strategies as st
 
@@ -37,11 +38,16 @@ def test_never_leaves_long_digit_runs() -> None:
     rng = random.Random(1234)
     for _ in range(2000):
         s = "x " + "".join(rng.choice("0123456789 -") for _ in range(24))
-        assert not re.search(r"[0-9]{8}", scrub(s))
+        assert not re.search(r"[0-9]{6}", scrub(s))
 
 
 @given(st.text(max_size=200))
 def test_total_and_no_long_digit_runs(s: str) -> None:
     out = scrub(s)
-    assert not re.search(r"[0-9]{8}", out)
+    assert not re.search(r"[0-9]{6}", out)
     assert scrub(out) == out  # idempotent: tags never form new matches
+
+
+def test_random_corpus_is_current() -> None:
+    """The committed random corpus (also run by the C++ tests) matches plpy's output today."""
+    assert json.loads(OUT.read_text())["cases"] == corpus()

@@ -41,6 +41,23 @@ TEST(Registry, ValidatesAndReportsPathsWithoutValues) {
   EXPECT_TRUE(reg.validate("t.v1", {{"schema", "t.v1"}, {"n", 1}, {"id", "123e4567-e89b-12d3-a456-426614174000"}}).ok);
 }
 
+// Regression (Phase 0 review): a long string in a patterned field must fail
+// validation, not overflow the stack inside the regex engine.
+TEST(Registry, LongStringInPatternedFieldDoesNotCrash) {
+  pl::contracts::Registry reg;
+  reg.add("p.v1", json::parse(R"({"type": "object", "properties": {"c": {"type": "string", "maxLength": 32,
+    "pattern": "^[a-z]+\\.[a-z]+$"}, "h": {"type": "string", "maxLength": 253,
+    "pattern": "^[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?(\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*$"}}})"));
+  const std::string longest(std::size_t{4} << 20U, 'a');
+  EXPECT_FALSE(reg.validate("p.v1", {{"c", longest}}).ok);
+  std::string host;
+  for (int k = 0; k < 400000; ++k) {
+    host += "a.";
+  }
+  host += "a";
+  EXPECT_FALSE(reg.validate("p.v1", {{"h", host}}).ok);
+}
+
 TEST(Registry, UnknownSchemaFailsClosed) {
   const pl::contracts::Registry reg;
   EXPECT_FALSE(reg.validate("nope.v1", json::object()).ok);

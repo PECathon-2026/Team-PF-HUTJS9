@@ -6,9 +6,10 @@
 //   [JWT]     eyJ<b64url>.<b64url>.<b64url>
 //   [EMAIL]   local@domain.tld
 //   [PAN]     AAAAA9999A at word boundaries
-//   [CARD]    13-19 digits (single space/dash separators allowed) passing Luhn
+//   [CARD]    13-19 digits passing Luhn
 //   [AADHAAR] 12 digits, first 2-9, passing Verhoeff
-//   [NUMBER]  any other run of >= 8 digits
+//   [NUMBER]  any other run of >= 6 digits
+// Digit runs may be split by up to two separator characters (" .-/_\t") at a time.
 // Python twin: plpy.scrub. Both are tested against testdata/scrubber_vectors.json.
 #pragma once
 

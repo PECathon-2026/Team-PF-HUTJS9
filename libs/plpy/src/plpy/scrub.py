@@ -12,7 +12,9 @@ KEY_PREFIXES = (
 TOKEN_MIN = 8
 CARD_MIN, CARD_MAX = 13, 19
 AADHAAR_LEN = 12
-NUMBER_MIN = 8
+NUMBER_MIN = 6  # catches 6-digit OTPs and PINs
+MAX_SEPARATOR = 2
+SEPARATORS = " .-/_\t"
 PAN_LEN = 10
 
 _VERHOEFF_D = (
@@ -148,16 +150,20 @@ def _match_email(s: str, i: int) -> int | None:
 
 
 def _digit_run(s: str, i: int) -> tuple[int, str]:
+    """Digits joined by runs of up to MAX_SEPARATOR separator characters."""
     end, j, digits = i, i, []
     while j < len(s):
         if _digit(s[j]):
             digits.append(s[j])
             j += 1
             end = j
-        elif s[j] in " -" and j + 1 < len(s) and _digit(s[j + 1]):
-            j += 1
-        else:
+            continue
+        k = j
+        while k < len(s) and k - j < MAX_SEPARATOR and s[k] in SEPARATORS:
+            k += 1
+        if k == j or k >= len(s) or not _digit(s[k]):
             break
+        j = k
     return end, "".join(digits)
 
 

@@ -5,7 +5,11 @@
 // - component and event names are identifiers ([a-z][a-z0-9_.]{0,63}), never free text;
 // - field names are identifiers too, and the banned names (value, raw, text_raw,
 //   secret, plaintext) are dropped, counted in "dropped_fields";
-// - every string field is truncated to kMaxLogString bytes and passed through scrub().
+// - every string field is scrubbed first and truncated to kMaxLogString bytes after,
+//   so a value cut at the limit can't slip past the scrubber; inputs over
+//   kMaxLogScan bytes are cut at a word boundary before scrubbing;
+// - component and event names with 6+ consecutive digits are rejected (no IDs or
+//   values smuggled through names).
 // Python twin: plpy.log.
 #pragma once
 
@@ -21,6 +25,7 @@
 namespace pl {
 
 inline constexpr std::size_t kMaxLogString = 512;
+inline constexpr std::size_t kMaxLogScan = 4096;
 
 enum class LogLevel : std::uint8_t { debug, info, warn, error };
 

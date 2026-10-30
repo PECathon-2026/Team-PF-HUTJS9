@@ -1,6 +1,7 @@
 #include "pl/uds.hpp"
 
 #include <sys/socket.h>
+#include <sys/stat.h>
 #include <unistd.h>
 
 #include <gtest/gtest.h>
@@ -138,6 +139,36 @@ TEST(Uds, JsonDepthLimit) {
   const auto deep = nested(pl::kMaxJsonDepth + 1);
   EXPECT_NO_THROW((void)pl::parse_json_bounded(std::as_bytes(std::span<const char>(ok.data(), ok.size()))));
   EXPECT_THROW((void)pl::parse_json_bounded(std::as_bytes(std::span<const char>(deep.data(), deep.size()))), pl::ProtocolError);
+}
+
+TEST(Uds, JsonDepthCountsContainersOnly) {
+  const auto wrap = [](unsigned depth, const std::string& inner) {
+    return std::string(depth, '[') + inner + std::string(depth, ']');
+  };
+  const auto parse = [](const std::string& s) { return pl::parse_json_bounded(std::as_bytes(std::span<const char>(s.data(), s.size()))); };
+  EXPECT_NO_THROW((void)parse(wrap(pl::kMaxJsonDepth, "1")));
+  EXPECT_NO_THROW((void)parse(wrap(pl::kMaxJsonDepth - 1, "{\"a\":1}")));
+  EXPECT_THROW((void)parse(wrap(pl::kMaxJsonDepth, "{\"a\":1}")), pl::ProtocolError);
+  EXPECT_THROW((void)parse(wrap(pl::kMaxJsonDepth + 1, "1")), pl::ProtocolError);
+}
+
+TEST(Uds, RejectsNanAndLoneSurrogates) {
+  for (const std::string bad : {R"({"x": NaN})", R"({"x": Infinity})", R"({"x": "\ud800"})"}) {
+    EXPECT_THROW((void)pl::parse_json_bounded(std::as_bytes(std::span<const char>(bad.data(), bad.size()))), pl::ProtocolError) << bad;
+  }
+}
+
+TEST(Uds, SocketFileModeAndSendTimeout) {
+  const auto path = temp_socket_path("mode");
+  { auto l = pl::listen_unix(path, 4, 0600); }
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init,hicpp-member-init)
+  struct stat st{};
+  ASSERT_EQ(::lstat(path.c_str(), &st), 0);
+  EXPECT_EQ(st.st_mode & 0777U, 0600U);
+  std::filesystem::remove(path);
+  auto [a, b] = socket_pair();  // b never reads
+  const std::string big(1 << 20, 'x');
+  EXPECT_THROW(a.send(std::as_bytes(std::span<const char>(big.data(), big.size())), 50ms), pl::ProtocolError);
 }
 
 TEST(Uds, FdMoveAndRelease) {
