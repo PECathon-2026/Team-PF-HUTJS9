@@ -1,0 +1,461 @@
+{
+  "schema": "sanitized_page.v1",
+  "snapshot_id": 7,
+  "url": "http://sites/devsettings/",
+  "title": "API & integrations · Nimbus Cloud console",
+  "elements": [
+    {
+      "element_id": "n7",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Nimbus Cloud",
+      "bounds": [
+        24,
+        14,
+        109.6,
+        24
+      ]
+    },
+    {
+      "element_id": "n8",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Project “orders-prod” · owner",
+      "bounds": [
+        145.6,
+        17,
+        321.7,
+        18
+      ]
+    },
+    {
+      "element_id": "n9",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:EMAIL#4828]"
+      ],
+      "role": "text",
+      "name": "[REDACTED:EMAIL#4828]",
+      "bounds": [
+        310.6,
+        17,
+        156.8,
+        17
+      ]
+    },
+    {
+      "element_id": "n12",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "API keys",
+      "bounds": [
+        200,
+        98,
+        454,
+        24
+      ]
+    },
+    {
+      "element_id": "n16",
+      "flags": 1,
+      "placeholders": [],
+      "role": "columnheader",
+      "name": "Name",
+      "bounds": [
+        200,
+        132,
+        73.6,
+        30.5
+      ]
+    },
+    {
+      "element_id": "n17",
+      "flags": 1,
+      "placeholders": [],
+      "role": "columnheader",
+      "name": "Key",
+      "bounds": [
+        273.6,
+        132,
+        298.1,
+        30.5
+      ]
+    },
+    {
+      "element_id": "n21",
+      "flags": 1,
+      "placeholders": [],
+      "role": "cell",
+      "name": "production",
+      "bounds": [
+        200,
+        162.5,
+        73.6,
+        51
+      ]
+    },
+    {
+      "element_id": "n23",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:API_KEY#6535]"
+      ],
+      "role": "code",
+      "name": "[REDACTED:API_KEY#6535]",
+      "bounds": [
+        277.6,
+        170,
+        286,
+        35
+      ]
+    },
+    {
+      "element_id": "n25",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:API_KEY#6535]"
+      ],
+      "role": "button",
+      "name": "Copy",
+      "bounds": [
+        575.7,
+        169,
+        63.6,
+        38
+      ]
+    },
+    {
+      "element_id": "n26",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:API_KEY#1004]"
+      ],
+      "role": "text",
+      "name": "",
+      "bounds": [
+        200,
+        213.5,
+        454,
+        51
+      ]
+    },
+    {
+      "element_id": "n27",
+      "flags": 1,
+      "placeholders": [],
+      "role": "cell",
+      "name": "aws-export",
+      "bounds": [
+        200,
+        213.5,
+        73.6,
+        51
+      ]
+    },
+    {
+      "element_id": "n29",
+      "flags": 1,
+      "placeholders": [],
+      "role": "code",
+      "name": "AWS access key (hidden)",
+      "bounds": [
+        277.6,
+        230,
+        149.5,
+        17
+      ]
+    },
+    {
+      "element_id": "n31",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Rotate",
+      "bounds": [
+        575.7,
+        220,
+        74.2,
+        38
+      ]
+    },
+    {
+      "element_id": "n33",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:API_KEY#1242]"
+      ],
+      "role": "link",
+      "name": "Open API docs with this key",
+      "bounds": [
+        200,
+        281,
+        193.0,
+        20
+      ],
+      "href": "docs"
+    },
+    {
+      "element_id": "n34",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Example request",
+      "bounds": [
+        200,
+        318,
+        454,
+        24
+      ]
+    },
+    {
+      "element_id": "n35",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:API_KEY#4417]"
+      ],
+      "role": "code",
+      "name": "curl https://api.nimbus.example/v1/orders \\\n  -H \"Authorization: Bearer [REDACTED:API_KEY#4417]\"",
+      "bounds": [
+        200,
+        355,
+        454,
+        60
+      ]
+    },
+    {
+      "element_id": "n37",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Integrations",
+      "bounds": [
+        712,
+        98,
+        454,
+        24
+      ]
+    },
+    {
+      "element_id": "n39",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "GitHub token (for deploys)",
+      "bounds": [
+        712,
+        134,
+        454,
+        18
+      ]
+    },
+    {
+      "element_id": "n40",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:API_KEY#3600]"
+      ],
+      "role": "textbox",
+      "name": "GitHub token (for deploys)",
+      "bounds": [
+        712,
+        156,
+        454,
+        41
+      ],
+      "filled": true,
+      "data_type": "API_KEY"
+    },
+    {
+      "element_id": "n41",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Webhook URL",
+      "bounds": [
+        712,
+        209,
+        454,
+        18
+      ]
+    },
+    {
+      "element_id": "n42",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:SECRET#2659]"
+      ],
+      "role": "textbox",
+      "name": "Webhook URL",
+      "bounds": [
+        712,
+        231,
+        454,
+        41
+      ],
+      "filled": true,
+      "data_type": "SECRET"
+    },
+    {
+      "element_id": "n43",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "IP allow-list",
+      "bounds": [
+        712,
+        288,
+        454,
+        19
+      ]
+    },
+    {
+      "element_id": "n45",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:IP_ADDRESS#5546]"
+      ],
+      "role": "listitem",
+      "name": "[REDACTED:IP_ADDRESS#5546]",
+      "bounds": [
+        730,
+        323,
+        436,
+        21
+      ]
+    },
+    {
+      "element_id": "n46",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:IP_ADDRESS#9349]"
+      ],
+      "role": "listitem",
+      "name": "[REDACTED:IP_ADDRESS#9349]",
+      "bounds": [
+        730,
+        344,
+        436,
+        21
+      ]
+    },
+    {
+      "element_id": "n47",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Save changes",
+      "bounds": [
+        712,
+        381,
+        129.5,
+        39
+      ]
+    },
+    {
+      "element_id": "n48",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Delete project",
+      "bounds": [
+        846.3,
+        381,
+        129.4,
+        39
+      ]
+    }
+  ],
+  "redactions": [
+    {
+      "element_id": "n9",
+      "category": "EMAIL",
+      "box": [
+        306.6,
+        13.0,
+        192.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:EMAIL#4828]"
+    },
+    {
+      "element_id": "n23",
+      "category": "API_KEY",
+      "box": [
+        273.6,
+        166.0,
+        320.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:API_KEY#6535]"
+    },
+    {
+      "element_id": "n23",
+      "category": "API_KEY",
+      "box": [
+        273.6,
+        184.0,
+        96.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:API_KEY#6535]"
+    },
+    {
+      "element_id": "n35",
+      "category": "API_KEY",
+      "box": [
+        390.0,
+        381.0,
+        1056.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:API_KEY#4417]"
+    },
+    {
+      "element_id": "n40",
+      "category": "API_KEY",
+      "box": [
+        708.0,
+        152.0,
+        462.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:API_KEY#3600]"
+    },
+    {
+      "element_id": "n42",
+      "category": "SECRET",
+      "box": [
+        708.0,
+        227.0,
+        462.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:SECRET#2659]"
+    },
+    {
+      "element_id": "n45",
+      "category": "IP_ADDRESS",
+      "box": [
+        726.0,
+        319.0,
+        96.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:IP_ADDRESS#5546]"
+    },
+    {
+      "element_id": "n46",
+      "category": "IP_ADDRESS",
+      "box": [
+        726.0,
+        340.0,
+        128.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:IP_ADDRESS#9349]"
+    }
+  ]
+}

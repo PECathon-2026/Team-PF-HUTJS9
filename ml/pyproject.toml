@@ -1,0 +1,54 @@
+[project]
+name = "pl-ml"
+version = "0.1.0"
+description = "PrivacyLens ML: synthetic data generators, training and tools (owner: WIN)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "numpy==2.2.5",
+  "pillow==11.2.1",
+]
+
+[dependency-groups]
+dev = [
+  "pytest==8.3.5",
+  "hypothesis==6.131.0",
+  "pytest-cov==6.1.1",
+  "mypy==1.15.0",
+  "ruff==0.11.6",
+  "beautifulsoup4==4.13.4",
+]
+browser = [
+  "playwright==1.52.0",
+]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["gen", "reference"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["browser: needs headless Chromium via Playwright (browser dependency group)"]
+
+[tool.coverage.run]
+omit = ["reference/bench_fourier.py", "gen/render.py"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+
+[[tool.mypy.overrides]]
+module = ["playwright.*"]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "RUF"]
+# Greek letters are used as maths symbols in Fourier docstrings.
+allowed-confusables = ["γ", "σ"]

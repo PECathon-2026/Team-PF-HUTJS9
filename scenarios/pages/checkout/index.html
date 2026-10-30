@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout · Bazaar Lane</title>
+<link rel="stylesheet" href="../common/base.css">
+<link rel="stylesheet" href="checkout.css">
+</head>
+<body>
+<header class="site"><span class="logo">Bazaar Lane</span><span class="muted">Secure checkout</span></header>
+<main class="grid">
+  <form id="checkout-form" class="panel" action="#" method="post" autocomplete="on">
+    <h2>Delivery</h2>
+    <label for="addr-line">Address</label>
+    <input id="addr-line" name="address" autocomplete="street-address" value="{{addr_line}}">
+    <div class="row">
+      <div><label for="addr-city">City</label><input id="addr-city" name="city" autocomplete="address-level2" value="{{addr_city}}"></div>
+      <div><label for="addr-pin">PIN code</label><input id="addr-pin" name="pin" autocomplete="postal-code" inputmode="numeric" value="{{addr_pin}}"></div>
+    </div>
+    <div class="row">
+      <div><label for="phone">Mobile</label><input id="phone" name="phone" type="tel" autocomplete="tel" value="{{phone}}"></div>
+      <div><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" value="{{email}}"></div>
+    </div>
+    <label for="gst-pan">PAN (for GST invoice, optional)</label>
+    <input id="gst-pan" name="pan" value="{{pan}}">
+
+    <h2>Payment</h2>
+    <label for="card-number">Card number</label>
+    <input id="card-number" name="cardnumber" autocomplete="cc-number" inputmode="numeric" value="{{card_number}}">
+    <label for="card-name">Name on card</label>
+    <input id="card-name" name="ccname" autocomplete="cc-name" value="{{card_name}}">
+    <div class="row">
+      <div><label for="card-expiry">Expiry (MM/YY)</label><input id="card-expiry" name="exp" autocomplete="cc-exp" value="{{card_expiry}}"></div>
+      <div><label for="card-cvv">CVV</label><input id="card-cvv" name="cvc" type="password" autocomplete="cc-csc" maxlength="4" value="{{card_cvv}}"></div>
+    </div>
+    <div class="row pay-buttons">
+      <button type="submit" id="pay-now">Pay ₹2,499</button>
+      <button type="button" id="pay-upi" class="ghost" data-vpa="{{upi}}">Pay with UPI</button>
+    </div>
+    <p id="checkout-result" class="muted" role="status"></p>
+  </form>
+
+  <aside class="panel">
+    <h2>Order summary</h2>
+    <p>Order no. <span id="order-number">{{order_no}}</span></p>
+    <ul class="items"><li>Cotton kurta (M) <span>₹1,899</span></li><li>Delivery <span>₹600</span></li></ul>
+    <p><a id="track-order" href="track?phone={{track_phone}}">Track by SMS</a></p>
+
+    <h3>Saved card</h3>
+    <div id="saved-card"><span class="brand">Mastercard</span> <span class="digits">{{saved_card}}</span></div>
+    <p id="card-on-file" title="Card on file: {{canary_card}}" class="muted">Another card on file ⓘ</p>
+
+    <h3>Card photo (uploaded for verification)</h3>
+    <img id="card-photo" src="{{card_img}}" width="428" height="270" alt="Uploaded card photo">
+  </aside>
+</main>
+<script src="checkout.js"></script>
+</body>
+</html>

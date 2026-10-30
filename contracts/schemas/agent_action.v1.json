@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/agent_action.v1.json",
+  "title": "Agent action",
+  "description": "One action proposed by the agent and checked by its validator (spec section 9). Sensitive fields take only their placeholder; non-sensitive fields may take plain text that passed the agent's PII scan (user decision a). No read-back kind exists; no coordinates.",
+  "x-pl-zone": "sanitized",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "agent_action.v1"
+    },
+    "action_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]{1,64}$"
+    },
+    "snapshot_id": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "kind": {
+      "enum": [
+        "click",
+        "fill",
+        "select",
+        "navigate",
+        "scroll",
+        "done"
+      ]
+    },
+    "target": {
+      "type": "string",
+      "pattern": "^n[0-9]{1,10}$"
+    },
+    "placeholder": {
+      "type": "string",
+      "pattern": "^\\[REDACTED:[A-Z][A-Z0-9_]{1,23}#[0-9]{1,6}\\]$"
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "option": {
+      "type": "string",
+      "maxLength": 200
+    },
+    "url": {
+      "type": "string",
+      "maxLength": 2048
+    },
+    "direction": {
+      "enum": [
+        "up",
+        "down"
+      ]
+    },
+    "rationale": {
+      "type": "string",
+      "maxLength": 300
+    },
+    "justification": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "source",
+          "quote"
+        ],
+        "properties": {
+          "source": {
+            "enum": [
+              "system",
+              "user",
+              "webpage"
+            ]
+          },
+          "quote": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300
+          }
+        }
+      }
+    },
+    "irreversible": {
+      "type": "boolean"
+    },
+    "risk": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
+  },
+  "required": [
+    "schema",
+    "action_id",
+    "snapshot_id",
+    "kind",
+    "justification"
+  ],
+  "additionalProperties": false
+}

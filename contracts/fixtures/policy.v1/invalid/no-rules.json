@@ -1,0 +1,16 @@
+{
+  "schema": "policy.v1",
+  "version": 1,
+  "rules": [],
+  "risk": {
+    "weights": {
+      "irreversible": 0.6,
+      "sensitive_value": 0.2,
+      "new_domain": 0.3,
+      "goal_distance": 0.2,
+      "attack_alarm": 0.9
+    },
+    "allow_below": 0.3,
+    "deny_from": 0.7
+  }
+}

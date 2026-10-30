@@ -1,0 +1,38 @@
+{
+  "schema": "sanitized_page.v1",
+  "snapshot_id": 7,
+  "url": "https://shop.example/checkout",
+  "title": "Checkout",
+  "elements": [
+    {
+      "element_id": "n12",
+      "flags": 17,
+      "placeholders": [
+        "[CARD 4111]"
+      ],
+      "role": "textbox",
+      "name": "Card number",
+      "data_type": "CARD",
+      "filled": true,
+      "bounds": [
+        100,
+        220,
+        320,
+        36
+      ]
+    }
+  ],
+  "redactions": [
+    {
+      "element_id": "n12",
+      "category": "CARD",
+      "placeholder": "[REDACTED:CARD#3]",
+      "box": [
+        96,
+        216,
+        328,
+        44
+      ]
+    }
+  ]
+}

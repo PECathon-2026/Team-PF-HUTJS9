@@ -1,0 +1,26 @@
+/* Shared styles for PrivacyLens scenario pages (synthetic test sites). */
+:root {
+  --bg: #f4f5f7; --panel: #ffffff; --ink: #1d2330; --muted: #5d6676;
+  --line: #d9dde4; --accent: #2f5bd3; --accent-ink: #ffffff; --warn: #b5523b;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink); background: var(--bg);
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+header.site { display: flex; align-items: center; gap: 12px; padding: 14px 24px;
+  background: var(--panel); border-bottom: 1px solid var(--line); }
+header.site .logo { font-weight: 700; font-size: 18px; }
+main { max-width: 1040px; margin: 24px auto; padding: 0 16px; }
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 20px; }
+.grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+label { display: block; font-size: 13px; color: var(--muted); margin: 12px 0 4px; }
+input, textarea, select { width: 100%; padding: 9px 10px; border: 1px solid var(--line);
+  border-radius: 6px; font: inherit; background: #fff; }
+button, .btn { display: inline-block; padding: 9px 16px; border-radius: 6px; border: 0; cursor: pointer;
+  background: var(--accent); color: var(--accent-ink); font: inherit; text-decoration: none; }
+button.ghost { background: transparent; color: var(--accent); border: 1px solid var(--line); }
+.row { display: flex; gap: 12px; align-items: end; }
+.row > * { flex: 1; }
+.muted { color: var(--muted); font-size: 13px; }
+code, pre { font-family: ui-monospace, "Cascadia Mono", Menlo, monospace; font-size: 13px; }
+pre { background: #10131a; color: #d6deeb; padding: 12px; border-radius: 6px; overflow-x: auto; }

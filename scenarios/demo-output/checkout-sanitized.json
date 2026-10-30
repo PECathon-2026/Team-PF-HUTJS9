@@ -1,0 +1,728 @@
+{
+  "schema": "sanitized_page.v1",
+  "snapshot_id": 7,
+  "url": "http://sites/checkout/",
+  "title": "Checkout · Bazaar Lane",
+  "elements": [
+    {
+      "element_id": "n7",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Bazaar Lane",
+      "bounds": [
+        24,
+        14,
+        97.1,
+        24
+      ]
+    },
+    {
+      "element_id": "n8",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Secure checkout",
+      "bounds": [
+        133.1,
+        17,
+        94.5,
+        18
+      ]
+    },
+    {
+      "element_id": "n11",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Delivery",
+      "bounds": [
+        200,
+        98,
+        454,
+        24
+      ]
+    },
+    {
+      "element_id": "n12",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Address",
+      "bounds": [
+        200,
+        134,
+        454,
+        18
+      ]
+    },
+    {
+      "element_id": "n13",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:ADDRESS#1144]"
+      ],
+      "role": "textbox",
+      "name": "Address",
+      "bounds": [
+        200,
+        156,
+        454,
+        41
+      ],
+      "filled": true,
+      "data_type": "ADDRESS"
+    },
+    {
+      "element_id": "n16",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "City",
+      "bounds": [
+        200,
+        209,
+        221,
+        18
+      ]
+    },
+    {
+      "element_id": "n17",
+      "flags": 17,
+      "placeholders": [],
+      "role": "textbox",
+      "name": "City",
+      "bounds": [
+        200,
+        231,
+        221,
+        41
+      ],
+      "filled": true
+    },
+    {
+      "element_id": "n19",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "PIN code",
+      "bounds": [
+        433,
+        209,
+        221,
+        18
+      ]
+    },
+    {
+      "element_id": "n20",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:PIN_CODE#1699]"
+      ],
+      "role": "textbox",
+      "name": "PIN code",
+      "bounds": [
+        433,
+        231,
+        221,
+        41
+      ],
+      "filled": true,
+      "data_type": "PIN_CODE"
+    },
+    {
+      "element_id": "n23",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Mobile",
+      "bounds": [
+        200,
+        284,
+        221,
+        18
+      ]
+    },
+    {
+      "element_id": "n24",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:PHONE#5829]"
+      ],
+      "role": "textbox",
+      "name": "Mobile",
+      "bounds": [
+        200,
+        306,
+        221,
+        41
+      ],
+      "filled": true,
+      "data_type": "PHONE"
+    },
+    {
+      "element_id": "n26",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Email",
+      "bounds": [
+        433,
+        284,
+        221,
+        18
+      ]
+    },
+    {
+      "element_id": "n27",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:EMAIL#2376]"
+      ],
+      "role": "textbox",
+      "name": "Email",
+      "bounds": [
+        433,
+        306,
+        221,
+        41
+      ],
+      "filled": true,
+      "data_type": "EMAIL"
+    },
+    {
+      "element_id": "n28",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "PAN (for GST invoice, optional)",
+      "bounds": [
+        200,
+        359,
+        454,
+        18
+      ]
+    },
+    {
+      "element_id": "n29",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:PAN#7301]"
+      ],
+      "role": "textbox",
+      "name": "PAN (for GST invoice, optional)",
+      "bounds": [
+        200,
+        381,
+        454,
+        41
+      ],
+      "filled": true,
+      "data_type": "PAN"
+    },
+    {
+      "element_id": "n30",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Payment",
+      "bounds": [
+        200,
+        440,
+        454,
+        24
+      ]
+    },
+    {
+      "element_id": "n31",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Card number",
+      "bounds": [
+        200,
+        476,
+        454,
+        18
+      ]
+    },
+    {
+      "element_id": "n32",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:CARD#4859]"
+      ],
+      "role": "textbox",
+      "name": "Card number",
+      "bounds": [
+        200,
+        498,
+        454,
+        41
+      ],
+      "filled": true,
+      "data_type": "CARD"
+    },
+    {
+      "element_id": "n33",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Name on card",
+      "bounds": [
+        200,
+        551,
+        454,
+        18
+      ]
+    },
+    {
+      "element_id": "n34",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:NAME#9195]"
+      ],
+      "role": "textbox",
+      "name": "Name on card",
+      "bounds": [
+        200,
+        573,
+        454,
+        41
+      ],
+      "filled": true,
+      "data_type": "NAME"
+    },
+    {
+      "element_id": "n37",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Expiry (MM/YY)",
+      "bounds": [
+        200,
+        626,
+        221,
+        18
+      ]
+    },
+    {
+      "element_id": "n38",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:CARD#4675]"
+      ],
+      "role": "textbox",
+      "name": "Expiry (MM/YY)",
+      "bounds": [
+        200,
+        648,
+        221,
+        41
+      ],
+      "filled": true,
+      "data_type": "CARD"
+    },
+    {
+      "element_id": "n40",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "CVV",
+      "bounds": [
+        433,
+        626,
+        221,
+        18
+      ]
+    },
+    {
+      "element_id": "n41",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:PASSWORD#8786]"
+      ],
+      "role": "textbox",
+      "name": "CVV",
+      "bounds": [
+        433,
+        648,
+        221,
+        41
+      ],
+      "filled": true,
+      "data_type": "PASSWORD"
+    },
+    {
+      "element_id": "n43",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Pay ₹2,499",
+      "bounds": [
+        200,
+        707,
+        220,
+        39
+      ]
+    },
+    {
+      "element_id": "n44",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:UPI_ID#8893]"
+      ],
+      "role": "button",
+      "name": "Pay with UPI",
+      "bounds": [
+        432,
+        705,
+        222,
+        41
+      ]
+    },
+    {
+      "element_id": "n47",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Order summary",
+      "bounds": [
+        712,
+        98,
+        454,
+        24
+      ]
+    },
+    {
+      "element_id": "n48",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Order no.",
+      "bounds": [
+        712,
+        138,
+        454,
+        21
+      ]
+    },
+    {
+      "element_id": "n49",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "4219910283914533",
+      "bounds": [
+        781.7,
+        138,
+        153.5,
+        20
+      ]
+    },
+    {
+      "element_id": "n51",
+      "flags": 1,
+      "placeholders": [],
+      "role": "listitem",
+      "name": "Cotton kurta (M)",
+      "bounds": [
+        730,
+        175,
+        436,
+        21
+      ]
+    },
+    {
+      "element_id": "n52",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "₹1,899",
+      "bounds": [
+        1114.8,
+        175,
+        51.2,
+        21
+      ]
+    },
+    {
+      "element_id": "n53",
+      "flags": 1,
+      "placeholders": [],
+      "role": "listitem",
+      "name": "Delivery",
+      "bounds": [
+        730,
+        196,
+        436,
+        21
+      ]
+    },
+    {
+      "element_id": "n54",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "₹600",
+      "bounds": [
+        1129.2,
+        196,
+        36.8,
+        21
+      ]
+    },
+    {
+      "element_id": "n56",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:PHONE#3887]"
+      ],
+      "role": "link",
+      "name": "Track by SMS",
+      "bounds": [
+        712,
+        233,
+        95.3,
+        20
+      ],
+      "href": "track"
+    },
+    {
+      "element_id": "n57",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Saved card",
+      "bounds": [
+        712,
+        272,
+        454,
+        19
+      ]
+    },
+    {
+      "element_id": "n59",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Mastercard",
+      "bounds": [
+        725,
+        308,
+        80,
+        20
+      ]
+    },
+    {
+      "element_id": "n61",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:CARD#4505]"
+      ],
+      "role": "text",
+      "name": "[REDACTED:CARD#4505]",
+      "bounds": [
+        813,
+        308,
+        32,
+        20
+      ]
+    },
+    {
+      "element_id": "n65",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:CARD#3680]"
+      ],
+      "role": "text",
+      "name": "Another card on file ⓘ",
+      "bounds": [
+        712,
+        353,
+        454,
+        18
+      ]
+    },
+    {
+      "element_id": "n66",
+      "flags": 1,
+      "placeholders": [],
+      "role": "heading",
+      "name": "Card photo (uploaded for verification)",
+      "bounds": [
+        712,
+        389,
+        454,
+        19
+      ]
+    },
+    {
+      "element_id": "n67",
+      "flags": 1,
+      "placeholders": [],
+      "role": "img",
+      "name": "Uploaded card photo",
+      "bounds": [
+        712,
+        414,
+        428,
+        270
+      ],
+      "pixels_redacted": true
+    }
+  ],
+  "redactions": [
+    {
+      "element_id": "n13",
+      "category": "ADDRESS",
+      "box": [
+        196.0,
+        152.0,
+        462.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:ADDRESS#1144]"
+    },
+    {
+      "element_id": "n20",
+      "category": "PIN_CODE",
+      "box": [
+        429.0,
+        227.0,
+        229.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:PIN_CODE#1699]"
+    },
+    {
+      "element_id": "n24",
+      "category": "PHONE",
+      "box": [
+        196.0,
+        302.0,
+        229.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:PHONE#5829]"
+    },
+    {
+      "element_id": "n27",
+      "category": "EMAIL",
+      "box": [
+        429.0,
+        302.0,
+        229.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:EMAIL#2376]"
+    },
+    {
+      "element_id": "n29",
+      "category": "PAN",
+      "box": [
+        196.0,
+        377.0,
+        462.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:PAN#7301]"
+    },
+    {
+      "element_id": "n32",
+      "category": "CARD",
+      "box": [
+        196.0,
+        494.0,
+        462.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:CARD#4859]"
+    },
+    {
+      "element_id": "n34",
+      "category": "NAME",
+      "box": [
+        196.0,
+        569.0,
+        462.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:NAME#9195]"
+    },
+    {
+      "element_id": "n38",
+      "category": "CARD",
+      "box": [
+        196.0,
+        644.0,
+        229.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:CARD#4675]"
+    },
+    {
+      "element_id": "n41",
+      "category": "PASSWORD",
+      "box": [
+        429.0,
+        644.0,
+        229.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:PASSWORD#8786]"
+    },
+    {
+      "element_id": "n61",
+      "category": "CARD",
+      "box": [
+        809.0,
+        304.0,
+        64.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:CARD#4505]"
+    },
+    {
+      "element_id": "n62",
+      "category": "CARD",
+      "box": [
+        850.6,
+        304.0,
+        64.0,
+        28.0
+      ]
+    },
+    {
+      "element_id": "n63",
+      "category": "CARD",
+      "box": [
+        892.2,
+        304.0,
+        64.0,
+        28.0
+      ]
+    },
+    {
+      "element_id": "n64",
+      "category": "CARD",
+      "box": [
+        933.8,
+        304.0,
+        64.0,
+        28.0
+      ]
+    },
+    {
+      "element_id": "n67",
+      "category": "SECRET",
+      "box": [
+        708.0,
+        410.0,
+        436.0,
+        278.0
+      ],
+      "fail_closed": true
+    }
+  ]
+}

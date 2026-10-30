@@ -1,0 +1,25 @@
+{
+  "schema": "approval_request.v1",
+  "request_id": "r-1",
+  "action_id": "a-3",
+  "action_hash": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "kind": "click",
+  "target": "n13",
+  "summary": "click button 'Pay'",
+  "risk": 0.65,
+  "factors": [
+    {
+      "name": "irreversible",
+      "level": 1
+    },
+    {
+      "name": "goal_distance",
+      "level": 0.67
+    }
+  ],
+  "rule_ids": [
+    "A-31"
+  ],
+  "nonce": "0123456789abcdef0123456789abcdef",
+  "expires_ms": 1767225630000
+}

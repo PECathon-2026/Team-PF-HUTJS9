@@ -1,0 +1,9 @@
+{
+  "schema": "agent_action.v1",
+  "action_id": "a-1",
+  "snapshot_id": 7,
+  "kind": "fill",
+  "target": "n12",
+  "placeholder": "[REDACTED:CARD#3]",
+  "risk": 0.28
+}

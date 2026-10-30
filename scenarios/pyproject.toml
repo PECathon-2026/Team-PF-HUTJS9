@@ -1,0 +1,58 @@
+[project]
+name = "pl-scenarios"
+version = "0.1.0"
+description = "PrivacyLens scenario pages: builder, ground truth, tests (owner: WIN)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "pl-ml",
+  "pillow==11.2.1",
+  "pynacl==1.5.0",
+  "jsonschema==4.23.0",
+  "playwright==1.52.0",
+]
+
+[tool.uv.sources]
+pl-ml = { path = "../ml", editable = true }
+
+[dependency-groups]
+dev = [
+  "pytest==8.3.5",
+  "pytest-cov==6.1.1",
+  "beautifulsoup4==4.13.4",
+  "mypy==1.15.0",
+  "ruff==0.11.6",
+]
+browser = [
+  "playwright==1.52.0",
+]
+
+[build-system]
+requires = ["hatchling==1.27.0"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["plscen", "pldemo"]
+
+[tool.ruff.lint.per-file-ignores]
+"pldemo/*" = ["E501", "RUF001", "RUF002", "RUF003", "SLF001"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+markers = ["browser: needs headless Chromium via Playwright (run with the browser dependency group)"]
+
+[tool.mypy]
+strict = true
+python_version = "3.12"
+mypy_path = "../ml"
+
+[[tool.mypy.overrides]]
+module = ["playwright.*"]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "RUF"]

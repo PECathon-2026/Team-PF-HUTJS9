@@ -1,0 +1,15 @@
+{
+  "schema": "agent_action.v1",
+  "action_id": "a-1",
+  "snapshot_id": 7,
+  "kind": "fill",
+  "target": "n12",
+  "placeholder": "[REDACTED:CARD#3]",
+  "justification": [
+    {
+      "source": "user",
+      "quote": "pay with my saved card"
+    }
+  ],
+  "risk": 0.28
+}

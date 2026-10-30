@@ -1,0 +1,7 @@
+#login-form { max-width: 420px; margin: 0 auto; }
+#login-form h1 { font-size: 22px; margin: 0 0 8px; }
+.pw-wrap { display: flex; gap: 8px; }
+.pw-wrap input { flex: 1; }
+#sign-in { width: 100%; margin-top: 8px; }
+#sms-toast { max-width: 420px; margin: 0 auto 16px; padding: 12px 14px; border-radius: 10px;
+  background: #1d2330; color: #f0f2f5; font-size: 14px; line-height: 1.5; }

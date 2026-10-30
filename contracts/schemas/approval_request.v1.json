@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://privacylens.invalid/contracts/approval_request.v1.json",
+  "title": "Approval request",
+  "description": "Sent to the dashboard before an irreversible or risky action (spec section 9). Summary uses element roles/names, placeholders and hosts only. No answer before expires_ms means deny.",
+  "x-pl-zone": "metadata",
+  "type": "object",
+  "properties": {
+    "schema": {
+      "const": "approval_request.v1"
+    },
+    "request_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]{1,64}$"
+    },
+    "action_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]{1,64}$"
+    },
+    "action_hash": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "kind": {
+      "enum": [
+        "click",
+        "fill",
+        "select",
+        "navigate"
+      ]
+    },
+    "target": {
+      "type": "string",
+      "pattern": "^n[0-9]{1,10}$"
+    },
+    "summary": {
+      "type": "string",
+      "maxLength": 300,
+      "x-pl-scrubbed": true
+    },
+    "risk": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "factors": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "level"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "irreversible",
+              "sensitive_value",
+              "new_domain",
+              "goal_distance",
+              "attack_alarm"
+            ]
+          },
+          "level": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    },
+    "rule_ids": {
+      "type": "array",
+      "maxItems": 8,
+      "items": {
+        "type": "string",
+        "pattern": "^[DEAIU]-[0-9]{2,3}$"
+      }
+    },
+    "nonce": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{32}$"
+    },
+    "expires_ms": {
+      "type": "integer",
+      "minimum": 0
+    }
+  },
+  "required": [
+    "schema",
+    "request_id",
+    "action_id",
+    "action_hash",
+    "kind",
+    "risk",
+    "factors",
+    "rule_ids",
+    "nonce",
+    "expires_ms"
+  ],
+  "additionalProperties": false
+}

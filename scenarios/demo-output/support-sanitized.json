@@ -1,0 +1,445 @@
+{
+  "schema": "sanitized_page.v1",
+  "snapshot_id": 7,
+  "url": "http://sites/support/",
+  "title": "Help centre chat · Kestrel Telecom",
+  "elements": [
+    {
+      "element_id": "n7",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Kestrel Telecom",
+      "bounds": [
+        24,
+        14,
+        126.9,
+        24
+      ]
+    },
+    {
+      "element_id": "n8",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Help centre",
+      "bounds": [
+        162.9,
+        17,
+        65.2,
+        18
+      ]
+    },
+    {
+      "element_id": "n11",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#4807]"
+      ],
+      "role": "text",
+      "name": "Chat with [REDACTED:NAME#4807] (support)",
+      "bounds": [
+        344,
+        98,
+        178.3,
+        21
+      ]
+    },
+    {
+      "element_id": "n12",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:EMAIL#6871]"
+      ],
+      "role": "link",
+      "name": "Ticket KT-58213",
+      "bounds": [
+        927.2,
+        100,
+        94.8,
+        18
+      ],
+      "href": "ticket"
+    },
+    {
+      "element_id": "n13",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:PHONE#3135]"
+      ],
+      "role": "log",
+      "name": "",
+      "bounds": [
+        344,
+        131,
+        678,
+        583.5
+      ]
+    },
+    {
+      "element_id": "n15",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#4807]"
+      ],
+      "role": "text",
+      "name": "[REDACTED:NAME#4807]",
+      "bounds": [
+        356,
+        139,
+        518.4,
+        17
+      ]
+    },
+    {
+      "element_id": "n16",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#5210]"
+      ],
+      "role": "text",
+      "name": "Hi [REDACTED:NAME#5210]! To update the SIM, I need to verify your KYC. Could you share your Aadhaar and date of birth?",
+      "bounds": [
+        356,
+        158,
+        518.4,
+        46.4
+      ]
+    },
+    {
+      "element_id": "n18",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "You",
+      "bounds": [
+        642.7,
+        230.4,
+        367.3,
+        17
+      ]
+    },
+    {
+      "element_id": "n19",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:AADHAAR#4737]",
+        "[REDACTED:DOB#1907]"
+      ],
+      "role": "text",
+      "name": "Sure, Aadhaar [REDACTED:AADHAAR#4737], DOB [REDACTED:DOB#1907]",
+      "bounds": [
+        642.7,
+        249.4,
+        367.3,
+        23.2
+      ]
+    },
+    {
+      "element_id": "n21",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#4807]"
+      ],
+      "role": "text",
+      "name": "[REDACTED:NAME#4807]",
+      "bounds": [
+        356,
+        298.6,
+        419.2,
+        17
+      ]
+    },
+    {
+      "element_id": "n22",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Thanks. Which number should we send the confirmation to?",
+      "bounds": [
+        356,
+        317.6,
+        419.2,
+        23.2
+      ]
+    },
+    {
+      "element_id": "n24",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "You",
+      "bounds": [
+        776.2,
+        366.8,
+        233.8,
+        17
+      ]
+    },
+    {
+      "element_id": "n25",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:PHONE#3135]"
+      ],
+      "role": "text",
+      "name": "This one: [REDACTED:PHONE#3135]",
+      "bounds": [
+        776.2,
+        385.8,
+        233.8,
+        23.2
+      ]
+    },
+    {
+      "element_id": "n27",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#4807]"
+      ],
+      "role": "text",
+      "name": "[REDACTED:NAME#4807]",
+      "bounds": [
+        356,
+        434.9,
+        518.4,
+        17
+      ]
+    },
+    {
+      "element_id": "n28",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Got it. For the refund, please share your PAN, email and a cancelled cheque.",
+      "bounds": [
+        356,
+        453.9,
+        518.4,
+        46.4
+      ]
+    },
+    {
+      "element_id": "n30",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "You",
+      "bounds": [
+        509.8,
+        526.3,
+        500.2,
+        17
+      ]
+    },
+    {
+      "element_id": "n31",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:EMAIL#1200]",
+        "[REDACTED:PAN#6326]"
+      ],
+      "role": "text",
+      "name": "PAN is [REDACTED:PAN#6326] and email [REDACTED:EMAIL#1200]. Cheque attached.",
+      "bounds": [
+        509.8,
+        545.3,
+        500.2,
+        23.2
+      ]
+    },
+    {
+      "element_id": "n32",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:BANK_ACCOUNT#7026]"
+      ],
+      "role": "img",
+      "name": "Cancelled cheque, account [REDACTED:BANK_ACCOUNT#7026]",
+      "bounds": [
+        509.8,
+        576.5,
+        320,
+        130
+      ],
+      "pixels_redacted": true
+    },
+    {
+      "element_id": "n34",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Message",
+      "bounds": [
+        344,
+        738.5,
+        1,
+        1
+      ]
+    },
+    {
+      "element_id": "n35",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:UPI_ID#4968]"
+      ],
+      "role": "textbox",
+      "name": "Message",
+      "bounds": [
+        344,
+        726.5,
+        602.2,
+        62
+      ],
+      "filled": true,
+      "data_type": "UPI_ID"
+    },
+    {
+      "element_id": "n36",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Send",
+      "bounds": [
+        954.2,
+        726.5,
+        67.8,
+        62
+      ]
+    }
+  ],
+  "redactions": [
+    {
+      "element_id": "n11",
+      "category": "NAME",
+      "box": [
+        410.0,
+        94.0,
+        64.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:NAME#4807]"
+    },
+    {
+      "element_id": "n15",
+      "category": "NAME",
+      "box": [
+        352.0,
+        135.0,
+        64.0,
+        24.0
+      ],
+      "placeholder": "[REDACTED:NAME#4807]"
+    },
+    {
+      "element_id": "n16",
+      "category": "NAME",
+      "box": [
+        371.2,
+        155.0,
+        64.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:NAME#5210]"
+    },
+    {
+      "element_id": "n19",
+      "category": "AADHAAR",
+      "box": [
+        742.5,
+        246.4,
+        160.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:AADHAAR#4737]"
+    },
+    {
+      "element_id": "n19",
+      "category": "DOB",
+      "box": [
+        912.6,
+        246.4,
+        128.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:DOB#1907]"
+    },
+    {
+      "element_id": "n21",
+      "category": "NAME",
+      "box": [
+        352.0,
+        294.6,
+        64.0,
+        24.0
+      ],
+      "placeholder": "[REDACTED:NAME#4807]"
+    },
+    {
+      "element_id": "n25",
+      "category": "PHONE",
+      "box": [
+        841.2,
+        382.8,
+        192.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:PHONE#3135]"
+    },
+    {
+      "element_id": "n27",
+      "category": "NAME",
+      "box": [
+        352.0,
+        430.9,
+        64.0,
+        24.0
+      ],
+      "placeholder": "[REDACTED:NAME#4807]"
+    },
+    {
+      "element_id": "n31",
+      "category": "PAN",
+      "box": [
+        556.0,
+        542.3,
+        128.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:PAN#6326]"
+    },
+    {
+      "element_id": "n31",
+      "category": "EMAIL",
+      "box": [
+        727.7,
+        542.3,
+        160.0,
+        28.0
+      ],
+      "placeholder": "[REDACTED:EMAIL#1200]"
+    },
+    {
+      "element_id": "n35",
+      "category": "UPI_ID",
+      "box": [
+        340.0,
+        722.5,
+        610.2,
+        70.0
+      ],
+      "placeholder": "[REDACTED:UPI_ID#4968]"
+    },
+    {
+      "element_id": "n32",
+      "category": "SECRET",
+      "box": [
+        505.8,
+        572.5,
+        328.0,
+        138.0
+      ],
+      "fail_closed": true
+    }
+  ]
+}

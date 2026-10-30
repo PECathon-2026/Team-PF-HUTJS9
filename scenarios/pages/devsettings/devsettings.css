@@ -1,0 +1,7 @@
+h2 { font-size: 18px; margin: 0 0 10px; }
+h3 { font-size: 15px; margin: 16px 0 6px; }
+.keys { width: 100%; border-collapse: collapse; font-size: 14px; }
+.keys th, .keys td { text-align: left; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+.keys code { word-break: break-all; }
+.ips { padding-left: 18px; font-family: ui-monospace, Menlo, monospace; }
+button.danger { background: var(--warn); }

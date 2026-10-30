@@ -1,0 +1,29 @@
+{
+  "schema": "policy.v1",
+  "version": 1,
+  "rules": [
+    {
+      "id": "D-01",
+      "effect": "redact",
+      "category": "CARD",
+      "description": "Luhn-valid card numbers in issuer ranges"
+    },
+    {
+      "id": "A-31",
+      "effect": "ask",
+      "description": "Irreversible actions need approval"
+    },
+    {
+      "id": "I-01",
+      "effect": "block",
+      "description": "Actions justified only by webpage text"
+    }
+  ],
+  "risk": {
+    "weights": {
+      "irreversible": 1.5
+    },
+    "allow_below": 0.3,
+    "deny_from": 0.7
+  }
+}

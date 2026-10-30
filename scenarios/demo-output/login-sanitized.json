@@ -1,0 +1,309 @@
+{
+  "schema": "sanitized_page.v1",
+  "snapshot_id": 7,
+  "url": "http://sites/login/",
+  "title": "Sign in · Saffron Bank",
+  "elements": [
+    {
+      "element_id": "n7",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Saffron Bank",
+      "bounds": [
+        24,
+        14,
+        101.8,
+        24
+      ]
+    },
+    {
+      "element_id": "n8",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Net banking",
+      "bounds": [
+        137.8,
+        17,
+        67.8,
+        18
+      ]
+    },
+    {
+      "element_id": "n10",
+      "flags": 1,
+      "placeholders": [],
+      "role": "status",
+      "name": "· now Your Saffron Bank OTP is . Do not share it with anyone.",
+      "bounds": [
+        473,
+        77,
+        420,
+        66
+      ]
+    },
+    {
+      "element_id": "n11",
+      "flags": 1,
+      "placeholders": [],
+      "role": "text",
+      "name": "Messages",
+      "bounds": [
+        487,
+        91,
+        62.9,
+        17
+      ]
+    },
+    {
+      "element_id": "n13",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:OTP#7686]"
+      ],
+      "role": "text",
+      "name": "[REDACTED:OTP#7686]",
+      "bounds": [
+        645.0,
+        112,
+        50.4,
+        17
+      ]
+    },
+    {
+      "element_id": "n14",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:PHONE#7265]"
+      ],
+      "role": "form",
+      "name": "",
+      "bounds": [
+        473,
+        159,
+        420,
+        410
+      ]
+    },
+    {
+      "element_id": "n15",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:NAME#9641]"
+      ],
+      "role": "heading",
+      "name": "Welcome back, [REDACTED:NAME#9641]",
+      "bounds": [
+        494,
+        180,
+        378,
+        30
+      ]
+    },
+    {
+      "element_id": "n17",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Email or customer ID",
+      "bounds": [
+        494,
+        222,
+        378,
+        18
+      ]
+    },
+    {
+      "element_id": "n18",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:EMAIL#8421]"
+      ],
+      "role": "textbox",
+      "name": "Email or customer ID",
+      "bounds": [
+        494,
+        244,
+        378,
+        41
+      ],
+      "filled": true,
+      "data_type": "EMAIL"
+    },
+    {
+      "element_id": "n19",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "Password",
+      "bounds": [
+        494,
+        297,
+        378,
+        18
+      ]
+    },
+    {
+      "element_id": "n21",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:PASSWORD#5135]"
+      ],
+      "role": "textbox",
+      "name": "Password",
+      "bounds": [
+        494,
+        319,
+        298.3,
+        41
+      ],
+      "filled": true,
+      "data_type": "PASSWORD"
+    },
+    {
+      "element_id": "n22",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Show",
+      "bounds": [
+        800.3,
+        319,
+        71.7,
+        41
+      ]
+    },
+    {
+      "element_id": "n25",
+      "flags": 1,
+      "placeholders": [],
+      "role": "label",
+      "name": "One-time password",
+      "bounds": [
+        494,
+        372,
+        183,
+        18
+      ]
+    },
+    {
+      "element_id": "n26",
+      "flags": 17,
+      "placeholders": [
+        "[REDACTED:OTP#7686]"
+      ],
+      "role": "textbox",
+      "name": "One-time password",
+      "bounds": [
+        494,
+        394,
+        183,
+        41
+      ],
+      "filled": true,
+      "data_type": "OTP"
+    },
+    {
+      "element_id": "n28",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:PHONE#5528]"
+      ],
+      "role": "button",
+      "name": "Send OTP",
+      "bounds": [
+        689,
+        394,
+        102.1,
+        41
+      ]
+    },
+    {
+      "element_id": "n30",
+      "flags": 1,
+      "placeholders": [
+        "[REDACTED:EMAIL#8101]"
+      ],
+      "role": "link",
+      "name": "Forgot password?",
+      "bounds": [
+        494,
+        451,
+        123.3,
+        20
+      ],
+      "href": "reset"
+    },
+    {
+      "element_id": "n31",
+      "flags": 1,
+      "placeholders": [],
+      "role": "button",
+      "name": "Sign in",
+      "bounds": [
+        494,
+        496,
+        378,
+        39
+      ]
+    }
+  ],
+  "redactions": [
+    {
+      "element_id": "n13",
+      "category": "OTP",
+      "box": [
+        641.0,
+        108.0,
+        64.0,
+        25.0
+      ],
+      "placeholder": "[REDACTED:OTP#7686]"
+    },
+    {
+      "element_id": "n15",
+      "category": "NAME",
+      "box": [
+        642.5,
+        177.0,
+        96.0,
+        36.0
+      ],
+      "placeholder": "[REDACTED:NAME#9641]"
+    },
+    {
+      "element_id": "n18",
+      "category": "EMAIL",
+      "box": [
+        490.0,
+        240.0,
+        386.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:EMAIL#8421]"
+    },
+    {
+      "element_id": "n21",
+      "category": "PASSWORD",
+      "box": [
+        490.0,
+        315.0,
+        306.3,
+        49.0
+      ],
+      "placeholder": "[REDACTED:PASSWORD#5135]"
+    },
+    {
+      "element_id": "n26",
+      "category": "OTP",
+      "box": [
+        490.0,
+        390.0,
+        191.0,
+        49.0
+      ],
+      "placeholder": "[REDACTED:OTP#7686]"
+    }
+  ]
+}

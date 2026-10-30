@@ -1,0 +1,25 @@
+# Scenario + red-team pages (owner: WIN). Included by platform/compose/compose.yaml.
+# Serves ONLY scenarios/build/site, baked into the image (sites.Dockerfile, after
+# `make scenarios-build`); the ground truth in scenarios/build/truth never enters it, so the agent's browser can't
+# fetch the answers. Reachable only on the internal `web` network, through the
+# gate's browsing lane: http://sites:8080/login/ etc.
+services:
+  sites:
+    build:
+      context: .
+      dockerfile: sites.Dockerfile
+    image: pl-sites:local
+    networks: [web]
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: ["no-new-privileges:true"]
+    pids_limit: 64
+    mem_limit: 64m
+    restart: unless-stopped
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://127.0.0.1:8080/login/"]
+      interval: 5s
+      timeout: 2s
+      retries: 10
