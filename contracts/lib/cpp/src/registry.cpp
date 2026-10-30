@@ -29,10 +29,10 @@ class Collector final : public nlohmann::json_schema::basic_error_handler {
  public:
   void error(const json::json_pointer& ptr, const json& /*instance*/, const std::string& message) override {
     basic_error_handler::error(ptr, json{}, message);
-    // The validator's messages can quote instance data; keep the location and a
-    // value-free prefix only.
-    const auto colon = message.find(':');
-    errors.push_back(ptr.to_string() + ": " + (colon == std::string::npos ? message : message.substr(0, colon)));
+    // The validator's messages can quote instance data (values and attacker-chosen
+    // keys), so keep only the JSON pointer of the failing location.
+    (void)message;
+    errors.push_back(ptr.to_string() + ": schema violation");
   }
   std::vector<std::string> errors;
 };
@@ -120,7 +120,12 @@ ValidationResult Registry::validate(std::string_view schema_id, const json& mess
     return ValidationResult::failure({"unknown schema '" + std::string(schema_id) + "'"});
   }
   Collector errors;
-  it->second.validate(message, errors);
+  try {
+    it->second.validate(message, errors);
+  } catch (const std::exception&) {
+    // e.g. Boost.Regex giving up on a pathological input: fail closed.
+    return ValidationResult::failure({"/: validator aborted"});
+  }
   if (errors.errors.empty()) {
     return ValidationResult::success();
   }

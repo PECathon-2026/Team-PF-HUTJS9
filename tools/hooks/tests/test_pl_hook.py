@@ -193,6 +193,23 @@ def test_rules_from_head_when_not_owner(repo: Path) -> None:
     assert r.returncode != 0 and "owned by LNX" in r.stderr
 
 
+def test_lnx_cannot_self_grant_in_same_commit(repo: Path) -> None:
+    """Regression (Phase 0 review): LNX owns the rules files, but a rules change
+    only applies after it is committed, so it can't unlock paths in the same commit."""
+    rules = repo / "tools" / "ownership.tsv"
+    rules.write_text("docs/prompts/**\tLNX\n" + rules.read_text())
+    run(repo, "git", "add", "tools/ownership.tsv")
+    r = commit(repo, "docs/prompts/LNX.md", "self-granted\n")
+    assert r.returncode != 0 and "owned by USER" in r.stderr
+    r = commit(repo, "daemons/core/detect/x.cpp", "int a;\n")
+    assert r.returncode != 0 and "owned by WIN" in r.stderr
+
+
+def test_secret_in_binary_file_blocked(repo: Path) -> None:
+    r = commit(repo, "platform/blob.dat", b"\x00\x01" + FAKE_SECRETS["github-token"].encode() + b"\x00")
+    assert r.returncode != 0 and "github-token" in r.stderr
+
+
 # ---------------------------------------------------------------- unit level
 
 
@@ -316,3 +333,19 @@ def test_ci_mode(repo: Path) -> None:
         env=env,
     )
     assert odd.returncode != 0
+
+
+def test_ci_judges_pr_by_base_rules(repo: Path) -> None:
+    """Regression (Phase 0 review): a PR that edits the rules is still judged by the base rules,
+    even if the local hook was bypassed."""
+    env = dict(os.environ, PL_HOOK_GITLEAKS="0")
+    hook = str(repo / "tools/hooks/pl_hook.py")
+    run(repo, "git", "switch", "-q", "-c", "lnx/p0-grant")
+    rules = repo / "tools" / "ownership.tsv"
+    rules.write_text("CLAUDE.md\tLNX\n" + rules.read_text())
+    (repo / "CLAUDE.md").write_text("edited\n")
+    run(repo, "git", "add", "-A")
+    # Simulates a commit made without the hook; CI is the backstop.
+    run(repo, "git", "-c", "core.hooksPath=/dev/null", "commit", "-q", "-m", "grant", env=env)
+    r = run(repo, sys.executable, hook, "ci", "--base", "main", "--head", "HEAD", "--branch", "lnx/p0-grant", env=env)
+    assert r.returncode != 0 and "CLAUDE.md: owned by USER" in r.stderr

@@ -32,10 +32,38 @@ std::string_view truncate_utf8(std::string_view s, std::size_t max) noexcept {
   return s.substr(0, n);
 }
 
+bool has_digit_run(std::string_view s, std::size_t n) noexcept {
+  std::size_t run = 0;
+  for (const char c : s) {
+    run = (c >= '0' && c <= '9') ? run + 1 : 0;
+    if (run >= n) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Scrub, then truncate: the scrubber always sees whole tokens.
+std::string scrub_field(std::string_view v) {
+  std::string_view head = v;
+  bool cut = false;
+  if (head.size() > kMaxLogScan) {
+    head = truncate_utf8(head, kMaxLogScan);
+    const auto ws = head.find_last_of(" \t\n");
+    head = head.substr(0, ws == std::string_view::npos ? 0 : ws);  // drop the partial last token
+    cut = true;
+  }
+  std::string out = scrub(head);
+  if (cut) {
+    out += " [TRUNCATED]";
+  }
+  return std::string(truncate_utf8(out, kMaxLogString));
+}
+
 }  // namespace
 
 bool is_identifier(std::string_view s, std::size_t max_len) noexcept {
-  if (s.empty() || s.size() > max_len || s[0] < 'a' || s[0] > 'z') {
+  if (s.empty() || s.size() > max_len || s[0] < 'a' || s[0] > 'z' || has_digit_run(s, 6)) {
     return false;
   }
   return std::ranges::all_of(s, [](char c) { return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9') || c == '_' || c == '.'; });
@@ -70,7 +98,7 @@ std::string Logger::format(LogLevel level, std::string_view event, std::initiali
         [&](const auto& v) {
           using T = std::decay_t<decltype(v)>;
           if constexpr (std::is_same_v<T, std::string>) {
-            out_fields[key] = scrub(truncate_utf8(v, kMaxLogString));
+            out_fields[key] = scrub_field(v);
           } else {
             out_fields[key] = v;
           }

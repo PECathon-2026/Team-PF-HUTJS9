@@ -23,6 +23,10 @@ PRIVILEGED_ALLOWED = {"monitor"}  # the eBPF monitor (Phase 2): privileged, but 
 GVISOR_SERVICES = {"core"}
 CAP_ADD_ALLOWED: dict[str, set[str]] = {"vault": {"IPC_LOCK"}, "monitor": {"BPF", "PERFMON", "SYS_RESOURCE"}}
 DOCKER_SOCKETS = ("/var/run/docker.sock", "/run/docker.sock", "docker.sock")
+# Host bind mounts are allowlisted per service (source path). None yet; the gate's
+# API-key file under ~/.privacylens/secrets arrives in Phase 1.
+BIND_ALLOWED: dict[str, set[str]] = {}
+SECURITY_OPT_PREFIXES = ("no-new-privileges:true", "seccomp=/", "seccomp:/", "apparmor=pl-", "apparmor:pl-")
 
 
 def merged_config() -> dict[str, Any]:
@@ -65,9 +69,11 @@ def check_policy(config: dict[str, Any]) -> list[str]:
             err(f"cap_add {sorted(extra_caps)} not allowed")
         if "no-new-privileges:true" not in (svc.get("security_opt") or []):
             err("security_opt must include no-new-privileges:true")
-        if any(str(o).startswith(("seccomp=unconfined", "seccomp:unconfined", "apparmor=unconfined", "apparmor:unconfined"))
-               for o in svc.get("security_opt") or []):  # fmt: skip
-            err("seccomp/apparmor must not be unconfined")
+        for opt in svc.get("security_opt") or []:
+            if not str(opt).startswith(SECURITY_OPT_PREFIXES):
+                err(f"security_opt {opt!r} not allowed (unconfined seccomp/apparmor, label=disable, systempaths ...)")
+        if svc.get("sysctls"):
+            err("sysctls are not allowed")
         if svc.get("privileged") and name not in PRIVILEGED_ALLOWED:
             err("privileged is not allowed")
         if name in PRIVILEGED_ALLOWED and svc.get("privileged") and (mode != "none" or joined):
@@ -82,8 +88,11 @@ def check_policy(config: dict[str, Any]) -> list[str]:
             src = str(vol.get("source", "")) if isinstance(vol, dict) else str(vol)
             if src.endswith(DOCKER_SOCKETS):
                 err("mounts the Docker socket")
-            if isinstance(vol, dict) and vol.get("type") == "bind" and src in ("/", "/proc", "/sys", "/dev", "/var/run", "/run"):
-                err(f"bind-mounts host {src}")
+            kind = vol.get("type") if isinstance(vol, dict) else "bind"
+            if kind == "bind" and src not in BIND_ALLOWED.get(name, set()):
+                err(f"bind-mounts host path {src!r} (only allowlisted binds; use named volumes)")
+            if kind not in ("bind", "volume", "tmpfs"):
+                err(f"volume type {kind!r} not allowed")
         for port in svc.get("ports") or []:
             if not isinstance(port, dict) or port.get("host_ip") != "127.0.0.1":
                 err("published ports must bind to 127.0.0.1 only")
@@ -142,6 +151,11 @@ def _mutated(config: dict[str, Any], service: str, **changes: Any) -> dict[str, 
         ("core", {"runtime": "runc"}, "gVisor"),
         ("core", {"pid": "host"}, "pid: host"),
         ("gate", {"security_opt": ["no-new-privileges:true", "seccomp=unconfined"]}, "unconfined"),
+        ("gate", {"security_opt": ["no-new-privileges:true", "label=disable"]}, "not allowed"),
+        ("gate", {"security_opt": ["no-new-privileges:true", "systempaths=unconfined"]}, "not allowed"),
+        ("gate", {"sysctls": {"net.ipv4.ip_forward": "1"}}, "sysctls"),
+        ("vault", {"volumes": [{"type": "bind", "source": "/etc", "target": "/e"}]}, "bind-mounts"),
+        ("vault", {"volumes": [{"type": "bind", "source": "/run/containerd/containerd.sock", "target": "/c"}]}, "bind-mounts"),
         ("gate", {"security_opt": []}, "no-new-privileges"),
         ("gate", {"network_mode": "host"}, "not allowed"),
         ("gate", {"networks": {"egress": {}, "other": {}}}, "joins"),

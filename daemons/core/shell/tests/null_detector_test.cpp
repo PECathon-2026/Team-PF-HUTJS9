@@ -79,6 +79,21 @@ TEST(NullSanitizer, VaultFailureStillRedacts) {
   EXPECT_EQ(page.message.dump().find("4111"), std::string::npos);
 }
 
+// Regression (Phase 0 review): sparse node ids and a misbehaving vault_store.
+TEST(NullSanitizer, SparseNodeIdsAndBadPlaceholders) {
+  Page p;
+  p.nodes[1].node_id = 7;
+  NullDetector d;
+  NullSanitizer s;
+  SanitizeContext ctx{.session_id = 1, .vault_store = [](const Detection&, std::string_view v) { return std::string(v); }};
+  const auto page = s.sanitize(p.snap, d.detect(p.snap, {}), ctx);
+  EXPECT_EQ(page.message["elements"][1]["element_id"], "n7");
+  EXPECT_EQ(page.message["elements"][1]["placeholders"].size(), 3U);
+  EXPECT_EQ(page.message.dump().find("4111"), std::string::npos);  // echoed value rejected
+  SanitizeContext good{.session_id = 1, .vault_store = [](const Detection&, std::string_view) { return std::string("[REDACTED:CARD#42]"); }};
+  EXPECT_EQ(s.sanitize(p.snap, d.detect(p.snap, {}), good).message["elements"][0]["placeholders"][0], "[REDACTED:CARD#42]");
+}
+
 TEST(NullDetector, DefaultsAreNullUntilWinLinks) {
 #ifdef PL_HAVE_WIN_DETECT
   EXPECT_FALSE(using_null_detector());

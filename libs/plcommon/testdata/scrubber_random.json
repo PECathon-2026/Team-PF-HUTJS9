@@ -1,0 +1,2405 @@
+{
+"seed": 20261030,
+"cases": [
+{
+"input": "8e.d4_é345/6d8800368_Zpe-17s/b-308",
+"expected": "8e.d4_é345/6d[NUMBER]_Zpe-17s/b-308"
+},
+{
+"input": "+e930K933sy56J02s19-b-é69010e:936Y48 24é2_4",
+"expected": "+e930K933sy56J02s19-b-é69010e:936Y48 24é2_4"
+},
+{
+"input": "_h53\t805:AK9",
+"expected": "_h53\t805:AK9"
+},
+{
+"input": "15+7@X1@ 64+385078d.2",
+"expected": "15+7@X1@ 64+[NUMBER]d.2"
+},
+{
+"input": "7@0-673531/4f 66A6-92216b45p:7121728417-_8bI85Jé7f4536016",
+"expected": "7@[NUMBER]f 66A[NUMBER]b45p:[NUMBER]bI85Jé7f[NUMBER]"
+},
+{
+"input": "J846g",
+"expected": "J846g"
+},
+{
+"input": "0795sIIe@@11X東y.0es_187157451690f2b@687_é東--0bs63740",
+"expected": "0795sIIe@@11X東y.0es_[NUMBER]f2b@687_é東--0bs63740"
+},
+{
+"input": ".56428J04I_0_AXZ:08pe0022@X372e3Z26b52885p:97",
+"expected": ".56428J04I_0_AXZ:08pe0022@X372e3Z26b52885p:97"
+},
+{
+"input": "J70hkI6-K-a83191a12/\t06.I4f9K22d60K2",
+"expected": "J70hkI6-K-a83191a12/\t06.I4f9K22d60K2"
+},
+{
+"input": "ph6933.f",
+"expected": "ph6933.f"
+},
+{
+"input": "Jk.1k4-6g",
+"expected": "Jk.1k4-6g"
+},
+{
+"input": "3408-1c0_",
+"expected": "3408-1c0_"
+},
+{
+"input": "37k78_-0_4ef_d_357A9\t70 __85.4\t42b6",
+"expected": "37k78_-0_4ef_d_357A9\t70 __85.4\t42b6"
+},
+{
+"input": "+3éeI7@3Xp.1+e",
+"expected": "+3éeI7@3Xp.1+e"
+},
+{
+"input": "7A1s4:292569KY2k147952Aha6370k013g-66A/19@/J8/5399e2",
+"expected": "7A1s4:[NUMBER]KY2k[NUMBER]Aha6370k013g-66A/19@/J8/5399e2"
+},
+{
+"input": "346_3e4",
+"expected": "346_3e4"
+},
+{
+"input": "bAaYh._5h283218A09@988232_85_7JXb1",
+"expected": "bAaYh._5h[NUMBER]A09@[NUMBER]JXb1"
+},
+{
+"input": "59d7543p3",
+"expected": "59d7543p3"
+},
+{
+"input": "de.10ye4g980_d",
+"expected": "de.10ye4g980_d"
+},
+{
+"input": "é6y023p5c7f_A93dg14.d\t1y63Ip@yp9eJ_47",
+"expected": "é6y023p5c7f_A93dg14.d\t1y63Ip@yp9eJ_47"
+},
+{
+"input": "5AAf2204:89sc2.p53@9_f36X\t+5195",
+"expected": "5AAf2204:89sc2.p53@9_f36X\t+5195"
+},
+{
+"input": "68379bY3ép東+J@1+_-5éc7-:9a2J4:0ké17hy4c_@",
+"expected": "68379bY3ép東+J@1+_-5éc7-:9a2J4:0ké17hy4c_@"
+},
+{
+"input": "ab3e/A8d0434280eK8104_e-A2a2\tef4.8K9d9aYs8_01_3h4780",
+"expected": "ab3e/A8d[NUMBER]eK8104_e-A2a2\tef4.8K9d9aYs8_01_3h4780"
+},
+{
+"input": "353Z4f31@9:kI4_03",
+"expected": "353Z4f31@9:kI4_03"
+},
+{
+"input": "32A5ah0gX65e68d_fKé3510Z9111e0ée+2é10ca39K東 .",
+"expected": "32A5ah0gX65e68d_fKé3510Z9111e0ée+2é10ca39K東 ."
+},
+{
+"input": "33-1.fph852 067.I82\t\t423745_ék9937f2258sX2 I40é46",
+"expected": "33-1.fph[NUMBER].I[NUMBER]_ék9937f2258sX2 I40é46"
+},
+{
+"input": "p106205576\t4275_3ep/433Ze8@/8y@7A2 .4",
+"expected": "p[NUMBER]ep/433Ze8@/8y@7A2 .4"
+},
+{
+"input": ".64.0Y_9_A21.J6_kX9A",
+"expected": ".64.0Y_9_A21.J6_kX9A"
+},
+{
+"input": "6060yc@Kd31 Zb:k.Yh897Ih.533Y-5ef",
+"expected": "6060yc@Kd31 Zb:k.Yh897Ih.533Y-5ef"
+},
+{
+"input": "522",
+"expected": "522"
+},
+{
+"input": "p0s37s867s3.61_9k6d_1yY160c0:f 826A1b869e62@9",
+"expected": "p0s37s867s3.61_9k6d_1yY160c0:f 826A1b869e62@9"
+},
+{
+"input": "héh__1.k31pgk3A3_490heK+0_6882Y75_0a-k231471-c5A",
+"expected": "héh__1.k31pgk3A3_490heK+0_6882Y75_0a-k[NUMBER]-c5A"
+},
+{
+"input": "6Ie1f8_K95@00",
+"expected": "6Ie1f8_K95@00"
+},
+{
+"input": "589/67e+b\t8eZ東2I23-",
+"expected": "589/67e+b\t8eZ東2I23-"
+},
+{
+"input": "-e873603p89Ih\t3.8e.1._73947ed",
+"expected": "-e[NUMBER]p89Ih\t3.8e.[NUMBER]ed"
+},
+{
+"input": "Y 9J693h7A.26Y62/_Z8K79c975678東K94+k-5",
+"expected": "Y 9J693h7A.26Y62/_Z8K79c[NUMBER]東K94+k-5"
+},
+{
+"input": "054820038s80/43890-50X8Y7b2f48h7\tYX8h",
+"expected": "[NUMBER]s[NUMBER]X8Y7b2f48h7\tYX8h"
+},
+{
+"input": "3_7hy75+fa\t8A-he0a",
+"expected": "3_7hy75+fa\t8A-he0a"
+},
+{
+"input": "sc9@d9c7\t553188yy570/f fJ9X9ea/92pd20.80a",
+"expected": "sc9@d9c[NUMBER]yy570/f fJ9X9ea/92pd20.80a"
+},
+{
+"input": "Kg045694_A4pp_/822h8945_7c45X9:8h32h/f:_/25g",
+"expected": "Kg[NUMBER]_A4pp_/822h8945_7c45X9:8h32h/f:_/25g"
+},
+{
+"input": "935h@\t9913",
+"expected": "935h@\t9913"
+},
+{
+"input": "99@2.I952292東55g6A_@9+gf67 8b-7\t.J5J5a74Jh_7eh69+Z955g5k",
+"expected": "99@2.I[NUMBER]東55g6A_@9+gf67 8b-7\t.J5J5a74Jh_7eh69+Z955g5k"
+},
+{
+"input": "95000",
+"expected": "95000"
+},
+{
+"input": "X1y6984132g295945J5Kk868/65_89k",
+"expected": "X1y[NUMBER]g[NUMBER]J5Kk[NUMBER]k"
+},
+{
+"input": "ZXb455 -\tK0I2-932Id19:5.ég/d8y46a0h71I8453J\t 5",
+"expected": "ZXb455 -\tK0I2-932Id19:5.ég/d8y46a0h71I8453J\t 5"
+},
+{
+"input": "I60_I3fA9hehg96.8A31Kd2s4ap6-44hsA422_9021.61d:A /A88268.東",
+"expected": "I60_I3fA9hehg96.8A31Kd2s4ap6-44hsA[NUMBER]d:A /A88268.東"
+},
+{
+"input": "42/81J._A29994f6003+1169h+ba71@8_827K0",
+"expected": "42/81J._A29994f6003+1169h+ba71@8_827K0"
+},
+{
+"input": "_094_0199-152+ 2e+7663Z1IZ 2h68750東40y8219",
+"expected": "_[NUMBER]+ 2e+7663Z1IZ 2h68750東40y8219"
+},
+{
+"input": "00a1gp99g0A17Ihd5@fh69311",
+"expected": "00a1gp99g0A17Ihd5@fh69311"
+},
+{
+"input": "95eZ",
+"expected": "95eZ"
+},
+{
+"input": "d@0東4",
+"expected": "d@0東4"
+},
+{
+"input": "A1736.5+e2J-.6A+83東6I2/-d3:J28eb5hé2",
+"expected": "A1736.5+e2J-.6A+83東6I2/-d3:J28eb5hé2"
+},
+{
+"input": "7cdX44/h9I589g.87g47:46674f4f6h04A886K4h+y00",
+"expected": "7cdX44/h9I589g.87g47:46674f4f6h04A886K4h+y00"
+},
+{
+"input": "-_44aAs1b@85383996205.IY-5e005A0.28eA\t東",
+"expected": "-_44aAs1b@[NUMBER].IY-5e005A0.28eA\t東"
+},
+{
+"input": "698As6y_1_2@06",
+"expected": "698As6y_1_2@06"
+},
+{
+"input": ".4.684Y_éZ5@e9-.8y4y08Jé5Y0@/_-00g1-_20Ya4b02.-108+_7h",
+"expected": ".4.684Y_éZ5@e9-.8y4y08Jé5Y0@/_-00g1-_20Ya4b02.-108+_7h"
+},
+{
+"input": "X",
+"expected": "X"
+},
+{
+"input": "6h-+.J:82XA\t",
+"expected": "6h-+.J:82XA\t"
+},
+{
+"input": "KA9+_eAXA1c_39h2J/2c+Y5I_23-6",
+"expected": "KA9+_eAXA1c_39h2J/2c+Y5I_23-6"
+},
+{
+"input": "X76c51",
+"expected": "X76c51"
+},
+{
+"input": "g8_-g97c/\té06I_I@ae83\t1Z8Z東5p95_e14\te717.XK4424-東6_667",
+"expected": "g8_-g97c/\té06I_I@ae83\t1Z8Z東5p95_e14\te717.XK4424-東6_667"
+},
+{
+"input": ".08d2fea1734I-Z s70Ac769sX13 c5. A",
+"expected": ".08d2fea1734I-Z s70Ac769sX13 c5. A"
+},
+{
+"input": "+591g",
+"expected": "+591g"
+},
+{
+"input": "3fb東Zhes3e41",
+"expected": "3fb東Zhes3e41"
+},
+{
+"input": "6A-c1_A_0:_9e",
+"expected": "6A-c1_A_0:_9e"
+},
+{
+"input": "Z83:1.2\t90e-y05h86y720k_342623Zeh:7/eY",
+"expected": "Z83:1.2\t90e-y05h86y720k_[NUMBER]Zeh:7/eY"
+},
+{
+"input": "7Z45@34e332.7 _4gé1h0J4a 5I3A.1K5024308ff6ég-2@@035",
+"expected": "7Z45@34e332.7 _4gé1h0J4a 5I3A.1K[NUMBER]ff6ég-2@@035"
+},
+{
+"input": "1:5+_2k2968I43I1+4.77sA東217d368\t53g01_090A5481/6A",
+"expected": "1:5+_2k2968I43I1+4.77sA東217d368\t53g01_090A5481/6A"
+},
+{
+"input": "Jkp_-_78dA_Ky東Ae3\téeXY39p14@0 _46-h74",
+"expected": "Jkp_-_78dA_Ky東Ae3\téeXY39p14@0 _46-h74"
+},
+{
+"input": "716Zs.53Jc2+311YhI9II9@é285",
+"expected": "716Zs.53Jc2+311YhI9II9@é285"
+},
+{
+"input": " :K5c67k33Y9g東3dX000/27a2:9yb\t60/472éb",
+"expected": " :K5c67k33Y9g東3dX000/27a2:9yb\t60/472éb"
+},
+{
+"input": "y+Z11dK+53301 a_J1東3J274162/",
+"expected": "y+Z11dK+53301 a_J1東3J[NUMBER]/"
+},
+{
+"input": "c_506865y4/31Ay東-7K04東k6",
+"expected": "c_[NUMBER]y4/31Ay東-7K04東k6"
+},
+{
+"input": "2 A@.",
+"expected": "2 A@."
+},
+{
+"input": "p6gAeé436330\t46IX6X5p59-K4/77y8Ase4_778",
+"expected": "p6gAeé[NUMBER]IX6X5p59-K4/77y8Ase4_778"
+},
+{
+"input": "18h64a+60YAY50",
+"expected": "18h64a+60YAY50"
+},
+{
+"input": "-22.9fh.8263Yc2515東.k8yIé726s94/5:3904",
+"expected": "-22.9fh.8263Yc2515東.k8yIé726s94/5:3904"
+},
+{
+"input": "678_ 07k9c7ee379y/__d_36p8Z+ZY東43_79e-9820Ad963:/29I_p632",
+"expected": "678_ 07k9c7ee379y/__d_36p8Z+ZY東43_79e-9820Ad963:/29I_p632"
+},
+{
+"input": "63-1ph東c5\t.46 02_9X:/18\t57éZ0e1890J9.81dX-_",
+"expected": "63-1ph東c[NUMBER]X:/18\t57éZ0e1890J9.81dX-_"
+},
+{
+"input": "_ch",
+"expected": "_ch"
+},
+{
+"input": "h",
+"expected": "h"
+},
+{
+"input": "5e/kI8d3:東by311kK1K9401\t9/30Xb7K76Y2Xe7Z",
+"expected": "5e/kI8d3:東by311kK1K[NUMBER]Xb7K76Y2Xe7Z"
+},
+{
+"input": "J2",
+"expected": "J2"
+},
+{
+"input": "K東hs+6Ifd1e40b_838K2h7__.h_8:e14",
+"expected": "K東hs+6Ifd1e40b_838K2h7__.h_8:e14"
+},
+{
+"input": "_8Z2-_J09Jp/K98..c_64364ag_e:Y27b:2p38.0a5",
+"expected": "_8Z2-_J09Jp/K98..c_64364ag_e:Y27b:2p38.0a5"
+},
+{
+"input": "409h",
+"expected": "409h"
+},
+{
+"input": "4 _h2c0h-4",
+"expected": "4 _h2c0h-4"
+},
+{
+"input": "Y259: c.:\t1_J_2K71_X_A+086ZeX0/\t:27hK06h",
+"expected": "Y259: c.:\t1_J_2K71_X_A+086ZeX0/\t:27hK06h"
+},
+{
+"input": "h77.",
+"expected": "h77."
+},
+{
+"input": "K3e92.76kb",
+"expected": "K3e92.76kb"
+},
+{
+"input": "ae57Z84:4 237ph東0+k3Z9Z8g7a__s68c7692",
+"expected": "ae57Z84:4 237ph東0+k3Z9Z8g7a__s68c7692"
+},
+{
+"input": "3",
+"expected": "3"
+},
+{
+"input": "7574-yh9 +k3/89J.",
+"expected": "7574-yh9 +k3/89J."
+},
+{
+"input": "a58400/78.c24.s70_48AY3\t259/+@\t+92  aIc@_ssZA東7_:pb57",
+"expected": "a[NUMBER].c24.s70_48AY3\t259/+@\t+92  aIc@_ssZA東7_:pb57"
+},
+{
+"input": "2\tAY312Y9Ka2",
+"expected": "2\tAY312Y9Ka2"
+},
+{
+"input": "2kd\t6\t:531@.-+fgc-7:Z/8sbKJ6@yA155kK75.yXY6832",
+"expected": "2kd\t6\t:531@.-+fgc-7:Z/8sbKJ6@yA155kK75.yXY6832"
+},
+{
+"input": "1X2_443Y東/4J:8f0.38",
+"expected": "1X2_443Y東/4J:8f0.38"
+},
+{
+"input": "05hsd7_東9e6-9a12 5Yé76b6K2I5-J62",
+"expected": "05hsd7_東9e6-9a12 5Yé76b6K2I5-J62"
+},
+{
+"input": "I8adép47fA@5A30If5a344_k2f52a5a566é79_69/1I22aA96878_s83Ie5",
+"expected": "I8adép47fA@5A30If5a344_k2f52a5a566é79_69/1I22aA96878_s83Ie5"
+},
+{
+"input": "hA62_12ég731:10y27e46.",
+"expected": "hA62_12ég731:10y27e46."
+},
+{
+"input": "Je58e3d9h68p-Y753@5/8東I30d611-e5Kg443803A5@ék東I東c1__ sY00",
+"expected": "Je58e3d9h68p-Y753@5/8東I30d611-e5Kg[NUMBER]A5@ék東I東c1__ sY00"
+},
+{
+"input": "89cb35-8.Ah",
+"expected": "89cb35-8.Ah"
+},
+{
+"input": "\t:/-s213dyy6kc7:9c.1618@0h-p:/924h0h9-8",
+"expected": "\t:/-s213dyy6kc7:9c.1618@0h-p:/924h0h9-8"
+},
+{
+"input": "K43_-525\t58-eh4730東.Ayk7JeIJagA4e4_.036dXh0-g308hh232-1",
+"expected": "K[NUMBER]-eh4730東.Ayk7JeIJagA4e4_.036dXh0-g308hh232-1"
+},
+{
+"input": "24Y5X84452pé820d67\tc9d-a457sy2c:1e4Z 192édkAa5K5\tf 6be\t967",
+"expected": "24Y5X84452pé820d67\tc9d-a457sy2c:1e4Z 192édkAa5K5\tf 6be\t967"
+},
+{
+"input": "5 g\t5ed4-éZX6d1I.I880559東28_0855.23.J465A31774 h_01h-Z51\t4",
+"expected": "5 g\t5ed4-éZX6d1I.I[NUMBER]東[NUMBER].J465A31774 h_01h-Z51\t4"
+},
+{
+"input": "-A",
+"expected": "-A"
+},
+{
+"input": "1d39",
+"expected": "1d39"
+},
+{
+"input": "éf2402Z07X6 8736Kh1",
+"expected": "éf2402Z07X6 8736Kh1"
+},
+{
+"input": "K2éh.8k -5hyIX東_4Ye:60Yge5X43k2_5ee8é5",
+"expected": "K2éh.8k -5hyIX東_4Ye:60Yge5X43k2_5ee8é5"
+},
+{
+"input": "7éé03.g",
+"expected": "7éé03.g"
+},
+{
+"input": "976.ff+_A346_ae5251e:f4b7_I:73A96@-6-5pYA07",
+"expected": "976.ff+_A346_ae5251e:f4b7_I:73A96@-6-5pYA07"
+},
+{
+"input": "0/1Z1_e1",
+"expected": "0/1Z1_e1"
+},
+{
+"input": "yagkh1h0790A_433g855p.5X東0",
+"expected": "yagkh1h0790A_433g855p.5X東0"
+},
+{
+"input": "6é392/pp21/-:b\ty875g8.h40",
+"expected": "6é392/pp21/-:b\ty875g8.h40"
+},
+{
+"input": "@69e2é28e820e_78",
+"expected": "@69e2é28e820e_78"
+},
+{
+"input": "k/4+15-90dXJ_16X7東394y:f5975d017",
+"expected": "k/4+15-90dXJ_16X7東394y:f5975d017"
+},
+{
+"input": "..b\t8-\t1s.4-84sYéAKe57e202646---hy5AaI0",
+"expected": "..b\t8-\t1s.4-84sYéAKe57e[NUMBER]---hy5AaI0"
+},
+{
+"input": "東8 ee04._9ed7@41d40Ke7\t444K34347A6dX02h8",
+"expected": "東8 ee04._9ed7@41d40Ke7\t444K34347A6dX02h8"
+},
+{
+"input": "I4é4:Z1/00g1d4268Kc 33ZA_k",
+"expected": "I4é4:Z1/00g1d4268Kc 33ZA_k"
+},
+{
+"input": "844Xs170.h8f",
+"expected": "844Xs170.h8f"
+},
+{
+"input": "東1AA2-44792h2683739\t26-Y3",
+"expected": "東1AA[NUMBER]h[NUMBER]-Y3"
+},
+{
+"input": "K27e59+Y2I496_74-66b_-",
+"expected": "K27e59+Y2I[NUMBER]b_-"
+},
+{
+"input": "73X5.32@a2k789f34I57504.0e9e1Aee6pY0-8K35e",
+"expected": "73X5.32@a2k789f34I[NUMBER]e9e1Aee6pY0-8K35e"
+},
+{
+"input": "e.0A3h_-AX東",
+"expected": "e.0A3h_-AX東"
+},
+{
+"input": "64717y7I\tZd_66Y3a.@I393-2ef0 _0g0é9Y92-22h6Js0238786+\th.72@5",
+"expected": "64717y7I\tZd_66Y3a.@I393-2ef0 _0g0é9Y92-22h6Js[NUMBER]+\th.72@5"
+},
+{
+"input": "33\t71-9b9Js25Xe3Ab90\t6g91609kc82é2084Jg4097",
+"expected": "33\t71-9b9Js25Xe3Ab90\t6g91609kc82é2084Jg4097"
+},
+{
+"input": "2c771s41:0204yk1.b_b95éI268._82Zbs_:6/_+1101:9",
+"expected": "2c771s41:0204yk1.b_b95éI268._82Zbs_:6/_+1101:9"
+},
+{
+"input": "71p6181eZc: 8J48K.596_2838aps0p8805818cJ270A10135ge8469Xk.A7",
+"expected": "71p6181eZc: 8J48K.[NUMBER]aps0p[NUMBER]cJ270A10135ge8469Xk.A7"
+},
+{
+"input": "16g6Iy812ya0.:.h228974X4e1.befpg932",
+"expected": "16g6Iy812ya0.:.h[NUMBER]X4e1.befpg932"
+},
+{
+"input": "04.72KeK1_4105_4y.799é9.28@-Jepk8c7471\t+6:7/I73e7:10:._-9",
+"expected": "04.72KeK[NUMBER]y.799é9.28@-Jepk8c7471\t+6:7/I73e7:10:._-9"
+},
+{
+"input": "4c3h0X766-東K2:ce38-1A",
+"expected": "4c3h0X766-東K2:ce38-1A"
+},
+{
+"input": "997Z86g:82東J__77/Aye8東42-1776606_pk5__7s@25k1.h28h532Ib",
+"expected": "997Z86g:82東J__77/Aye8東[NUMBER]_pk5__7s@25k1.h28h532Ib"
+},
+{
+"input": "-k_1b24-8425XXb-Z2é9h711Y9",
+"expected": "-k_1b[NUMBER]XXb-Z2é9h711Y9"
+},
+{
+"input": "72-34-.3@eX8e-._6+g49X+/éaX",
+"expected": "72-34-.3@eX8e-._6+g49X+/éaX"
+},
+{
+"input": "13s0JXy1A90918282 731@cy0-A3\t",
+"expected": "13s0JXy1A[NUMBER]@cy0-A3\t"
+},
+{
+"input": "9081c936Ak32/5p _571X+h0p5::17.",
+"expected": "9081c936Ak32/5p _571X+h0p5::17."
+},
+{
+"input": "h k7d70646.390@4:@066d:-3h699K1",
+"expected": "h k7d[NUMBER]@4:@066d:-3h699K1"
+},
+{
+"input": "180-",
+"expected": "180-"
+},
+{
+"input": "_+5_93",
+"expected": "_+5_93"
+},
+{
+"input": "K/213K3y76759dh1Y7_ _X3y3 4aaJe2759Ie0@é663\tY4p4",
+"expected": "K/213K3y76759dh1Y7_ _X3y3 4aaJe2759Ie0@é663\tY4p4"
+},
+{
+"input": "/_7c9東s東y2/Zh-20A1A47a",
+"expected": "/_7c9東s東y2/Zh-20A1A47a"
+},
+{
+"input": "34.604613_.h15+64-30-g05é8.@ @A892pJJ49Y3X95",
+"expected": "[NUMBER]_.h15+64-30-g05é8.@ @A892pJJ49Y3X95"
+},
+{
+"input": " ",
+"expected": " "
+},
+{
+"input": "A03g9_0-h8g\t62d-9-Z@170c1kp1-A_e_y6gK3c3\tA6I08Yf東1/8Yé-48K6",
+"expected": "A03g9_0-h8g\t62d-9-Z@170c1kp1-A_e_y6gK3c3\tA6I08Yf東1/8Yé-48K6"
+},
+{
+"input": "-",
+"expected": "-"
+},
+{
+"input": "3",
+"expected": "3"
+},
+{
+"input": "36Z",
+"expected": "36Z"
+},
+{
+"input": "é3833202A ",
+"expected": "é[NUMBER]A "
+},
+{
+"input": "-X809:365406-563J2d7X0A6408026:K-_A_a43/b 0Y042s-7",
+"expected": "-X809:[NUMBER]J2d7X0A[NUMBER]:K-_A_a43/b 0Y042s-7"
+},
+{
+"input": ":5-_",
+"expected": ":5-_"
+},
+{
+"input": "9330p179\t2pK674Y2690.khp6aJ0AZ87A9ZIs+579k6kh__e817",
+"expected": "9330p179\t2pK674Y2690.khp6aJ0AZ87A9ZIs+579k6kh__e817"
+},
+{
+"input": "+",
+"expected": "+"
+},
+{
+"input": "h8I5h17865.-e22h2ZY3d",
+"expected": "h8I5h17865.-e22h2ZY3d"
+},
+{
+"input": "__4h_.a7_1yb68161b896 5dY@2Z1+342k.b/J_XK2sAY1adyd776pI",
+"expected": "__4h_.a7_1yb68161b896 5dY@2Z1+342k.b/J_XK2sAY1adyd776pI"
+},
+{
+"input": "559a89ahX6+00s74602X3é5p7k@1",
+"expected": "559a89ahX6+00s74602X3é5p7k@1"
+},
+{
+"input": "8kp@197K362ky6e364_665éc13d7pé0c5-_@4-831_0--80p/8+c9995f",
+"expected": "8kp@197K362ky6e[NUMBER]éc13d7pé0c5-_@[NUMBER]p/8+c9995f"
+},
+{
+"input": "1797..64c8/9k3A@A26648csdé6123g .9094-e77_65y5p8525\t4X@",
+"expected": "[NUMBER]c8/9k3A@A26648csdé6123g .9094-e77_65y5p8525\t4X@"
+},
+{
+"input": "7Ih0_fYy/537739604Y0",
+"expected": "7Ih0_fYy/[NUMBER]Y0"
+},
+{
+"input": "c2b0:c/h66J東0-5361h07g-f+3721815y7.s2038k+42702439h2383",
+"expected": "c2b0:c/h66J東0-5361h07g-f+[NUMBER]y7.s2038k+[NUMBER]h2383"
+},
+{
+"input": "é37Ye3_983@d189-9f0.ép6-Y0a30e7",
+"expected": "é37Ye3_983@d189-9f0.ép6-Y0a30e7"
+},
+{
+"input": "@.4p315gc1467k8-484Z691.8b16g//7東_A5..bf4Kh:5b8.7582e8406",
+"expected": "@.4p315gc1467k8-484Z691.8b16g//7東_A5..bf4Kh:5b8.7582e8406"
+},
+{
+"input": ":5+hIJ2f44@ef0h3_8-_e1K2/-11",
+"expected": ":5+hIJ2f44@ef0h3_8-_e1K2/-11"
+},
+{
+"input": "92pe41",
+"expected": "92pe41"
+},
+{
+"input": ".97I7p877052Jegh8_",
+"expected": ".97I7p[NUMBER]Jegh8_"
+},
+{
+"input": "bs4",
+"expected": "bs4"
+},
+{
+"input": "47I76_d4@62a29J6426a5Z+92_860",
+"expected": "47I76_d4@62a29J6426a5Z+92_860"
+},
+{
+"input": "972be:9d0IZ36e4Y.15k8J6pJ3sé a3814東9Z6542I.8916",
+"expected": "972be:9d0IZ36e4Y.15k8J6pJ3sé a3814東9Z6542I.8916"
+},
+{
+"input": "43fAX9/_gc2A9-6東 7Ashh24Jp_04-東 e 066",
+"expected": "43fAX9/_gc2A9-6東 7Ashh24Jp_04-東 e 066"
+},
+{
+"input": "K+02_5e1ZeK1926e5@é9YcA7K+2I2Ze3h8:h+214Y8127_:/2f:",
+"expected": "K+02_5e1ZeK1926e5@é9YcA7K+2I2Ze3h8:h+214Y8127_:/2f:"
+},
+{
+"input": "Z東Yf:-cé8X6é2_6\tK61f3-+7160:05_88.18+0A218+444J00K",
+"expected": "Z東Yf:-cé8X6é2_6\tK61f3-+7160:[NUMBER]+0A218+444J00K"
+},
+{
+"input": "5k.Aé967f2256b27e@.1.Xc7d59a30epé3@37661\t_b3p28132XY16",
+"expected": "5k.Aé967f2256b27e@.1.Xc7d59a30epé3@37661\t_b3p28132XY16"
+},
+{
+"input": "ag/07 _1262.",
+"expected": "ag/[NUMBER]."
+},
+{
+"input": "7 _4K6J33656A東589p309:5YyKI/+Y9g+féc13:b0014-Z0JIk-@9K6",
+"expected": "7 _4K6J33656A東589p309:5YyKI/+Y9g+féc13:b0014-Z0JIk-@9K6"
+},
+{
+"input": "3g+Ig31:hA.8c\t0173y:0XJ5546\t62hI63 4d/ 1b61K611c27e4436a\tZ87",
+"expected": "3g+Ig31:hA.8c\t0173y:0XJ[NUMBER]hI63 4d/ 1b61K611c27e4436a\tZ87"
+},
+{
+"input": "61_211é/",
+"expected": "61_211é/"
+},
+{
+"input": "g9Ze:855pé@I1.1c",
+"expected": "g9Ze:855pé@I1.1c"
+},
+{
+"input": "52:006.gs557b6y4",
+"expected": "52:006.gs557b6y4"
+},
+{
+"input": "Z9p\t52548+4_s3dK76gé9_3\t2258A-I50",
+"expected": "Z9p\t52548+4_s3dK76gé[NUMBER]A-I50"
+},
+{
+"input": ".A6h6620:k0Y7@k6_8e929edee270",
+"expected": ".A6h6620:k0Y7@k6_8e929edee270"
+},
+{
+"input": "ge04",
+"expected": "ge04"
+},
+{
+"input": "8K60東5930_2@K898h4",
+"expected": "8K60東5930_2@K898h4"
+},
+{
+"input": "1égé18143東1Ze793J8p221_12K2h3",
+"expected": "1égé18143東1Ze793J8p221_12K2h3"
+},
+{
+"input": "2e:Ye_1@7s\tA-19 6ps7+K4JYJé5.7K6Kk東a1e386I128@.7e/0K583",
+"expected": "2e:Ye_1@7s\tA-19 6ps7+K4JYJé5.7K6Kk東a1e386I128@.7e/0K583"
+},
+{
+"input": "2s-KAA/7+3sh8s159_.78Z018k_é83",
+"expected": "2s-KAA/7+3sh8s159_.78Z018k_é83"
+},
+{
+"input": "\t9@/8891A7..73416AK34sK6123939-.\t6e639k",
+"expected": "\t9@/8891A[NUMBER]AK34sK[NUMBER]-.\t6e639k"
+},
+{
+"input": "af6",
+"expected": "af6"
+},
+{
+"input": "2s21K9675I.9cA2Y9c0..1:e3\tX6/.801Yse92",
+"expected": "2s21K9675I.9cA2Y9c0..1:e3\tX6/.801Yse92"
+},
+{
+"input": "+6e2b2Xf/\t8-fA4Ja+9Js+7218.",
+"expected": "+6e2b2Xf/\t8-fA4Ja+9Js+7218."
+},
+{
+"input": "890A530I261h",
+"expected": "890A530I261h"
+},
+{
+"input": "Ae5g@6東_4/k34-5693h",
+"expected": "Ae5g@6東_4/k[NUMBER]h"
+},
+{
+"input": "X462.81151:0I/5X8-Y446e0d4b.\tI+Jp682639Y2f46711488",
+"expected": "X[NUMBER]:0I/5X8-Y446e0d4b.\tI+Jp[NUMBER]Y2f[NUMBER]"
+},
+{
+"input": "35.79h/g0f267 68e6",
+"expected": "35.79h/g0f267 68e6"
+},
+{
+"input": "6_A14_/_87-88f4K1 _52s_0a 4_東Af8",
+"expected": "6_A14_/_87-88f4K1 _52s_0a 4_東Af8"
+},
+{
+"input": "7\t23Yé6",
+"expected": "7\t23Yé6"
+},
+{
+"input": "fI20546pJ0_82_d-7東Y404e9Z12s06kXe27J64J",
+"expected": "fI20546pJ0_82_d-7東Y404e9Z12s06kXe27J64J"
+},
+{
+"input": "832 dAape36a2e/8g32203e7336.",
+"expected": "832 dAape36a2e/8g32203e7336."
+},
+{
+"input": "0\t_+5K8J141東61129-A_kA5/544128610p26gX7p:hf4-5\tK_6AJ2é",
+"expected": "0\t_+5K8J141東61129-A_kA[NUMBER]p26gX7p:hf4-5\tK_6AJ2é"
+},
+{
+"input": "3038h0.Z15.h1_ fI76e89Y.35Y0hA6.é.61Jd4a0A51.",
+"expected": "3038h0.Z15.h1_ fI76e89Y.35Y0hA6.é.61Jd4a0A51."
+},
+{
+"input": "_7I_79y8@.Y1_d2X90fA509\tk:2éI1 _KZa6564I-a2sa_4kk1.",
+"expected": "_7I_79y8@.Y1_d2X90fA509\tk:2éI1 _KZa6564I-a2sa_4kk1."
+},
+{
+"input": "38085df/519a3f-53@00dké97J0",
+"expected": "38085df/519a3f-53@00dké97J0"
+},
+{
+"input": "7 6e東1h6J0.57I5s/957.",
+"expected": "7 6e東1h6J0.57I5s/957."
+},
+{
+"input": "42h0c4042J2e東h16e-41_d07KJK東3ZZ-3-bkg/As9東東A7-s548.62",
+"expected": "42h0c4042J2e東h16e-41_d07KJK東3ZZ-3-bkg/As9東東A7-s548.62"
+},
+{
+"input": "a2h60Id0.861\t_50",
+"expected": "a2h60Id[NUMBER]"
+},
+{
+"input": "1_053Y859e",
+"expected": "1_053Y859e"
+},
+{
+"input": "54e_AXK5X53he404ygY@7-東0-89東@00a.6s6g8c-472",
+"expected": "54e_AXK5X53he404ygY@7-東0-89東@00a.6s6g8c-472"
+},
+{
+"input": "g178e7213éZ2_80+4",
+"expected": "g178e7213éZ2_80+4"
+},
+{
+"input": "6.00X190h6853.+I9a-68X6g3I2 27:Zs_1:51AJ6813é92/yA92sAéK-9",
+"expected": "6.00X190h6853.+I9a-68X6g3I2 27:Zs_1:51AJ6813é92/yA92sAéK-9"
+},
+{
+"input": "310d28e0p_e3_ee5d8Z7X_.a東KX.3:211h8e14",
+"expected": "310d28e0p_e3_ee5d8Z7X_.a東KX.3:211h8e14"
+},
+{
+"input": "X+083東4_286k37東91.",
+"expected": "X+083東4_286k37東91."
+},
+{
+"input": "bZeéJ\t7s447",
+"expected": "bZeéJ\t7s447"
+},
+{
+"input": "-JYé.d8-g33I+5sh78ab 7A8_d: 24@KZ a",
+"expected": "-JYé.d8-g33I+5sh78ab 7A8_d: 24@KZ a"
+},
+{
+"input": "@069556e9h8y7.05I0/pIfY94113-h80Jch_",
+"expected": "@[NUMBER]e9h8y7.05I0/pIfY94113-h80Jch_"
+},
+{
+"input": ".-92a.4e11k",
+"expected": ".-92a.4e11k"
+},
+{
+"input": "8_YXe5A11Y@2h379647: 0Ah0/6gJ8_8_k7f37/33é hZ347_4314c",
+"expected": "8_YXe5A11Y@2h[NUMBER]: 0Ah0/6gJ8_8_k7f37/33é hZ[NUMBER]c"
+},
+{
+"input": "aY48c1bX825\t9e29+e_A9a838kpe6a9é510p746-4Z1東095a67.8",
+"expected": "aY48c1bX825\t9e29+e_A9a838kpe6a9é510p746-4Z1東095a67.8"
+},
+{
+"input": "東1I50/h8東",
+"expected": "東1I50/h8東"
+},
+{
+"input": "1yJ",
+"expected": "1yJ"
+},
+{
+"input": "2f249\t.53y31 y2ZJ+37h0168038h__-c0f0X1_hA14東6:08I東X",
+"expected": "2f249\t.53y31 y2ZJ+37h[NUMBER]h__-c0f0X1_hA14東6:08I東X"
+},
+{
+"input": "7:s87:東002p8fX37Z3f9bf48e40A3A4ss0_0:f/70.5a36gA1Z5",
+"expected": "7:s87:東002p8fX37Z3f9bf48e40A3A4ss0_0:f/70.5a36gA1Z5"
+},
+{
+"input": "K2.2ay",
+"expected": "K2.2ay"
+},
+{
+"input": "a東7é0ed7\t8+57@1hhh67東k-",
+"expected": "a東7é0ed7\t8+57@1hhh67東k-"
+},
+{
+"input": "083\tJ14c-X@6A-Z0A749s5é98K. 76eZ391.\t077b5py6e2A69k02:936p46",
+"expected": "083\tJ14c-X@6A-Z0A749s5é98K. 76eZ[NUMBER]b5py6e2A69k02:936p46"
+},
+{
+"input": "abf7h9Ygy",
+"expected": "abf7h9Ygy"
+},
+{
+"input": "bh36614.2_1\t12As.eKX726s0X_e_s16f6",
+"expected": "bh[NUMBER]As.eKX726s0X_e_s16f6"
+},
+{
+"input": "082d.3h04e東c77-:-4 dA76Zc6A5I51h東s94Z1Ae20_\t8_49:42",
+"expected": "082d.3h04e東c77-:-4 dA76Zc6A5I51h東s94Z1Ae20_\t8_49:42"
+},
+{
+"input": "5-h3é14gk3k89p695dY42X93832Za1f4A+Zfa42sZ63__3238I80k5",
+"expected": "5-h3é14gk3k89p695dY42X93832Za1f4A+Zfa42sZ[NUMBER]I80k5"
+},
+{
+"input": "s5h3184591Y77d7_s84/sg1154",
+"expected": "s5h[NUMBER]Y77d7_s84/sg1154"
+},
+{
+"input": "f_2:4X55",
+"expected": "f_2:4X55"
+},
+{
+"input": "KY6h0012f4_8AA8y4K1@07:0323_6_19s/7g1c0A135",
+"expected": "KY6h0012f4_8AA8y4K1@07:[NUMBER]s/7g1c0A135"
+},
+{
+"input": "6 18X:3I8g281é7\tf2p73é7kf:56gA\t6h\t7+5111a32_5Z8/9_45J1A",
+"expected": "6 18X:3I8g281é7\tf2p73é7kf:56gA\t6h\t7+5111a32_5Z8/9_45J1A"
+},
+{
+"input": "194é.29g6k86_s+9_:6_dk_Je5sdee2J:2.319cKA42118 8ysc9",
+"expected": "194é.29g6k86_s+9_:6_dk_Je5sdee2J:2.319cKA[NUMBER]ysc9"
+},
+{
+"input": "I641y18-y-A69-53éXJ538d6d1_c0Ahg5A6/20_p e5/7d30:5\tA",
+"expected": "I641y18-y-A69-53éXJ538d6d1_c0Ahg5A6/20_p e5/7d30:5\tA"
+},
+{
+"input": "_8_cJX3b0A5p-8@g04c0東8h",
+"expected": "_8_cJX3b0A5p-8@g04c0東8h"
+},
+{
+"input": "6JIb0",
+"expected": "6JIb0"
+},
+{
+"input": "0a51X40331399Jb4 9043k5:ghA540524e9b4838A",
+"expected": "0a51X[NUMBER]Jb4 9043k5:ghA[NUMBER]e9b4838A"
+},
+{
+"input": "f東76h1s09217/4k0-9640@5826K4 97742Xp_2@9X1A180AJYé32e2k",
+"expected": "f東76h1s[NUMBER]k0-9640@5826K[NUMBER]Xp_2@9X1A180AJYé32e2k"
+},
+{
+"input": "4AA2I--JIy1db68YY7@A4東0e1@I66\th61-6cJK.022東8ZX東773Y19",
+"expected": "4AA2I--JIy1db68YY7@A4東0e1@I66\th61-6cJK.022東8ZX東773Y19"
+},
+{
+"input": "5.9h3aIa30Z906_h東1e:075:83+5_1.22b1kAA6f0_Ky:e91_.2Kk2h+",
+"expected": "5.9h3aIa30Z906_h東1e:075:83+5_1.22b1kAA6f0_Ky:e91_.2Kk2h+"
+},
+{
+"input": "5cZ23567A8e\t.795J_.A.8Aé3f15東.\tp:I72.3ha2",
+"expected": "5cZ23567A8e\t.795J_.A.8Aé3f15東.\tp:I72.3ha2"
+},
+{
+"input": "b52",
+"expected": "b52"
+},
+{
+"input": "Ze20p2+06 001/4_é618.\t0K0432:",
+"expected": "Ze20p2+[NUMBER]_é618.\t0K0432:"
+},
+{
+"input": "567@5東ce東3765Z15X0.2g130:--@3",
+"expected": "567@5東ce東3765Z15X0.2g130:--@3"
+},
+{
+"input": "A19e/799s/7987Y .@\t:_699hAs4252ae226-/7-ée210aY9hg5e1.",
+"expected": "A19e/799s/7987Y .@\t:_699hAs4252ae226-/7-ée210aY9hg5e1."
+},
+{
+"input": "8s東4p8_624X.515-364:e5e2/A272 K4/1pd819_/é7Z37s.A",
+"expected": "8s東4p8_624X.[NUMBER]:e5e2/A272 K4/1pd819_/é7Z37s.A"
+},
+{
+"input": ":Af.305\t.3J747",
+"expected": ":Af.305\t.3J747"
+},
+{
+"input": ".g5東f\t70/63",
+"expected": ".g5東f\t70/63"
+},
+{
+"input": "1 228e62d89 h\t東_6A8607y9b9sA9c/0:70c東4-XK11e60Z2Ag-",
+"expected": "1 228e62d89 h\t東_6A8607y9b9sA9c/0:70c東4-XK11e60Z2Ag-"
+},
+{
+"input": "49K5AAA東bé1c86X19K25013",
+"expected": "49K5AAA東bé1c86X19K25013"
+},
+{
+"input": "991_8684e356h-24515618e33X534\t.",
+"expected": "[NUMBER]e356h-[NUMBER]e33X534\t."
+},
+{
+"input": " b8e8e1247__@",
+"expected": " b8e8e1247__@"
+},
+{
+"input": "/ 94A5bJ6:6\t3p9h1",
+"expected": "/ 94A5bJ6:6\t3p9h1"
+},
+{
+"input": "106\t890東J-0- 9-2984g0.389498f3253.Ah883p東/56-",
+"expected": "[NUMBER]東J-[NUMBER]g[NUMBER]f3253.Ah883p東/56-"
+},
+{
+"input": "-Y5475_50X東0-",
+"expected": "-Y[NUMBER]X東0-"
+},
+{
+"input": "3.8667452AghZ95X@5_565_9h984A/b0c7e_300/@1603+9g",
+"expected": "[NUMBER]AghZ95X@5_565_9h984A/b0c7e_300/@1603+9g"
+},
+{
+"input": "61X6/X_30b4_+p3éy+_h9-5d0東Y.6fgIk2\tJ",
+"expected": "61X6/X_30b4_+p3éy+_h9-5d0東Y.6fgIk2\tJ"
+},
+{
+"input": "-y7K858東00b3:0gdI1188810X63AA-_-",
+"expected": "-y7K858東00b3:0gdI[NUMBER]X63AA-_-"
+},
+{
+"input": ":s6K5397KgA18 kA50106-eA2e54782d+東4.A0742ZA78084e640123+f0",
+"expected": ":s6K5397KgA18 kA50106-eA2e54782d+東4.A0742ZA78084e[NUMBER]+f0"
+},
+{
+"input": "713-57619fk13328k0455a+7J4東Y_",
+"expected": "[NUMBER]fk13328k0455a+7J4東Y_"
+},
+{
+"input": "9Jé06748fA0.s11J77y5-6Y3-",
+"expected": "9Jé06748fA0.s11J77y5-6Y3-"
+},
+{
+"input": "4 44778_6217東24.6I09AXhh55/7460k-2",
+"expected": "[NUMBER]東24.6I09AXhh[NUMBER]k-2"
+},
+{
+"input": "2J19e.9東4I.5_1f30_58236582Ye1_@7h601d_577:_0p8_\t3Z",
+"expected": "2J19e.9東4I.5_1f[NUMBER]Ye1_@7h601d_577:_0p8_\t3Z"
+},
+{
+"input": " -73K9+6c745b883+4/@0Z2//1.8h58ZA",
+"expected": " -73K9+6c745b883+4/@0Z2//1.8h58ZA"
+},
+{
+"input": "J_d_I8 0e:2-76X",
+"expected": "J_d_I8 0e:2-76X"
+},
+{
+"input": "50_p1393-3+5 7e_4J_8\t440a51YA:_6_94Y221_92f4.é9150a107I-9",
+"expected": "50_p1393-3+5 7e_4J_8\t440a51YA:_6_94Y221_92f4.é9150a107I-9"
+},
+{
+"input": "63J2:2f4Jd",
+"expected": "63J2:2f4Jd"
+},
+{
+"input": "85771Y2Jpf-9:ps.6@281y8Y0A\thbZ1-YA18Xe\tX2546",
+"expected": "85771Y2Jpf-9:ps.6@281y8Y0A\thbZ1-YA18Xe\tX2546"
+},
+{
+"input": "_-6X-X4gb40東859.305K4_1c450aabd96_2_X88a4ZJ0",
+"expected": "_-6X-X4gb40東[NUMBER]K4_1c450aabd96_2_X88a4ZJ0"
+},
+{
+"input": "4b東5683_909+7301ec52420ee--499",
+"expected": "4b東[NUMBER]+7301ec52420ee--499"
+},
+{
+"input": "+45\t97b8-.e0IXa_",
+"expected": "+45\t97b8-.e0IXa_"
+},
+{
+"input": "y4f95e2012e\t65Jy22619:",
+"expected": "y4f95e2012e\t65Jy22619:"
+},
+{
+"input": "2_X.052IéYY1K46/7",
+"expected": "2_X.052IéYY1K46/7"
+},
+{
+"input": "f8888A_925b+A339",
+"expected": "f8888A_925b+A339"
+},
+{
+"input": "1A99-h7Ip2-Xh",
+"expected": "1A99-h7Ip2-Xh"
+},
+{
+"input": "k8418h5:742176X3/8891cc17h",
+"expected": "k8418h5:[NUMBER]X3/8891cc17h"
+},
+{
+"input": "8+9p460_8_e1A53東2hfX16.13k56_937:15 4J9se-1I_8c84",
+"expected": "8+9p460_8_e1A53東2hfX16.13k56_937:15 4J9se-1I_8c84"
+},
+{
+"input": "3_yhy4h\tde1I12y1fy9Y37e6\tb305X39A457aK_",
+"expected": "3_yhy4h\tde1I12y1fy9Y37e6\tb305X39A457aK_"
+},
+{
+"input": "47-J\tA/ha91_-egp44h7a6402.fe464._8gdY--2h.k9:6",
+"expected": "47-J\tA/ha91_-egp44h7a6402.fe464._8gdY--2h.k9:6"
+},
+{
+"input": "+_0Z9-:I29k8e113 2_4407037hh80",
+"expected": "+_0Z9-:I29k8e[NUMBER]hh80"
+},
+{
+"input": "6h5.s@y-0y8306k134a30A0630593:",
+"expected": "6h5.s@y-0y8306k134a30A[NUMBER]:"
+},
+{
+"input": "8Y691Y東6ZeJJd991h/4/.9X5 4A199Z東.Yp8é29-Z64\t6a1X+/65",
+"expected": "8Y691Y東6ZeJJd991h/4/.9X5 4A199Z東.Yp8é29-Z64\t6a1X+/65"
+},
+{
+"input": "1東f40Z0 2309180X_Y6ebg.3153a",
+"expected": "1東f40Z[NUMBER]X_Y6ebg.3153a"
+},
+{
+"input": "6k:9hp.I032yY3/+Ak70",
+"expected": "6k:9hp.I032yY3/+Ak70"
+},
+{
+"input": "8_X6f7I17e23cA58\t0\t97h東59_62p4+1d1591Y5",
+"expected": "8_X6f7I17e23cA58\t0\t97h東59_62p4+1d1591Y5"
+},
+{
+"input": "-dyA65K7hZ2eh8k712_9\t_-3161I1f6AX.757Z1529sJ0h52+6d東43e5",
+"expected": "-dyA65K7hZ2eh8k712_9\t_-3161I1f6AX.757Z1529sJ0h52+6d東43e5"
+},
+{
+"input": "h.718é6@hA",
+"expected": "h.718é6@hA"
+},
+{
+"input": "JJe1Y0X",
+"expected": "JJe1Y0X"
+},
+{
+"input": "5y0ke/Y84896@_e0@_8A@YX.05A9/071A411AJa7",
+"expected": "5y0ke/Y84896@_e0@_8A@YX.05A9/071A411AJa7"
+},
+{
+"input": "7b41_73054Y4p:8a3d\t5Z6k10.I9Xe688Kse0-930073",
+"expected": "7b[NUMBER]Y4p:8a3d\t5Z6k10.I9Xe688Kse[NUMBER]"
+},
+{
+"input": "3A1c11gh\t666eep6fk9g6c",
+"expected": "3A1c11gh\t666eep6fk9g6c"
+},
+{
+"input": "08d35.ky469.7+eh08904é880e01東831K",
+"expected": "08d35.ky469.7+eh08904é880e01東831K"
+},
+{
+"input": "J622hp1I: AJ7609AkZ5d",
+"expected": "J622hp1I: AJ7609AkZ5d"
+},
+{
+"input": "0c1269/34+東9\t 5b28df595-6617é8ka東2443y75A463e:",
+"expected": "0c[NUMBER]+東9\t 5b28df[NUMBER]é8ka東2443y75A463e:"
+},
+{
+"input": "/c91+Zs東.\t3e5éYX89:Y14Ac8Y6A57b64A61J79p8:301:76fe84e61/",
+"expected": "/c91+Zs東.\t3e5éYX89:Y14Ac8Y6A57b64A61J79p8:301:76fe84e61/"
+},
+{
+"input": "32fyc:sY1h54fh+@8h5601Yg99_3/83768hh6pA2y.@_+hZ",
+"expected": "32fyc:sY1h54fh+@8h5601Yg[NUMBER]hh6pA2y.@_+hZ"
+},
+{
+"input": "Z.22355dh65I2k9_88sb6p8+2375éee0J9d7855f7A48s/-東83s450Y",
+"expected": "Z.22355dh65I2k9_88sb6p8+2375éee0J9d7855f7A48s/-東83s450Y"
+},
+{
+"input": "4dh95Y93_89s1eZh7f1f46é-2@9-78",
+"expected": "4dh95Y93_89s1eZh7f1f46é-2@9-78"
+},
+{
+"input": "31X4Y",
+"expected": "31X4Y"
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "eK04A_7_699Y4J0K-k36885559c97A9",
+"expected": "eK04A_7_699Y4J0K-k[NUMBER]c97A9"
+},
+{
+"input": "82a3c..2.64",
+"expected": "82a3c..2.64"
+},
+{
+"input": "59東09-63533A1857",
+"expected": "59東[NUMBER]A1857"
+},
+{
+"input": "945\t9h0JI5h7b3-",
+"expected": "945\t9h0JI5h7b3-"
+},
+{
+"input": "8f54551gé7東-72 東g3y077Y_5p",
+"expected": "8f54551gé7東-72 東g3y077Y_5p"
+},
+{
+"input": "91Ze _0289:p6_1KZ6A60.",
+"expected": "91Ze _0289:p6_1KZ6A60."
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "97-X_-Y55KaX2東b-51I05d21y99h:/20a1\t",
+"expected": "97-X_-Y55KaX2東b-51I05d21y99h:/20a1\t"
+},
+{
+"input": "92J/28834\t95A",
+"expected": "92J/[NUMBER]A"
+},
+{
+"input": "..866f2g170+p3AcX437K4494",
+"expected": "..866f2g170+p3AcX437K4494"
+},
+{
+"input": "4KJY09Ks9pk2hbehc-3\t04Yh69/X_98K5751東5gA8 h9k2@Z東5X",
+"expected": "4KJY09Ks9pk2hbehc-3\t04Yh69/X_98K5751東5gA8 h9k2@Z東5X"
+},
+{
+"input": "p\tapafe5686_73832",
+"expected": "p\tapafe[NUMBER]"
+},
+{
+"input": "9k87_東9/8cK\t7_b@Ah4d8+77105東A3_94794yg東. ",
+"expected": "9k87_東9/8cK\t7_b@Ah4d8+77105東A[NUMBER]yg東. "
+},
+{
+"input": "6",
+"expected": "6"
+},
+{
+"input": "8681e:6h6K72636h523Z0822 Ic 3d",
+"expected": "8681e:6h6K72636h523Z0822 Ic 3d"
+},
+{
+"input": "946d2X51k\t5237é3c88.a3ch4.h-é77804.0_pZ6g5@f A02s+-h737+8",
+"expected": "946d2X51k\t5237é3c88.a3ch4.h-é[NUMBER]_pZ6g5@f A02s+-h737+8"
+},
+{
+"input": "998-5\t0p1y.",
+"expected": "998-5\t0p1y."
+},
+{
+"input": "446sh7-Is9ga8+h0é1 e_",
+"expected": "446sh7-Is9ga8+h0é1 e_"
+},
+{
+"input": "_",
+"expected": "_"
+},
+{
+"input": "AI-45_f361479_e-9-21465eb53b7d3Z",
+"expected": "AI-45_f[NUMBER]_e-[NUMBER]eb53b7d3Z"
+},
+{
+"input": "@fbk575.e4-6304-@_6-e3bY73X_840158Y7h",
+"expected": "@fbk575.e4-6304-@_6-e3bY73X_[NUMBER]Y7h"
+},
+{
+"input": "b6KZ9_\t0e_2hfp_+@.014/2 ackI-é_8:東+12",
+"expected": "b6KZ9_\t0e_2hfp_+@.014/2 ackI-é_8:東+12"
+},
+{
+"input": "27+Y8K0.@99kd7-Jc7\t_3/8dkZkh",
+"expected": "27+Y8K0.@99kd7-Jc7\t_3/8dkZkh"
+},
+{
+"input": "5-.kX16326pa05h52d:_3hI_東.aKJ9:+",
+"expected": "5-.kX16326pa05h52d:_3hI_東.aKJ9:+"
+},
+{
+"input": "5919é40",
+"expected": "5919é40"
+},
+{
+"input": "2X2\tgI9s\tYke24hg5東8東4.e_",
+"expected": "2X2\tgI9s\tYke24hg5東8東4.e_"
+},
+{
+"input": "5e東gc",
+"expected": "5e東gc"
+},
+{
+"input": "gJ5992\t1\t5629ayXea/5e/K8saZ8433s",
+"expected": "gJ[NUMBER]ayXea/5e/K8saZ8433s"
+},
+{
+"input": "04h7k3f76/y782e29eka19d4X4dp1_4p103g",
+"expected": "04h7k3f76/y782e29eka19d4X4dp1_4p103g"
+},
+{
+"input": "I50e43_J@e.7",
+"expected": "I50e43_J@e.7"
+},
+{
+"input": "7hs@c84",
+"expected": "7hs@c84"
+},
+{
+"input": "7d3.70792f-2yI3AI6+_873-8g02",
+"expected": "7d[NUMBER]f-2yI3AI6+_873-8g02"
+},
+{
+"input": "k6",
+"expected": "k6"
+},
+{
+"input": "9257KX170.:98+:9643@377_Ib7_J229c644a9JJ+2eb/18_60@/_pae40",
+"expected": "9257KX170.:98+:9643@377_Ib7_J229c644a9JJ+2eb/18_60@/_pae40"
+},
+{
+"input": "d753p0:c6b7k0.",
+"expected": "d753p0:c6b7k0."
+},
+{
+"input": "Y8é_59c+5yI27h5166aJh1f2X80東c1@d+gJZ",
+"expected": "Y8é_59c+5yI27h5166aJh1f2X80東c1@d+gJZ"
+},
+{
+"input": ".7Xk9h.3ée+e7_512_KX3A320c3Z0X8",
+"expected": ".7Xk9h.3ée+e7_512_KX3A320c3Z0X8"
+},
+{
+"input": "082A__879k/4東y28A3029-4.",
+"expected": "082A__879k/4東y28A3029-4."
+},
+{
+"input": "73X_9.ds1k95s7d766277g377東hK-455\td77p6",
+"expected": "73X_9.ds1k95s7d[NUMBER]g377東hK-455\td77p6"
+},
+{
+"input": "2f_pépc853Y4ah4A_a7kd237A279Ae4A61h",
+"expected": "2f_pépc853Y4ah4A_a7kd237A279Ae4A61h"
+},
+{
+"input": "33+.3-/AeA5h-9K@93.y34c9274p",
+"expected": "33+.3-/AeA5h-9K@93.y34c9274p"
+},
+{
+"input": "@1東94",
+"expected": "@1東94"
+},
+{
+"input": "/3741KAJXh+0aJ7KK/c8709h東9 515_3092-3ah6A27d_8k8.8-.-/Y/Z17",
+"expected": "/3741KAJXh+0aJ7KK/c8709h東[NUMBER]ah6A27d_8k8.8-.-/Y/Z17"
+},
+{
+"input": "6 h東27_6870JAeche+91-6K@+:_45- 58761d+857:b7a",
+"expected": "6 h東[NUMBER]JAeche+91-6K@+:_[NUMBER]d+857:b7a"
+},
+{
+"input": "9-8_3K\th50/k37Y5X774_5+0K669Y0Y93",
+"expected": "9-8_3K\th50/k37Y5X774_5+0K669Y0Y93"
+},
+{
+"input": "e6Z8:7e74b254e:30e1Z.9 84.64801.p:6d1s/72427:7p26",
+"expected": "e6Z8:7e74b254e:30e1Z.[NUMBER].p:6d1s/72427:7p26"
+},
+{
+"input": "hf_6+7é-036p499_ch\t6485_1b6é6825IA3",
+"expected": "hf_6+7é-036p499_ch\t6485_1b6é6825IA3"
+},
+{
+"input": "A e2-997y80y30@8I\t4",
+"expected": "A e2-997y80y30@8I\t4"
+},
+{
+"input": "2.yI2759-_é66d8 Y3/XbZf:",
+"expected": "2.yI2759-_é66d8 Y3/XbZf:"
+},
+{
+"input": "06g1517y2@7p8487Z6-Xc hXJ850457東484",
+"expected": "06g1517y2@7p8487Z6-Xc hXJ[NUMBER]東484"
+},
+{
+"input": "_82084Z3Xh88-A",
+"expected": "_82084Z3Xh88-A"
+},
+{
+"input": "KZ13y894s46p1_5hAAJ89_37aY4\t2 4y7Y5A292é6K",
+"expected": "KZ13y894s46p1_5hAAJ89_37aY4\t2 4y7Y5A292é6K"
+},
+{
+"input": "3.7g +711é82I89-72eX",
+"expected": "3.7g +711é82I89-72eX"
+},
+{
+"input": "05k-083561bI8392078 y27Ap72357hk61I321434K5+@_",
+"expected": "05k-[NUMBER]bI[NUMBER] y27Ap72357hk61I[NUMBER]K5+@_"
+},
+{
+"input": "h5Ap9h841@ha@7-Ic:95X4\t6",
+"expected": "h5Ap9h841@ha@7-Ic:95X4\t6"
+},
+{
+"input": "5X\t.\tb\tgf 東5-eb.g9054h_1 8Y4_9._IkAI_bhk46IZ73",
+"expected": "5X\t.\tb\tgf 東5-eb.g9054h_1 8Y4_9._IkAI_bhk46IZ73"
+},
+{
+"input": "b_5Y26:b_/8a48e09d9eg3Yp20061g",
+"expected": "b_5Y26:b_/8a48e09d9eg3Yp20061g"
+},
+{
+"input": "2X-X aéI.1923y@-978_s1.Kbe4s1e-X1h5d8h-8 @p0IhI18cs東b1.5J_0s",
+"expected": "2X-X aéI.1923y@-978_s1.Kbe4s1e-X1h5d8h-8 @p0IhI18cs東b1.5J_0s"
+},
+{
+"input": "Ib5X -",
+"expected": "Ib5X -"
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "3 e6 6409p99K7eKc6s3c3X1J3東b6-y6gJa25",
+"expected": "3 e6 6409p99K7eKc6s3c3X1J3東b6-y6gJa25"
+},
+{
+"input": "f9東555_Y6_5.p71d46478pp97p0+798J5 09g東0186427682-",
+"expected": "f9東555_Y6_5.p71d46478pp97p0+798J5 09g東[NUMBER]-"
+},
+{
+"input": "e42",
+"expected": "e42"
+},
+{
+"input": "d59cZ2bd36東10東A1980e-81422.-b1666s8",
+"expected": "d59cZ2bd36東10東A1980e-81422.-b1666s8"
+},
+{
+"input": "82705h6.01eZ70_5508",
+"expected": "82705h6.01eZ[NUMBER]"
+},
+{
+"input": "_67.s32-a2",
+"expected": "_67.s32-a2"
+},
+{
+"input": "東1@8eA6東1_312 X582959f-",
+"expected": "東1@8eA6東1_312 X[NUMBER]f-"
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "Ya9.448.k3",
+"expected": "Ya9.448.k3"
+},
+{
+"input": "6bps58+K81:k8-_8I 9h51Z東J\t+A10A9g6_d\té _7-é36k東",
+"expected": "6bps58+K81:k8-_8I 9h51Z東J\t+A10A9g6_d\té _7-é36k東"
+},
+{
+"input": "4X@52yhp:6A2édh\t8ée5fyg9:JJ2",
+"expected": "4X@52yhp:6A2édh\t8ée5fyg9:JJ2"
+},
+{
+"input": "302I05",
+"expected": "302I05"
+},
+{
+"input": "f東55k4a300_6東_d213Y4h68 .67東646 A153_8é3-東996",
+"expected": "f東55k4a300_6東_d213Y4h68 .67東646 A153_8é3-東996"
+},
+{
+"input": "東1e59Y15Ke4Ky23K/03ekK5-24+",
+"expected": "東1e59Y15Ke4Ky23K/03ekK5-24+"
+},
+{
+"input": "623_3X-d4g8764",
+"expected": "623_3X-d4g8764"
+},
+{
+"input": "3JsY21p582hX/94668f8677/242886 62.82d 63e24:7K49f5",
+"expected": "3JsY21p582hX/94668f[NUMBER]d 63e24:7K49f5"
+},
+{
+"input": "é3882 A5a73y:\t3b2geZc_53h0196",
+"expected": "é3882 A5a73y:\t3b2geZc_53h0196"
+},
+{
+"input": "-9YIA",
+"expected": "-9YIA"
+},
+{
+"input": "0Y176@81",
+"expected": "0Y176@81"
+},
+{
+"input": "8\tg+K9-ah+8935JIX221h615p5748fps30h@+e_K0Jf05",
+"expected": "8\tg+K9-ah+8935JIX221h615p5748fps30h@+e_K0Jf05"
+},
+{
+"input": "_5050h91d\t:4",
+"expected": "_5050h91d\t:4"
+},
+{
+"input": "09_",
+"expected": "09_"
+},
+{
+"input": "hZ:3553é0\tYJ34h6165294A0Xs70k2.59gZkZy8",
+"expected": "hZ:3553é0\tYJ34h[NUMBER]A0Xs70k2.59gZkZy8"
+},
+{
+"input": "5pdcIedb",
+"expected": "5pdcIedb"
+},
+{
+"input": "y1y.y9I0427489-6+c@A.91Z/712_ec5ae+h3_0",
+"expected": "y1y.y9I[NUMBER]+c@A.91Z/712_ec5ae+h3_0"
+},
+{
+"input": "36AbY@0_7362ypX2 8_56+6A4-",
+"expected": "36AbY@0_7362ypX2 8_56+6A4-"
+},
+{
+"input": "2-852p09",
+"expected": "2-852p09"
+},
+{
+"input": "1A808hehk8e55094p/0fkc67p_2ZK東550-7_b:+p26p62:05 .se3",
+"expected": "1A808hehk8e55094p/0fkc67p_2ZK東550-7_b:+p26p62:05 .se3"
+},
+{
+"input": "--e590/2c1A11dkf6J97",
+"expected": "--e590/2c1A11dkf6J97"
+},
+{
+"input": "182J9184.3A12e_e8e:6.c3Xy365I498y",
+"expected": "182J9184.3A12e_e8e:6.c3Xy365I498y"
+},
+{
+"input": "2I\t51-Z/d7pXk93811東0@8e5/J1hb:8f99_93y3 68397+12f5",
+"expected": "2I\t51-Z/d7pXk93811東0@8e5/J1hb:8f99_93y[NUMBER]+12f5"
+},
+{
+"input": "33K21k80ph195",
+"expected": "33K21k80ph195"
+},
+{
+"input": "_K8",
+"expected": "_K8"
+},
+{
+"input": "279J_24@IY80.41-A__-h65256g0X_IX5k.fY2_6_8A7_ A9b.9.",
+"expected": "279J_24@IY80.41-A__-h65256g0X_IX5k.fY2_6_8A7_ A9b.9."
+},
+{
+"input": "Z_2sb+88:1Ah.._2+3Y4/13:60J\ta@3-東5yy1077s6",
+"expected": "Z_2sb+88:1Ah.._2+3Y4/13:60J\ta@3-東5yy1077s6"
+},
+{
+"input": "cp539g5X8.K95hd712596_k96:99159",
+"expected": "cp539g5X8.K95hd[NUMBER]_k96:99159"
+},
+{
+"input": "76@sgyAeep0h8A3c02h9",
+"expected": "76@sgyAeep0h8A3c02h9"
+},
+{
+"input": "28g29h東9..a44851678f89-7/_97A42@04I東k974802",
+"expected": "28g29h東9..a[NUMBER]f89-7/_97A42@04I東k[NUMBER]"
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "J_yA5éy@85654",
+"expected": "J_yA5éy@85654"
+},
+{
+"input": "25-5003AY713b31_7東de@073@:b33A.A:@ 0",
+"expected": "[NUMBER]AY713b31_7東de@073@:b33A.A:@ 0"
+},
+{
+"input": "y0X2bkAh7e9435077",
+"expected": "y0X2bkAh7e[NUMBER]"
+},
+{
+"input": "3X36h",
+"expected": "3X36h"
+},
+{
+"input": "433Iy1hé223A5ff_\t35k62741\t80_.4東g6c.YhJ",
+"expected": "433Iy1hé223A5ff_\t35k[NUMBER]東g6c.YhJ"
+},
+{
+"input": "I1/6298g6350_+06I2eé3I5d2AJ",
+"expected": "I1/6298g6350_+06I2eé3I5d2AJ"
+},
+{
+"input": "-p-7K0d329Jf",
+"expected": "-p-7K0d329Jf"
+},
+{
+"input": "h3Af77東d4_0ppe9東2_y110@hJ72Kg/1",
+"expected": "h3Af77東d4_0ppe9東2_y110@hJ72Kg/1"
+},
+{
+"input": "+6@_@0g56p06se582Y\tk東56fA6Ac2@83",
+"expected": "+6@_@0g56p06se582Y\tk東56fA6Ac2@83"
+},
+{
+"input": ".A._45Ye8Y48h77J_23-_7Z東77A\t86.",
+"expected": ".A._45Ye8Y48h77J_23-_7Z東77A\t86."
+},
+{
+"input": "aA67hAk1+0942X7-87+ 5s4s",
+"expected": "aA67hAk1+0942X7-87+ 5s4s"
+},
+{
+"input": "+e7672/0_",
+"expected": "+e7672/0_"
+},
+{
+"input": ".KZ.",
+"expected": ".KZ."
+},
+{
+"input": "4J3564IA3y_4K11gZ540Z7J@7J31437909d",
+"expected": "4J3564IA3y_4K11gZ540Z7J@7J[NUMBER]d"
+},
+{
+"input": "py58X5k8-y.é314aK4655_h",
+"expected": "py58X5k8-y.é314aK4655_h"
+},
+{
+"input": "7Z6779g3h--33@k/144 008\tk268",
+"expected": "7Z6779g3h--33@k/[NUMBER]\tk268"
+},
+{
+"input": "y7759g4a_Ih6a東0",
+"expected": "y7759g4a_Ih6a東0"
+},
+{
+"input": "/0東Yhh7Z:9.a",
+"expected": "/0東Yhh7Z:9.a"
+},
+{
+"input": "2g6AJ1dK5A84KKs840東_.é85 1__4y-s02ég1281p",
+"expected": "2g6AJ1dK5A84KKs840東_.é85 1__4y-s02ég1281p"
+},
+{
+"input": "93-_K9074_3-2550-334A50cdAA\tA5_47",
+"expected": "93-_K[NUMBER]A50cdAA\tA5_47"
+},
+{
+"input": "-h88154a93b@Y.",
+"expected": "-h88154a93b@Y."
+},
+{
+"input": "53",
+"expected": "53"
+},
+{
+"input": "980dh/_76h5014- 3:8b040h.9by6Z86s-\t.ek06Ae",
+"expected": "980dh/_76h5014- 3:8b040h.9by6Z86s-\t.ek06Ae"
+},
+{
+"input": "bX:83y8eK8668ps2d東y",
+"expected": "bX:83y8eK8668ps2d東y"
+},
+{
+"input": "p33.5hhb57JA東Y1s937_2@703és365hah39651ys",
+"expected": "p33.5hhb57JA東Y1s937_2@703és365hah39651ys"
+},
+{
+"input": "4h22",
+"expected": "4h22"
+},
+{
+"input": "8.359s0+-hAe8616.199.4-b96329/76951.74231:J6éA東b_J8I75_e17g",
+"expected": "8.359s0+-hAe[NUMBER]-b[NUMBER]:J6éA東b_J8I75_e17g"
+},
+{
+"input": "3e42k0sd64sIeb6-297東77+9071d960-.h8",
+"expected": "3e42k0sd64sIeb6-297東77+9071d960-.h8"
+},
+{
+"input": "k_8Jb.523p-9f54404/8178ph-+78",
+"expected": "k_8Jb.523p-9f[NUMBER]ph-+78"
+},
+{
+"input": "_2Z7+714-y2+2KhA850-05/53771pKA1a47672",
+"expected": "_2Z7+714-y2+2KhA[NUMBER]pKA1a47672"
+},
+{
+"input": "-\thA-164eI-77s4K854617h243_003JéAhh0e2ah478c92",
+"expected": "-\thA-164eI-77s4K[NUMBER]h[NUMBER]JéAhh0e2ah478c92"
+},
+{
+"input": "_ph8-f4.X+Ih6h06e_24-._2392.-401_h98b1Z.東p@1.1_/p4",
+"expected": "_ph8-f4.X+Ih6h06e_24-._[NUMBER]_h98b1Z.東p@1.1_/p4"
+},
+{
+"input": " c2I8-593594k0",
+"expected": " c2I[NUMBER]k0"
+},
+{
+"input": "/8\t48-58k83hI50東5A107h94_0k.2./:.c1306J:0d-45g776",
+"expected": "/8\t48-58k83hI50東5A107h94_0k.2./:.c1306J:0d-45g776"
+},
+{
+"input": "ed75é6:_6I_@1X4ys3h32J03s-K068696A4h170733Z/1-0e3/X70gZ07 1",
+"expected": "ed75é6:_6I_@1X4ys3h32J03s-K[NUMBER]A4h[NUMBER]Z/1-0e3/X70gZ07 1"
+},
+{
+"input": "A東1",
+"expected": "A東1"
+},
+{
+"input": "554東24+.b:-5A96Z978e30東390_k6K.3407J9Ya6e408_h.2\t_",
+"expected": "554東24+.b:-5A96Z978e30東390_k6K.3407J9Ya6e408_h.2\t_"
+},
+{
+"input": "73",
+"expected": "73"
+},
+{
+"input": "_Ae4Xf9+938085e174K_477g46@s1-A4I_69@2g5p30Ia8",
+"expected": "_Ae4Xf9+[NUMBER]e174K_477g46@s1-A4I_69@2g5p30Ia8"
+},
+{
+"input": "Y9yb45séh5hk701677856/",
+"expected": "Y9yb45séh5hk[NUMBER]/"
+},
+{
+"input": "pey:@10302",
+"expected": "pey:@10302"
+},
+{
+"input": "02bf6.s.hdy9357\t7b9843c18X93A 5p7I38k4X-p+4-6cb.éK0-3J33",
+"expected": "02bf6.s.hdy9357\t7b9843c18X93A 5p7I38k4X-p+4-6cb.éK0-3J33"
+},
+{
+"input": "5.3",
+"expected": "5.3"
+},
+{
+"input": "I",
+"expected": "I"
+},
+{
+"input": "8b761/9東h8A51hX083-21s686903XX",
+"expected": "8b761/9東h8A51hX083-21s[NUMBER]XX"
+},
+{
+"input": "h7XI21:p13Z235A/4629:6kas/:1253062",
+"expected": "h7XI21:p13Z235A/4629:6kas/:[NUMBER]"
+},
+{
+"input": "Y042843y_hA0Z485hY2hydh東1aIy_9s9a",
+"expected": "Y[NUMBER]y_hA0Z485hY2hydh東1aIy_9s9a"
+},
+{
+"input": "74323.-aI8:ge9 4:537-1.0I311ée東75-\tg6A41y9.6d_+4641gA229865",
+"expected": "74323.-aI8:ge9 4:537-1.0I311ée東75-\tg6A41y9.6d_+4641gA[NUMBER]"
+},
+{
+"input": "3:",
+"expected": "3:"
+},
+{
+"input": "bA1h_X6925 23571186h30eK73",
+"expected": "bA1h_X[NUMBER]h30eK73"
+},
+{
+"input": ":89dXb3_ée00e7- 8c59cA3",
+"expected": ":89dXb3_ée00e7- 8c59cA3"
+},
+{
+"input": "4694-g1.57f988pk@1pcfA_A-5a74.2-",
+"expected": "4694-g1.57f988pk@1pcfA_A-5a74.2-"
+},
+{
+"input": "7679A3.111a._f1:+81Ia57hI_hyp\t5293東05191-_e67I.y89@Y57y1",
+"expected": "7679A3.111a._f1:+81Ia57hI_hyp\t5293東05191-_e67I.y89@Y57y1"
+},
+{
+"input": "57:k10e-084\t594.892h:é8@8b2@e:167A7h:/ac-.:6@22-6_33\t84s3d",
+"expected": "57:k10e-[NUMBER]h:é8@8b2@e:167A7h:/ac-.:6@[NUMBER]s3d"
+},
+{
+"input": "19_-.Ké@5",
+"expected": "19_-.Ké@5"
+},
+{
+"input": ".é20586e\t0Zk07東5東-@2X:7f6/6a_11東8ZI9_1h +4820",
+"expected": ".é20586e\t0Zk07東5東-@2X:7f6/6a_11東8ZI9_1h +4820"
+},
+{
+"input": "d東7p-Y1220ds5YKe824.05p0_4f4f7東.東bh8h- :7151_.7+c82-0I",
+"expected": "d東7p-Y1220ds5YKe824.05p0_4f4f7東.東bh8h- :7151_.7+c82-0I"
+},
+{
+"input": "-.é733A東5+\t_01@d088a6178",
+"expected": "-.é733A東5+\t_01@d088a6178"
+},
+{
+"input": "8.26Y-8Ié3k182849A-\t6-é:97JY51c 0A3_p2",
+"expected": "8.26Y-8Ié3k[NUMBER]A-\t6-é:97JY51c 0A3_p2"
+},
+{
+"input": "aJ-3h.0e4Asc024J40.",
+"expected": "aJ-3h.0e4Asc024J40."
+},
+{
+"input": "_6A552c863dkZA0Y1X51d63621I\t55 Xy@é2g2東/5h9p346e797_\t",
+"expected": "_6A552c863dkZA0Y1X51d63621I\t55 Xy@é2g2東/5h9p346e797_\t"
+},
+{
+"input": "06517",
+"expected": "06517"
+},
+{
+"input": "a4e687 7ee",
+"expected": "a4e687 7ee"
+},
+{
+"input": "592412k36d42k7.341.129+11Ad95582373481/4@02_1",
+"expected": "[NUMBER]k36d42k[NUMBER]+11Ad[NUMBER]@02_1"
+},
+{
+"input": "5_8d73pZKah650b ",
+"expected": "5_8d73pZKah650b "
+},
+{
+"input": "4_16-21\t52p_0Z288980-.-46@31\t/1e03_:k4pK",
+"expected": "[NUMBER]p_0Z[NUMBER]-.-46@31\t/1e03_:k4pK"
+},
+{
+"input": "b46JdK293c東h8A9952A8g521AsX9/1_+5",
+"expected": "b46JdK293c東h8A9952A8g521AsX9/1_+5"
+},
+{
+"input": "A東18_@gA",
+"expected": "A東18_@gA"
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "_s:b8.e04Z79fKJ9Ae3y33794/1/\t3K-2_569101s_-_1e-2g9d6- 7h54Z0",
+"expected": "_s:b8.e04Z79fKJ9Ae3y[NUMBER]K-[NUMBER]s_-_1e-2g9d6- 7h54Z0"
+},
+{
+"input": "/JebAZf6A+09g1_",
+"expected": "/JebAZf6A+09g1_"
+},
+{
+"input": "1A5-34K3bhc55-4g127274e._Zy",
+"expected": "1A5-34K3bhc55-4g[NUMBER]e._Zy"
+},
+{
+"input": "4",
+"expected": "4"
+},
+{
+"input": "I78A77070b64p/43.+2A:5\t",
+"expected": "I78A77070b64p/43.+2A:5\t"
+},
+{
+"input": "s127c_04bé",
+"expected": "s127c_04bé"
+},
+{
+"input": "-844d8bY6Z_5.K68é8AX7693f",
+"expected": "-844d8bY6Z_5.K68é8AX7693f"
+},
+{
+"input": "8e_9008c1a63hs7ek65\t5926\t8:/8X5+3dy93ee1e@A-Z73_@1\t@/A85K_",
+"expected": "8e_9008c1a63hs7ek[NUMBER]:/8X5+3dy93ee1e@A-Z73_@1\t@/A85K_"
+},
+{
+"input": "408sAA1ya9809\t74Zy_@6f.2b.4dyfh3pa東",
+"expected": "408sAA1ya[NUMBER]Zy_@6f.2b.4dyfh3pa東"
+},
+{
+"input": "01a+h3h14f2f5A68b029東56e3406dA",
+"expected": "01a+h3h14f2f5A68b029東56e3406dA"
+},
+{
+"input": "\tsy1-I65Y3/II/7s2e8@0p17:45702",
+"expected": "\tsy1-I65Y3/II/7s2e8@0p17:45702"
+},
+{
+"input": "b__6es50A3h-4b6J99.4fA6ep21I57é+\t41.57h4k9..7éJ.2東4東4A+",
+"expected": "b__6es50A3h-4b6J99.4fA6ep21I57é+\t41.57h4k9..7éJ.2東4東4A+"
+},
+{
+"input": "-4931Z6ey957-e2yef",
+"expected": "-4931Z6ey957-e2yef"
+},
+{
+"input": "61e4c490f",
+"expected": "61e4c490f"
+},
+{
+"input": "8hA b1東 -970hI064hs\t1_034e18a-/s5",
+"expected": "8hA b1東 -970hI064hs\t1_034e18a-/s5"
+},
+{
+"input": "9_710-Ap9é38b43/h18/I-ab_981_c.kK-",
+"expected": "9_710-Ap9é38b43/h18/I-ab_981_c.kK-"
+},
+{
+"input": " 9h.9f71",
+"expected": " 9h.9f71"
+},
+{
+"input": "_g06.7hge",
+"expected": "_g06.7hge"
+},
+{
+"input": "9ZY\t+/_-8p_7/3cI141/K7K.-14b9g",
+"expected": "9ZY\t+/_-8p_7/3cI141/K7K.-14b9g"
+},
+{
+"input": " /7639p904東kg7::480sKe6cs_.9a2/4JY8",
+"expected": " /7639p904東kg7::480sKe6cs_.9a2/4JY8"
+},
+{
+"input": "7:67fc_J.Ic2\t47dé3829.k.21b299f361569\t-hé1",
+"expected": "7:67fc_J.Ic2\t47dé3829.k.21b299f[NUMBER]\t-hé1"
+},
+{
+"input": "4c9p45.556 ",
+"expected": "4c9p45.556 "
+},
+{
+"input": "A0Ka@2ce1é0Y4e12\t-26",
+"expected": "A0Ka@2ce1é0Y4e12\t-26"
+},
+{
+"input": "4a12Z7pK3_1229yK60.2+9 3K6e4b/2A50K-9547Kp121J0@5/71",
+"expected": "4a12Z7pK3_1229yK60.2+9 3K6e4b/2A50K-9547Kp121J0@5/71"
+},
+{
+"input": "33@532f\t53A.gK37081X90\t72",
+"expected": "33@532f\t53A.gK37081X90\t72"
+},
+{
+"input": "e7.1",
+"expected": "e7.1"
+},
+{
+"input": "_a8-s17.8\t4@8",
+"expected": "_a8-s17.8\t4@8"
+},
+{
+"input": "Yg東27e89fk_7+21sKp-:d1h7",
+"expected": "Yg東27e89fk_7+21sKp-:d1h7"
+},
+{
+"input": "A4\t9_+d64Y:X5013",
+"expected": "A4\t9_+d64Y:X5013"
+},
+{
+"input": ".K9_y__9YJI5y5_/h3a_ e4403東c9 dX \t.c0869_y:44c59A\t3y33é",
+"expected": ".K9_y__9YJI5y5_/h3a_ e4403東c9 dX \t.c0869_y:44c59A\t3y33é"
+},
+{
+"input": "h20h:4g8306A3e5@.XZKKbé-901:7I05-1a7/50b5A6dbg7ks80Y東0..6",
+"expected": "h20h:4g8306A3e5@.XZKKbé-901:7I05-1a7/50b5A6dbg7ks80Y東0..6"
+},
+{
+"input": "01855a0222e:9gehZK45Yd6e7JdhX3gy-.2-_98A.+68f@JAa1Xc8f",
+"expected": "01855a0222e:9gehZK45Yd6e7JdhX3gy-.2-_98A.+68f@JAa1Xc8f"
+},
+{
+"input": "4.eZX0_4b7p_A2_A766IgA_d7791_.27",
+"expected": "4.eZX0_4b7p_A2_A766IgA_d[NUMBER]"
+},
+{
+"input": "_Y52A8e74a_-Y 54yygh499af6p5:A\t1@397--62",
+"expected": "_Y52A8e74a_-Y 54yygh499af6p5:A\t1@397--62"
+},
+{
+"input": "8y67e3 8g33K3",
+"expected": "8y67e3 8g33K3"
+},
+{
+"input": "5@8ZA__5@_d822f5e31b_東48",
+"expected": "5@8ZA__5@_d822f5e31b_東48"
+},
+{
+"input": "b8-K273174a",
+"expected": "b8-K[NUMBER]a"
+},
+{
+"input": "d77005_8gXJXyy932Kg45_0b 8A37 45",
+"expected": "d[NUMBER]gXJXyy932Kg45_0b 8A37 45"
+},
+{
+"input": "7Yh.d4東9f",
+"expected": "7Yh.d4東9f"
+},
+{
+"input": "d04h3+4h.8Xa:eh876_8_XfA4hh\tef:3\t__3 ",
+"expected": "d04h3+4h.8Xa:eh876_8_XfA4hh\tef:3\t__3 "
+},
+{
+"input": "373++h5 -8:12h-70834677-b0g474_7c1e\t東3y912_hI_.49.47Y0K84",
+"expected": "373++h5 -8:12h-[NUMBER]-b0g474_7c1e\t東3y912_hI_.49.47Y0K84"
+},
+{
+"input": "X54h_11X645p.6p6/934:31.3f250@.A64_e25y",
+"expected": "X54h_11X645p.6p6/934:31.3f250@.A64_e25y"
+},
+{
+"input": "y4683f 2/8spJ01@h71ge0y4h8_8",
+"expected": "y4683f 2/8spJ01@h71ge0y4h8_8"
+},
+{
+"input": "9.J3p702c_",
+"expected": "9.J3p702c_"
+},
+{
+"input": "YY:-.Ks702a6e790ZhY_.13:-e4c.d252Y",
+"expected": "YY:-.Ks702a6e790ZhY_.13:-e4c.d252Y"
+},
+{
+"input": "8 758AY1.fYbX東Xh9é.-Jé8e756063",
+"expected": "8 758AY1.fYbX東Xh9é.-Jé8e[NUMBER]"
+},
+{
+"input": "h1525_:.2K\t6東6b2J8/837 Z+6Yh 東8459-9\t5kX3A45_15-972-Aey.2",
+"expected": "h1525_:.2K\t6東6b2J8/837 Z+6Yh 東[NUMBER]kX3A[NUMBER]-Aey.2"
+},
+{
+"input": "h6@\tfa@_7-__\t7\t118@J2Jbaé7A_41sAdy200",
+"expected": "h6@\tfa@_7-__\t7\t118@J2Jbaé7A_41sAdy200"
+},
+{
+"input": "6107éc4.54264",
+"expected": "6107éc[NUMBER]"
+},
+{
+"input": "19y394_6 7fIg\t0d716g4_KY_9 h0 5568bf5h7-2790J6.7bf_4",
+"expected": "19y394_6 7fIg\t0d716g4_KY_9 h0 5568bf5h7-2790J6.7bf_4"
+},
+{
+"input": "8e4dfI47y4711k\t614:.866KX27",
+"expected": "8e4dfI47y4711k\t614:.866KX27"
+},
+{
+"input": "054-d29g2Af9p_949.c800/8dse138",
+"expected": "054-d29g2Af9p_949.c800/8dse138"
+},
+{
+"input": "592k",
+"expected": "592k"
+},
+{
+"input": "2d662",
+"expected": "2d662"
+},
+{
+"input": "19Y-KYc\tK9Ay3",
+"expected": "19Y-KYc\tK9Ay3"
+},
+{
+"input": "_781.7e49s東8",
+"expected": "_781.7e49s東8"
+},
+{
+"input": "2_p61",
+"expected": "2_p61"
+},
+{
+"input": "9é:s0639ab49.\tac1_東J",
+"expected": "9é:s0639ab49.\tac1_東J"
+},
+{
+"input": "2-",
+"expected": "2-"
+},
+{
+"input": "ék20+\t2g503h0_8_6.63f.",
+"expected": "ék20+\t2g503h0_8_6.63f."
+},
+{
+"input": "8:-+9.0Zecec4Xs132-6d716685.261\t2",
+"expected": "8:-+9.0Zecec4Xs132-6d[NUMBER]"
+},
+{
+"input": "y1_sp4k_-73386120--1py556132\t6_9c38",
+"expected": "y1_sp4k_-[NUMBER]py[NUMBER]c38"
+},
+{
+"input": "A2e5d8A97A5y71+-東 43.3X34JA6_K47@K0060YI_e55東121東3AX@2ab:93",
+"expected": "A2e5d8A97A5y71+-東 43.3X34JA6_K47@K0060YI_e55東121東3AX@2ab:93"
+},
+{
+"input": "J2AY3_A_64/4A 5A79 91-gec7Y4-Y988e5497-4e120g49612",
+"expected": "J2AY3_A_64/4A 5A79 91-gec7Y4-Y988e5497-4e120g49612"
+},
+{
+"input": "4J6/871J",
+"expected": "4J6/871J"
+},
+{
+"input": "y1/0gJ57Zé_8Aé :5\t6:K",
+"expected": "y1/0gJ57Zé_8Aé :5\t6:K"
+},
+{
+"input": "81785.318J-9I2c7J東k_9_",
+"expected": "[NUMBER]J-9I2c7J東k_9_"
+},
+{
+"input": "0.31_5h5:64/7Z148de-KAAIJ3K6@-Ah e",
+"expected": "0.31_5h5:64/7Z148de-KAAIJ3K6@-Ah e"
+},
+{
+"input": "9@59_8c18東g144Z東87_7kc308b2Ya0f4+14A:306g2228-42562Jf",
+"expected": "9@59_8c18東g144Z東87_7kc308b2Ya0f4+14A:306g[NUMBER]Jf"
+},
+{
+"input": "c@744A7130Kb1-38-3395s580+h96X_ 07hK02Z_61Z3c:767d",
+"expected": "c@744A7130Kb[NUMBER]s580+h96X_ 07hK02Z_61Z3c:767d"
+},
+{
+"input": "8-a3k4.5615_6/0gZ7/h6@f:7Y3+36é_97-3231\t\tAJ07-.4",
+"expected": "8-a3k[NUMBER]gZ7/h6@f:7Y3+36é_[NUMBER]\t\tAJ07-.4"
+},
+{
+"input": "76pé3\t5ae8YXh1ybé7-9884g17637_a2y+",
+"expected": "76pé3\t5ae8YXh1ybé7-9884g17637_a2y+"
+},
+{
+"input": "h+33",
+"expected": "h+33"
+},
+{
+"input": "96gé33_81J6J.X.4+879h6K1Y@476c9977:34kJ7aZ\t",
+"expected": "96gé33_81J6J.X.4+879h6K1Y@476c9977:34kJ7aZ\t"
+},
+{
+"input": "806e5-p.K1 21K1k7028Z084Zh",
+"expected": "806e5-p.K1 21K1k7028Z084Zh"
+},
+{
+"input": "7+9_5Ab53g-477東04",
+"expected": "7+9_5Ab53g-477東04"
+},
+{
+"input": "Y05y_/515.-Kh9375cX1ée982680@0714_A750b22__54725X6/3@k3",
+"expected": "Y05y_/515.-Kh9375cX1ée[NUMBER]@0714_A750b[NUMBER]X6/3@k3"
+},
+{
+"input": "k273peh+7-6é3Z.f2Y東5J7p0_2a0eesg3@:Y64_",
+"expected": "k273peh+7-6é3Z.f2Y東5J7p0_2a0eesg3@:Y64_"
+},
+{
+"input": "3g_3 449b2441AskA15\t72.62\ta_.0b_546p5X02Y9_東3hg-61",
+"expected": "3g_3 449b2441AskA[NUMBER]\ta_.0b_546p5X02Y9_東3hg-61"
+},
+{
+"input": "439A230s0pk2h5/Y _2517 Z80J6_7/2y7",
+"expected": "439A230s0pk2h5/Y _2517 Z80J6_7/2y7"
+},
+{
+"input": "5678.I6y46+339",
+"expected": "5678.I6y46+339"
+},
+{
+"input": "93s/K613y 919097@_4éy-k1.-9KZ3東3_1822",
+"expected": "93s/K613y [NUMBER]@_4éy-k1.-9KZ3東3_1822"
+},
+{
+"input": "5+AéA\t 6136yé6hh.1.50.8.2-_0ee 東",
+"expected": "5+AéA\t 6136yé6hh.[NUMBER]ee 東"
+},
+{
+"input": "7y4@4+b76AhyhX4",
+"expected": "7y4@4+b76AhyhX4"
+},
+{
+"input": "/9b67_Ak00043969YXgy/0hd1A\t103d38/ p1",
+"expected": "/9b67_Ak[NUMBER]YXgy/0hd1A\t103d38/ p1"
+},
+{
+"input": "833_2a9_.h7.1/:東e-a0I0g036b@3.0",
+"expected": "833_2a9_.h7.1/:東e-a0I0g036b@3.0"
+},
+{
+"input": "8a445.0_6e6:5sA",
+"expected": "8a445.0_6e6:5sA"
+},
+{
+"input": "47k3a37hb:3ga3cIX4f4357.XA3ha2AJdf5202g665664632IéXa-.é9d",
+"expected": "47k3a37hb:3ga3cIX4f4357.XA3ha2AJdf5202g[NUMBER]IéXa-.é9d"
+},
+{
+"input": "366I834e_1YJX",
+"expected": "366I834e_1YJX"
+},
+{
+"input": "JA5d9b951/0/4049bb9東43620\t5Ie_3é087@ZJ97_h東h4@J yy12é8Xe7++_",
+"expected": "JA5d9b[NUMBER]bb9東[NUMBER]Ie_3é087@ZJ97_h東h4@J yy12é8Xe7++_"
+},
+{
+"input": "585_5_h 06803A7X873+54s+7d291 -.h I24A.7f43c424",
+"expected": "585_5_h 06803A7X873+54s+7d291 -.h I24A.7f43c424"
+},
+{
+"input": "+1eA東4814fc82I583234 4k8",
+"expected": "+1eA東4814fc82I[NUMBER]k8"
+},
+{
+"input": "@",
+"expected": "@"
+},
+{
+"input": "I396_7136422060431490697A95y\t372_YdX74e4",
+"expected": "I[NUMBER]A95y\t372_YdX74e4"
+},
+{
+"input": "1\té4I62X9-1d",
+"expected": "1\té4I62X9-1d"
+},
+{
+"input": "hh53y8I_1246I6-AK2d/e@ 7/3624e.3J636-",
+"expected": "hh53y8I_1246I6-AK2d/e@ 7/3624e.3J636-"
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "41h8-@3daAY730X3h199\ta0.東h",
+"expected": "41h8-@3daAY730X3h199\ta0.東h"
+},
+{
+"input": "45Y2cd3b7",
+"expected": "45Y2cd3b7"
+},
+{
+"input": " _7 8@48by00/7p5hs-13東cI:16c3339_e東A3_.a2g5167.0",
+"expected": " _7 8@48by00/7p5hs-13東cI:16c3339_e東A3_.a2g5167.0"
+},
+{
+"input": "y",
+"expected": "y"
+},
+{
+"input": "75k_X4y_ca77f80-0h8JI4J3.4Xp721東1Idg22A8東.5k2072",
+"expected": "75k_X4y_ca77f80-0h8JI4J3.4Xp721東1Idg22A8東.5k2072"
+},
+{
+"input": "501pe_éJX2aY2 8.J7159hg",
+"expected": "501pe_éJX2aY2 8.J7159hg"
+},
+{
+"input": "7YA552g030J8A.-ké_2ep._",
+"expected": "7YA552g030J8A.-ké_2ep._"
+},
+{
+"input": "Z_b90Z48991 d41696842\t:1779",
+"expected": "Z_b90Z48991 d[NUMBER]\t:1779"
+},
+{
+"input": "",
+"expected": ""
+},
+{
+"input": "/43 452.6é187e\t5hZ./71東:_84.68\t37a740éaA2h.718d100b",
+"expected": "/[NUMBER]é187e\t5hZ./71東:_[NUMBER]a740éaA2h.718d100b"
+},
+{
+"input": "_2a42",
+"expected": "_2a42"
+},
+{
+"input": "2hpYek東464A07_9_.hgé7東6 -5Xy",
+"expected": "2hpYek東464A07_9_.hgé7東6 -5Xy"
+},
+{
+"input": "37104_I.A30p53hI206Ah",
+"expected": "37104_I.A30p53hI206Ah"
+},
+{
+"input": "\t8Z48412h73788KdJ02s7g_6.36955f0_-333 61g77X58815949.027",
+"expected": "\t8Z48412h73788KdJ02s7g_[NUMBER]f[NUMBER]g77X[NUMBER]"
+},
+{
+"input": "20e3+4東",
+"expected": "20e3+4東"
+},
+{
+"input": "8\te3@-AZy9",
+"expected": "8\te3@-AZy9"
+},
+{
+"input": "hf9東Jk7.15_1h87+1.9e89b7y-1",
+"expected": "hf9東Jk7.15_1h87+1.9e89b7y-1"
+},
+{
+"input": "328+-930dhkh4_4c_3_14_hI1b9866/9h東y2c2fh2e",
+"expected": "328+-930dhkh4_4c_3_14_hI1b9866/9h東y2c2fh2e"
+},
+{
+"input": "58520743@Z966a42_8J2bA410134387Y3",
+"expected": "[NUMBER]@Z966a42_8J2bA[NUMBER]Y3"
+},
+{
+"input": "dA96e5yZ5e09I261256K東d9h57c0Y1960c3As1ébp7h03..642K8",
+"expected": "dA96e5yZ5e09I[NUMBER]K東d9h57c0Y1960c3As1ébp7h03..642K8"
+},
+{
+"input": "geg1 0110s016k.+_2ZI63h6Jf2Zb_524_-68pZ2969096\tge4AJe.3",
+"expected": "geg1 0110s016k.+_2ZI63h6Jf2Zb_524_-68pZ[NUMBER]\tge4AJe.3"
+},
+{
+"input": "dhA6K8X",
+"expected": "dhA6K8X"
+},
+{
+"input": "4\t06Zh6Y\tb:.4東9Keg.東9eA0@951東e7p709c+y06914+070542/",
+"expected": "4\t06Zh6Y\tb:.4東9Keg.東9eA0@951東e7p709c+y06914+[NUMBER]/"
+},
+{
+"input": ".7ce6c4e082600_.g1_Y08kgK",
+"expected": ".7ce6c4e[NUMBER]_.g1_Y08kgK"
+},
+{
+"input": "X373/515-7",
+"expected": "X[NUMBER]"
+},
+{
+"input": "23e092388XcY2東788:6AYKI+07",
+"expected": "23e[NUMBER]XcY2東788:6AYKI+07"
+},
+{
+"input": "668Ks59ehh663+01@228",
+"expected": "668Ks59ehh663+01@228"
+},
+{
+"input": "_4@020332h 875p_98.é95K23-2東Z2@33f/21A-",
+"expected": "_4@[NUMBER]h 875p_98.é95K23-2東Z2@33f/21A-"
+},
+{
+"input": "A36k330b5f2\t38857h48.45YkY0X/2549e 9é2eX:é9hZJIY:8aA9東8+",
+"expected": "A36k330b5f[NUMBER]h48.45YkY0X/2549e 9é2eX:é9hZJIY:8aA9東8+"
+},
+{
+"input": "e-5 93\t3005I9572h56bé9k85h+278/d_2JI6A 9h/9I:k-eY\t",
+"expected": "e-[NUMBER]I9572h56bé9k85h+278/d_2JI6A 9h/9I:k-eY\t"
+},
+{
+"input": "Z_d40k25+_3ys5946b-a7e87803K8X5e4c5e6657.:5",
+"expected": "Z_d40k25+_3ys5946b-a7e87803K8X5e4c5e6657.:5"
+},
+{
+"input": "+c37520@_K+3\t25c4_.5g709990k7fh10__4.:",
+"expected": "+c37520@_K+3\t25c4_.5g[NUMBER]k7fh10__4.:"
+},
+{
+"input": "69309k74_yY3c831203_7\t91kAZ9-a1",
+"expected": "69309k74_yY3c[NUMBER]kAZ9-a1"
+},
+{
+"input": "he 043h.Ah79./853pcy64-7h427+c",
+"expected": "he 043h.Ah79./853pcy64-7h427+c"
+},
+{
+"input": "e0kK6e+Z@._150d19pyI_a00h._95521eY-510J4Ae0465he28東9",
+"expected": "e0kK6e+Z@._150d19pyI_a00h._95521eY-510J4Ae0465he28東9"
+},
+{
+"input": "1_ 4.J11 .0k",
+"expected": "1_ 4.J11 .0k"
+}
+]
+}

@@ -29,7 +29,12 @@ class PeerCredentials:
     gid: int
 
 
+SEND_TIMEOUT_S = 5.0
+
+
 def listen_unix(path: str, backlog: int = 16, mode: int = 0o660) -> socket.socket:
+    """Like pl::listen_unix: the socket file gets `mode` via the umask at bind time
+    (no chmod-after-bind race). umask is process-wide: call during startup."""
     try:
         st = os.lstat(path)
     except FileNotFoundError:
@@ -39,8 +44,11 @@ def listen_unix(path: str, backlog: int = 16, mode: int = 0o660) -> socket.socke
             raise RuntimeError("refusing to replace a non-socket file at the socket path")
         os.unlink(path)
     s = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM | socket.SOCK_CLOEXEC)
-    s.bind(path)
-    os.chmod(path, mode)
+    old = os.umask(~mode & 0o777)
+    try:
+        s.bind(path)
+    finally:
+        os.umask(old)
     s.listen(backlog)
     return s
 
@@ -65,15 +73,24 @@ def peer_credentials(sock: socket.socket) -> PeerCredentials:
     return PeerCredentials(pid, uid, gid)
 
 
-def _depth(obj: Any) -> int:
-    """Nesting depth, counted the way nlohmann's parser counts it (top-level container = 1)."""
+def _reject_constant(name: str) -> Any:
+    raise ValueError(f"{name} is not JSON")
+
+
+def _check(obj: Any) -> int:
+    """Container nesting depth (top-level container = 1, as in plcommon); raises
+    UnicodeEncodeError on lone surrogates, which nlohmann rejects at parse time."""
     best = 0
     stack: list[tuple[Any, int]] = [(obj, 1)]
     while stack:
         cur, d = stack.pop()
-        if isinstance(cur, dict):
+        if isinstance(cur, str):
+            cur.encode("utf-8")
+        elif isinstance(cur, dict):
             best = max(best, d)
-            stack.extend((v, d + 1) for v in cur.values())
+            for k, v in cur.items():
+                k.encode("utf-8")
+                stack.append((v, d + 1))
         elif isinstance(cur, list):
             best = max(best, d)
             stack.extend((v, d + 1) for v in cur)
@@ -81,11 +98,14 @@ def _depth(obj: Any) -> int:
 
 
 def parse_json_bounded(payload: bytes) -> Any:
+    """Parse like plcommon's parse_json_bounded: strict JSON (no NaN/Infinity, no lone
+    surrogates), at most MAX_JSON_DEPTH nested containers."""
     try:
-        message = json.loads(payload.decode("utf-8"))
-    except (UnicodeDecodeError, json.JSONDecodeError, RecursionError) as e:
+        message = json.loads(payload.decode("utf-8"), parse_constant=_reject_constant)
+        depth = _check(message)
+    except (UnicodeError, ValueError, RecursionError) as e:
         raise ProtocolError("incoming frame is not valid JSON") from e
-    if _depth(message) > MAX_JSON_DEPTH:
+    if depth > MAX_JSON_DEPTH:
         raise ProtocolError("incoming JSON nests too deeply")
     return message
 
@@ -96,8 +116,19 @@ class FramedSocket:
         self._decoder = FrameDecoder(max_frame)
         self.timed_out = False
 
-    def send(self, payload: bytes) -> None:
-        self.sock.sendall(encode_frame(payload))
+    def send(self, payload: bytes, timeout_s: float = SEND_TIMEOUT_S) -> None:
+        """Raises ProtocolError if the peer doesn't drain the frame within timeout_s."""
+        frame = memoryview(encode_frame(payload))
+        deadline = time.monotonic() + timeout_s
+        while frame:
+            left = deadline - time.monotonic()
+            if left <= 0 or not select.select([], [self.sock], [], left)[1]:
+                raise ProtocolError("send timed out: peer is not reading")
+            try:
+                n = self.sock.send(frame, socket.MSG_DONTWAIT)
+            except BlockingIOError:
+                continue
+            frame = frame[n:]
 
     def recv(self, timeout_s: float) -> bytes | None:
         """Next payload; None on clean EOF or timeout (see timed_out). Raises ProtocolError."""
@@ -120,10 +151,14 @@ class FramedSocket:
                 return None
             self._decoder.feed(chunk)
 
-    def send_json(self, message: Any, validator: MessageValidator | None) -> None:
+    def send_json(self, message: Any, validator: MessageValidator | None, timeout_s: float = SEND_TIMEOUT_S) -> None:
         if validator is not None and not validate_dispatch(validator, message).ok:
             raise ProtocolError("outgoing message fails its schema")
-        self.send(json.dumps(message, separators=(",", ":"), ensure_ascii=False).encode())
+        try:
+            data = json.dumps(message, separators=(",", ":"), ensure_ascii=False, allow_nan=False).encode("utf-8")
+        except (ValueError, UnicodeError) as e:
+            raise ProtocolError("outgoing message is not strict JSON") from e
+        self.send(data, timeout_s)
 
     def recv_json(self, validator: MessageValidator, timeout_s: float) -> Any | None:
         payload = self.recv(timeout_s)

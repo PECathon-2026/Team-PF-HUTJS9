@@ -83,7 +83,7 @@ SECRET_PATTERNS: tuple[tuple[str, re.Pattern[bytes]], ...] = (
         re.compile(rb"\b(gh[pousr]_[A-Za-z0-9]{36,}|github_pat_[A-Za-z0-9_]{40,})\b"),
     ),
     ("anthropic-key", re.compile(rb"\bsk-ant-[A-Za-z0-9_\-]{20,}")),
-    ("openai-key", re.compile(rb"\bsk-(proj-)?[A-Za-z0-9]{32,}\b")),
+    ("openai-key", re.compile(rb"\bsk-(proj-|svcacct-|admin-)?[A-Za-z0-9_\-]{32,}")),
     ("huggingface-token", re.compile(rb"\bhf_[A-Za-z0-9]{30,}\b")),
     ("slack-token", re.compile(rb"\bxox[abposr]-[A-Za-z0-9\-]{10,}")),
     ("google-api-key", re.compile(rb"\bAIza[0-9A-Za-z_\-]{35}\b")),
@@ -207,9 +207,11 @@ def parse_name_status(raw: bytes) -> list[Change]:
     return changes
 
 
-def load_ownership(old_spec: str | None, new_spec: str, machine: str) -> Ownership:
-    """Rules come from the old revision; the new revision's rules are used only
-    when this machine owns the rules files (so nobody can grant themselves paths)."""
+def load_ownership(old_spec: str | None, new_spec: str) -> Ownership:
+    """Rules always come from the old revision (HEAD locally, the merge base in CI),
+    so a change to the rules only takes effect after it has merged: nobody, LNX
+    included, can grant themselves paths in the same commit or PR. The new
+    revision's rules are used only when no old ones exist (the first commit)."""
 
     def read(path: str, rev: str | None) -> str | None:
         if rev is None:
@@ -227,14 +229,12 @@ def load_ownership(old_spec: str | None, new_spec: str, machine: str) -> Ownersh
         return Ownership(rules, producers)
 
     old = build(old_spec)
-    if old is None:
-        new = build(new_spec)
-        if new is None:
-            raise SystemExit(f"pl-hook: cannot read {RULES_PATH}")
-        return new
-    if old.owner_of(RULES_PATH) == machine and old.owner_of(PRODUCERS_PATH) == machine:
-        return build(new_spec) or old
-    return old
+    if old is not None:
+        return old
+    new = build(new_spec)
+    if new is None:
+        raise SystemExit(f"pl-hook: cannot read {RULES_PATH}")
+    return new
 
 
 # ---------------------------------------------------------------- checks
@@ -271,12 +271,13 @@ def check_content(path: str, size: int, data: bytes | None, worktree: bytes | No
         errors.append(f"{path}: model/data/archive/key file type is blocked (publish it as a release asset, AD-08)")
     if size > MAX_BYTES:
         errors.append(f"{path}: {size} bytes is over the 5 MB limit")
+    if data is not None:
+        for name in scan_secrets(data):
+            errors.append(f"{path}: looks like a secret ({name})")
     if data is not None and not is_binary(data):
         crlf = b"\r\n" in data or (worktree is not None and not is_binary(worktree) and b"\r\n" in worktree)
         if crlf and not lower.endswith(CRLF_ALLOWED_SUFFIXES):
             errors.append(f"{path}: CRLF line endings; convert to LF")
-        for name in scan_secrets(data):
-            errors.append(f"{path}: looks like a secret ({name})")
     return errors
 
 
@@ -368,7 +369,7 @@ def pre_commit() -> int:
         allowed.add("USER")
 
     has_head = git("rev-parse", "--verify", "-q", "HEAD", check=False).returncode == 0
-    own = load_ownership("HEAD" if has_head else None, ":", machine)
+    own = load_ownership("HEAD" if has_head else None, ":")
     changes = parse_name_status(git("diff", "--cached", "--name-status", "-z", "-M").stdout)
 
     errors = check_ownership(changes, own, allowed)
@@ -396,7 +397,7 @@ def ci(base: str, head: str, branch: str) -> int:
     if machine is None:
         return report([f"branch {branch!r} must start with lnx/, win/ or user/"], "branch")
     merge_base = git("merge-base", base, head).stdout.decode().strip()
-    own = load_ownership(merge_base, head, machine)
+    own = load_ownership(merge_base, head)
     changes = parse_name_status(git("diff", "--name-status", "-z", "-M", merge_base, head).stdout)
     errors = check_ownership(changes, own, {machine})
     for ch in changes:

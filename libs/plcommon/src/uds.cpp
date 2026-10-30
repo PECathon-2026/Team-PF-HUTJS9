@@ -51,9 +51,10 @@ bool wait_fd(int fd, short events, std::chrono::milliseconds timeout) {
 
 nlohmann::json parse_json_bounded(std::span<const std::byte> payload) {
   bool too_deep = false;
-  const nlohmann::json::parser_callback_t limit = [&too_deep](int depth, nlohmann::json::parse_event_t /*event*/,
-                                                              nlohmann::json& /*parsed*/) {
-    if (depth >= static_cast<int>(kMaxJsonDepth)) {  // depth is 0-based: kMaxJsonDepth containers deep is the limit
+  using Event = nlohmann::json::parse_event_t;
+  const nlohmann::json::parser_callback_t limit = [&too_deep](int depth, Event event, nlohmann::json& /*parsed*/) {
+    // Only containers count (as in plpy): the k-th nested container starts at depth k-1.
+    if ((event == Event::object_start || event == Event::array_start) && depth >= static_cast<int>(kMaxJsonDepth)) {
       too_deep = true;
       return false;
     }
@@ -103,11 +104,13 @@ Fd listen_unix(const std::string& path, int backlog, unsigned mode) {
     }
     ::unlink(path.c_str());
   }
-  if (::bind(fd.get(), reinterpret_cast<const sockaddr*>(&addr), sizeof(addr)) != 0) {
+  const mode_t old_umask = ::umask(static_cast<mode_t>(~mode & 0777U));
+  const int rc = ::bind(fd.get(), reinterpret_cast<const sockaddr*>(&addr), sizeof(addr));
+  const int bind_errno = errno;
+  ::umask(old_umask);
+  if (rc != 0) {
+    errno = bind_errno;
     throw_errno("bind");
-  }
-  if (::chmod(path.c_str(), static_cast<mode_t>(mode)) != 0) {
-    throw_errno("chmod");
   }
   if (::listen(fd.get(), backlog) != 0) {
     throw_errno("listen");
@@ -153,18 +156,26 @@ PeerCredentials peer_credentials(const Fd& sock) {
   return {cred.pid, cred.uid, cred.gid};
 }
 
-void FramedSocket::send(std::span<const std::byte> payload) {
+void FramedSocket::send(std::span<const std::byte> payload, std::chrono::milliseconds timeout) {
   const auto frame = encode_frame(payload);
+  const auto deadline = std::chrono::steady_clock::now() + timeout;
   std::size_t off = 0;
   while (off < frame.size()) {
-    const ssize_t n = ::send(fd_.get(), frame.data() + off, frame.size() - off, MSG_NOSIGNAL);
-    if (n < 0) {
-      if (errno == EINTR) {
-        continue;
-      }
+    const ssize_t n = ::send(fd_.get(), frame.data() + off, frame.size() - off, MSG_NOSIGNAL | MSG_DONTWAIT);
+    if (n >= 0) {
+      off += static_cast<std::size_t>(n);
+      continue;
+    }
+    if (errno == EINTR) {
+      continue;
+    }
+    if (errno != EAGAIN && errno != EWOULDBLOCK) {
       throw_errno("send");
     }
-    off += static_cast<std::size_t>(n);
+    const auto left = std::chrono::duration_cast<std::chrono::milliseconds>(deadline - std::chrono::steady_clock::now());
+    if (left.count() <= 0 || !wait_fd(fd_.get(), POLLOUT, left)) {
+      throw ProtocolError("send timed out: peer is not reading");
+    }
   }
 }
 
@@ -201,7 +212,8 @@ std::optional<std::vector<std::byte>> FramedSocket::recv(std::chrono::millisecon
   }
 }
 
-void FramedSocket::send_json(const nlohmann::json& message, const MessageValidator* validator) {
+void FramedSocket::send_json(const nlohmann::json& message, const MessageValidator* validator,
+                             std::chrono::milliseconds timeout) {
   if (validator != nullptr) {
     const auto r = validate_dispatch(*validator, message);
     if (!r.ok) {
@@ -209,7 +221,7 @@ void FramedSocket::send_json(const nlohmann::json& message, const MessageValidat
     }
   }
   const std::string text = message.dump();
-  send(std::as_bytes(std::span<const char>(text.data(), text.size())));
+  send(std::as_bytes(std::span<const char>(text.data(), text.size())), timeout);
 }
 
 std::optional<nlohmann::json> FramedSocket::recv_json(const MessageValidator& validator, std::chrono::milliseconds timeout) {

@@ -95,4 +95,5 @@ LNX can't write in `daemons/core/detect/`, so the proposal is `daemons/core/shel
 2. **Field-type vocabulary.** LNX uses the 20 `taint_label.v1` categories as placeholder types and vault binding types. WIN's `detection` schema should use the same names (part of L-001); additions go through a request so both lattices stay identical.
 3. **`sanitized_page` shape.** WIN owns it. The shell validates it before it leaves core; the Null fallback emits a minimal version with `fallback: "null_detector"` that WIN's schema should accept (or tell us its shape).
 4. **TSan locally** needs `vm.mmap_rnd_bits=28` (see `docs/requests/to-user-lnx.md`); CI sets it.
-5. **GHCR publishing** from Actions in the org: confirmed by the first `lnx-dev-image` run (see status file).
+5. **GHCR publishing** from Actions in the org works (first `lnx-dev-image` run, PR #1). Publishing is main-only.
+6. **Per-daemon identities on the socket volume (P1).** Today every placeholder service mounts `/run/pl` read-write as root. Phase 1: distinct uids per daemon, one socket directory per server daemon writable only by it, `SO_PEERCRED` uid checks, and a `user:` assertion in the compose policy test.

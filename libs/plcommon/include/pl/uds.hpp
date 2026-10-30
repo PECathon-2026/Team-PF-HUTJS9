@@ -54,8 +54,12 @@ inline constexpr unsigned kMaxJsonDepth = 64;
 // than kMaxJsonDepth. Throws ProtocolError.
 [[nodiscard]] nlohmann::json parse_json_bounded(std::span<const std::byte> payload);
 
+inline constexpr std::chrono::milliseconds kDefaultSendTimeout{5000};
+
 // Binds and listens on `path` (an existing stale socket file is replaced).
-// The socket file gets `mode` (default owner+group read/write).
+// The socket file is created with `mode` (default owner+group read/write) via the
+// umask at bind time, so there is no chmod-after-bind race. umask is process-wide:
+// call this during single-threaded startup.
 [[nodiscard]] Fd listen_unix(const std::string& path, int backlog = 16, unsigned mode = 0660);
 [[nodiscard]] Fd connect_unix(const std::string& path);
 // Waits up to `timeout` for a connection; nullopt on timeout.
@@ -66,7 +70,8 @@ class FramedSocket {
  public:
   explicit FramedSocket(Fd fd, std::uint32_t max_frame = kMaxFrameBytes) : fd_(std::move(fd)), decoder_(max_frame) {}
 
-  void send(std::span<const std::byte> payload);
+  // Throws ProtocolError if the peer doesn't drain the frame within `timeout`.
+  void send(std::span<const std::byte> payload, std::chrono::milliseconds timeout = kDefaultSendTimeout);
   // Next payload; nullopt on clean EOF at a frame boundary or on timeout (timed_out() tells which).
   // Throws ProtocolError on a bad header or EOF inside a frame.
   [[nodiscard]] std::optional<std::vector<std::byte>> recv(std::chrono::milliseconds timeout);
@@ -76,7 +81,8 @@ class FramedSocket {
   // JSON messages. send_json validates when a validator is given (debug/test
   // builds pass one, SHARED §5). recv_json always validates and throws
   // ProtocolError on malformed JSON or a schema failure.
-  void send_json(const nlohmann::json& message, const MessageValidator* validator);
+  void send_json(const nlohmann::json& message, const MessageValidator* validator,
+                 std::chrono::milliseconds timeout = kDefaultSendTimeout);
   [[nodiscard]] std::optional<nlohmann::json> recv_json(const MessageValidator& validator, std::chrono::milliseconds timeout);
 
  private:

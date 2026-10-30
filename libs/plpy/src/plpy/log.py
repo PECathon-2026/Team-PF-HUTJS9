@@ -14,8 +14,10 @@ from enum import IntEnum
 from plpy.scrub import scrub
 
 MAX_LOG_STRING = 512
+MAX_LOG_SCAN = 4096
 BANNED_FIELDS = frozenset({"value", "raw", "text_raw", "secret", "plaintext"})
 _IDENT = re.compile(r"^[a-z][a-z0-9_.]*$")
+_DIGIT_RUN = re.compile(r"[0-9]{6}")
 
 LogValue = int | float | bool | str
 Sink = Callable[[str], None]
@@ -29,7 +31,7 @@ class LogLevel(IntEnum):
 
 
 def is_identifier(s: str, max_len: int) -> bool:
-    return 0 < len(s) <= max_len and bool(_IDENT.match(s))
+    return 0 < len(s) <= max_len and bool(_IDENT.match(s)) and not _DIGIT_RUN.search(s)
 
 
 def _truncate_utf8(s: str, max_bytes: int) -> str:
@@ -37,6 +39,18 @@ def _truncate_utf8(s: str, max_bytes: int) -> str:
     if len(b) <= max_bytes:
         return s
     return b[:max_bytes].decode("utf-8", "ignore")
+
+
+def _scrub_field(v: str) -> str:
+    """Scrub, then truncate, mirroring pl/log.cpp: the scrubber always sees whole tokens."""
+    head, cut = v, False
+    if len(v.encode("utf-8", "replace")) > MAX_LOG_SCAN:
+        head = _truncate_utf8(v, MAX_LOG_SCAN)
+        ws = max(head.rfind(" "), head.rfind("\t"), head.rfind("\n"))
+        head = head[: max(ws, 0)]
+        cut = True
+    out = scrub(head) + (" [TRUNCATED]" if cut else "")
+    return _truncate_utf8(out, MAX_LOG_STRING)
 
 
 def _stderr_sink(line: str) -> None:
@@ -60,7 +74,7 @@ class Logger:
             if not is_identifier(name, 32) or "." in name or name in BANNED_FIELDS:
                 dropped += 1
                 continue
-            out[name] = scrub(_truncate_utf8(val, MAX_LOG_STRING)) if isinstance(val, str) else val
+            out[name] = _scrub_field(val) if isinstance(val, str) else val
         line: dict[str, object] = {
             "ts_ns": ts_ns,
             "level": level.name.lower(),
