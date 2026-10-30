@@ -65,6 +65,7 @@ class Ledger {
   std::optional<nlohmann::json> publish_sth();
 
  private:
+  [[nodiscard]] nlohmann::json sth_stream_message(nlohmann::json sth) const;
   IngestResult reject(RejectCode code);
   std::uint64_t store(std::string_view kind, const nlohmann::json& record);
 
@@ -74,6 +75,7 @@ class Ledger {
   MerkleTree tree_;
   Signer signer_;
   std::uint64_t last_sth_size_ = 0;
+  std::optional<nlohmann::json> last_sth_msg_;
   MonotonicIds ids_;
   Sink sink_;
   std::deque<nlohmann::json> ring_;

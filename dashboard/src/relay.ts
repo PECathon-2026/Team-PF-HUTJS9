@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 import type { ApprovalRequestMsg, EntryMsg, Mode, StatsMsg, StreamMsg } from './types.ts';
+import { parseSth, type Sth } from './audit.ts';
 import { MOCK_SCREEN_AI, MOCK_SCREEN_USER, startMock } from './mock.ts';
 
 const MAX_ENTRIES = 600;
@@ -11,16 +12,20 @@ export interface State {
   screens: { user?: string; ai?: string };
   approval?: { req: ApprovalRequestMsg; deadlineMs: number };
   killed: boolean;
+  sths: Sth[];
+  live: Record<string, boolean>;
   notices: string[];
 }
-export const initial: State = { mode: 'connecting', entries: [], screens: {}, killed: false, notices: [] };
+export const initial: State = { mode: 'connecting', entries: [], screens: {}, killed: false, sths: [], live: {}, notices: [] };
 
-type Action = { t: 'egress'; r: { record_id?: string; ts_ns?: number } } | { t: 'msg'; m: StreamMsg } | { t: 'mode'; mode: Mode } | { t: 'clearApproval'; notice?: string } | { t: 'killed' } | { t: 'reset' };
+type Action = { t: 'sth'; sth: Sth } | { t: 'live'; live: Record<string, boolean> } | { t: 'egress'; r: { record_id?: string; ts_ns?: number } } | { t: 'msg'; m: StreamMsg } | { t: 'mode'; mode: Mode } | { t: 'clearApproval'; notice?: string } | { t: 'killed' } | { t: 'reset' };
 
 export function reducer(s: State, a: Action): State {
   switch (a.t) {
     case 'mode': return { ...s, mode: a.mode };
     case 'reset': return { ...initial, mode: s.mode };
+    case 'sth': return s.sths.some((x) => x.tree_size === a.sth.tree_size && x.root === a.sth.root) ? s : { ...s, sths: [...s.sths, a.sth].slice(-200) };
+    case 'live': return { ...s, live: a.live };
     case 'killed': return { ...s, killed: true };
     case 'clearApproval': return { ...s, approval: undefined, notices: a.notice ? [a.notice, ...s.notices].slice(0, 20) : s.notices };
     case 'egress': {
@@ -91,15 +96,18 @@ export function useRelay() {
     // LNX gate (WB-001 reply, as built): named SSE events. `ledger` carries the ledger stream
     // frames unchanged (hello/entry/stats); `egress` carries the gate's own egress_record.v1.
     es.addEventListener('ledger', (ev) => {
-      try { dispatch({ t: 'msg', m: JSON.parse((ev as MessageEvent).data) as StreamMsg }); } catch { /* ignore */ }
+      const text = String((ev as MessageEvent).data);
+      if (text.includes('"type":"sth"')) { const sth = parseSth(text); if (sth) dispatch({ t: 'sth', sth }); return; }
+      try { dispatch({ t: 'msg', m: JSON.parse(text) as StreamMsg }); } catch { /* ignore */ }
     });
     es.addEventListener('egress', (ev) => {
       try { dispatch({ t: 'egress', r: JSON.parse((ev as MessageEvent).data) }); } catch { /* ignore */ }
     });
     const poll = window.setInterval(async () => {
       try {
-        const st = await (await fetch('api/status', { cache: 'no-store' })).json() as { killed?: boolean };
+        const st = await (await fetch('api/status', { cache: 'no-store' })).json() as { killed?: boolean; live?: Record<string, boolean> };
         if (st.killed) dispatch({ t: 'killed' });
+        if (st.live) dispatch({ t: 'live', live: st.live });
       } catch { /* stream onerror handles reachability */ }
     }, 3000);
     es.onerror = () => dispatch({ t: 'mode', mode: 'disconnected' });

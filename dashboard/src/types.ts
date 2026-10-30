@@ -25,7 +25,7 @@ export interface BusEvent {
 }
 export type Kind = 'event' | 'decision_record' | 'egress_record' | string;
 
-export interface EntryMsg { type: 'entry'; seq: number; ts_ns: number; kind: Kind; record: unknown }
+export interface EntryMsg { type: 'entry'; seq: number; ts_ns: number; kind: Kind; record: unknown; line?: string }
 export interface StatsMsg {
   type: 'stats'; accepted: number; rejected: number;
   by_rule: Record<string, number>; by_schema: Record<string, number>; head?: string; next_seq?: number;

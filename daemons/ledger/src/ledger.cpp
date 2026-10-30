@@ -88,10 +88,22 @@ Ledger::Ledger(LedgerConfig cfg, const MessageValidator& validator)
     while (std::getline(in, l)) {
       const auto j = nlohmann::json::parse(l, nullptr, false);
       if (j.is_object() && j.contains("tree_size") && j["tree_size"].is_number_unsigned()) {
-        last_sth_size_ = std::max<std::uint64_t>(last_sth_size_, j["tree_size"].get<std::uint64_t>());
+        if (j["tree_size"].get<std::uint64_t>() >= last_sth_size_) {
+          last_sth_size_ = j["tree_size"].get<std::uint64_t>();
+          last_sth_msg_ = sth_stream_message(j);
+        }
       }
     }
   }
+}
+
+nlohmann::json Ledger::sth_stream_message(nlohmann::json sth) const {
+  sth["type"] = "sth";
+  std::string h(signer_.pk.size() * 2 + 1, '\0');
+  sodium_bin2hex(h.data(), h.size(), signer_.pk.data(), signer_.pk.size());
+  h.resize(signer_.pk.size() * 2);
+  sth["public_key"] = h;
+  return sth;
 }
 
 std::optional<nlohmann::json> Ledger::publish_sth() {
@@ -101,8 +113,8 @@ std::optional<nlohmann::json> Ledger::publish_sth() {
   nlohmann::json sth = make_sth(signer_, tree_.size(), tree_.root(), realtime_ns());
   std::ofstream(cfg_.segments.dir / "sth.jsonl", std::ios::app) << sth.dump() << "\n";
   last_sth_size_ = tree_.size();
-  sth["type"] = "sth";
-  return sth;
+  last_sth_msg_ = sth_stream_message(sth);
+  return last_sth_msg_;
 }
 
 std::uint64_t Ledger::store(std::string_view kind, const nlohmann::json& record) {
@@ -113,7 +125,8 @@ std::uint64_t Ledger::store(std::string_view kind, const nlohmann::json& record)
                               {"seq", stored["seq"]},
                               {"ts_ns", stored["ts_ns"]},
                               {"kind", stored["kind"]},
-                              {"record", stored["record"]}};
+                              {"record", stored["record"]},
+                              {"line", line}};  // exact bytes of the entry, so clients can recompute its leaf hash
   tree_.append(line);
   ring_sizes_.push_back(line.size());
   ring_bytes_ += line.size();
@@ -184,6 +197,9 @@ std::vector<nlohmann::json> Ledger::subscribe_burst() const {
   out.push_back({{"type", "hello"}, {"stream", "ledger.stream.v0"}, {"next_seq", writer_.next_seq()}});
   for (const auto& m : ring_) {
     out.push_back(m);
+  }
+  if (last_sth_msg_) {
+    out.push_back(*last_sth_msg_);
   }
   out.push_back(stats_message());
   return out;

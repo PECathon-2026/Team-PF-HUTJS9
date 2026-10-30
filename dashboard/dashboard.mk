@@ -5,6 +5,6 @@
 dashboard: dev-image
 	$(IN_DEV) bash -c 'cd dashboard && export HOME=/tmp COREPACK_ENABLE_AUTO_PIN=0 && \
 	  pnpm config set store-dir /cache/pnpm-store >/dev/null && \
-	  (pnpm install --frozen-lockfile || pnpm install) && pnpm run build'
+	  (pnpm install --frozen-lockfile || pnpm install) && pnpm run build && mkdir -p dist/results && (cp ../eval/results/training_metrics.json dist/results/ 2>/dev/null || true)'
 dashboard-test: dev-image
 	$(IN_DEV) bash -c 'cd dashboard && export HOME=/tmp && pnpm config set store-dir /cache/pnpm-store >/dev/null && pnpm install --frozen-lockfile && pnpm test'

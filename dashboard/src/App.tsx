@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { computeCounters, fmtBytes, fmtTime, ruleIdsOf, splitPlaceholders } from './lib.ts';
 import { useRelay } from './relay.ts';
+import { AuditPanel, IsolationPanel, PosturePanel, TrainingPanel } from './Panels.tsx';
 import type { DecisionRecord, EgressRecord, Mode } from './types.ts';
 
 const MODE_LABEL: Record<Mode, string> = {
@@ -11,6 +12,7 @@ export function App() {
   const { state, kill, answer, useMock, useLive, mockApproval } = useRelay();
   const [selected, setSelected] = useState<string | null>(null);
   const [tab, setTab] = useState<'egress' | 'decisions'>('egress');
+  const [view, setView] = useState<'operator' | 'isolation' | 'posture' | 'audit' | 'training'>('operator');
 
   // Kill-switch hotkey: Ctrl+Shift+K acts immediately (no confirmation by design).
   useEffect(() => {
@@ -54,6 +56,17 @@ export function App() {
       )}
       {state.notices.length > 0 && <div className="banner info">{state.notices[0]}</div>}
 
+      <nav className="views" aria-label="Screens">
+        {(['operator', 'isolation', 'posture', 'audit', 'training'] as const).map((v) => (
+          <button key={v} aria-current={view === v} className={view === v ? 'on' : ''} onClick={() => setView(v)}>{v}</button>
+        ))}
+      </nav>
+      {view === 'isolation' && <IsolationPanel state={state} />}
+      {view === 'posture' && <PosturePanel state={state} />}
+      {view === 'audit' && <AuditPanel state={state} />}
+      {view === 'training' && <TrainingPanel />}
+
+      <div hidden={view !== 'operator'}>
       <section className="counters" aria-label="Counters">
         <Counter label="AI requests sent" value={counters.aiSent} />
         <Counter label="Blocked" value={counters.blocked} tone={counters.blocked ? 'bad' : undefined} />
@@ -118,6 +131,8 @@ export function App() {
           )}
         </div>
       </section>
+
+      </div>
 
       {state.approval && <Approval key={state.approval.req.approval_id} req={state.approval.req} deadlineMs={state.approval.deadlineMs} onAnswer={answer} />}
     </div>
